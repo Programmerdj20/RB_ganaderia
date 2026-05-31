@@ -2,16 +2,16 @@
 // Sección 4: Impacto Territorial — mapa de Colombia + narrativa, dark luxury
 const pilares = [
   {
-    titulo:  'Dignificación del Trabajador Rural',
-    cuerpo:  'Cada empleado en RB Ganadería accede a formalidad laboral plena, capacitación continua y condiciones de trabajo que recuperan la dignidad del campo colombiano.',
+    titulo:  'Una Potencia Ganadera Continental',
+    cuerpo:  'Colombia cuenta con aproximadamente 28 millones de bovinos, posicionándola entre las naciones con mayor inventario ganadero de América Latina. El sector representa cerca del 1,5 % del PIB nacional y genera empleo directo a más de 800.000 familias rurales.',
   },
   {
-    titulo:  'Arraigo y Desarrollo Comunitario',
-    cuerpo:  'Operamos con conciencia territorial. Apoyamos las economías locales donde estamos presentes, generando encadenamientos productivos que benefician a proveedores y comunidades aledañas.',
+    titulo:  'Regiones que Sostienen el Hato Nacional',
+    cuerpo:  'Los Llanos Orientales —Casanare, Meta, Arauca y Vichada— concentran alrededor del 30 % del inventario bovino del país. La Costa Atlántica y Antioquia completan el triángulo productivo que define la geografía ganadera de Colombia.',
   },
   {
-    titulo:  'Gestión Hídrica Responsable',
-    cuerpo:  'Nuestros sistemas silvopastoriles protegen las fuentes hídricas, reducen la escorrentía y contribuyen a la recarga de acuíferos en las regiones donde operamos.',
+    titulo:  'Biodiversidad y Vocación de Largo Plazo',
+    cuerpo:  'La adopción creciente de sistemas silvopastoriles en el territorio nacional combina producción bovina con conservación de suelos, protección de fuentes hídricas y secuestro de carbono, consolidando un modelo ganadero compatible con la biodiversidad colombiana.',
   },
 ];
 ---
@@ -45,7 +45,7 @@ const pilares = [
         Impacto Territorial
       </p>
       <h2 id="impacto-titulo" class="font-serif text-4xl md:text-5xl leading-[1.15] max-w-2xl mx-auto" style="color: #F0EBE1;">
-        Presencia activa en el corazón productivo de Colombia
+        La ganadería, pilar del corazón productivo de Colombia
       </h2>
     </div>
 
@@ -65,61 +65,75 @@ const pilares = [
             aria-hidden="true"
           ></div>
 
-          <div class="relative aspect-[3/4] p-4">
-            <img
-              src="/placeholder-mapa.png"
-              alt="Mapa topográfico de Colombia con zonas de operación de RB Ganadería"
-              class="w-full h-full object-contain"
-              style="opacity: 0.2;"
+          <!-- SVG Colombia inline — silueta trazada a escala geográfica real -->
+          <svg
+            viewBox="0 0 260 350"
+            class="w-full h-auto"
+            xmlns="http://www.w3.org/2000/svg"
+            role="img"
+            aria-label="Mapa de las principales regiones ganaderas de Colombia"
+          >
+            <defs>
+              <style>
+                .dot-pulse {
+                  animation: dotPulse 2.8s ease-in-out infinite;
+                }
+                @keyframes dotPulse {
+                  0%, 100% { opacity: 1; }
+                  50%       { opacity: 0.55; }
+                }
+                .dot-pulse-b { animation: dotPulse 2.8s ease-in-out infinite 0.7s; }
+                .dot-pulse-c { animation: dotPulse 2.8s ease-in-out infinite 1.3s; }
+                .dot-pulse-d { animation: dotPulse 2.8s ease-in-out infinite 2.0s; }
+              </style>
+              <filter id="glow-gold" x="-60%" y="-60%" width="220%" height="220%">
+                <feGaussianBlur stdDeviation="4" result="blur"/>
+                <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+              </filter>
+              <filter id="glow-sm" x="-60%" y="-60%" width="220%" height="220%">
+                <feGaussianBlur stdDeviation="2.5" result="blur"/>
+                <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+              </filter>
+            </defs>
+
+            <!-- Silueta de Colombia -->
+            <path
+              d="M 49,98
+                 L 62,82 L 82,60 L 90,48 L 102,38
+                 L 118,28 L 128,18 L 140,10 L 152,20
+                 L 158,36 L 154,60 L 156,88
+                 L 170,108 L 192,120 L 230,132 L 240,155
+                 L 238,182 L 230,210 L 220,242 L 205,278
+                 L 188,308 L 165,318 L 140,312
+                 L 115,305 L 92,295 L 72,278
+                 L 52,260 L 20,238
+                 L 34,200 L 40,172 L 38,148 L 36,122
+                 Z"
+              fill="rgba(139,26,26,0.07)"
+              stroke="rgba(201,150,58,0.28)"
+              stroke-width="1.2"
+              stroke-linejoin="round"
             />
 
-            <!-- Punto dorado principal -->
-            <div
-              class="absolute animate-glow-pulse"
-              style="
-                top: 38%; left: 48%;
-                width: 12px; height: 12px;
-                border-radius: 50%;
-                background-color: #C9963A;
-                box-shadow: 0 0 0 3px rgba(201,150,58,0.2), 0 0 20px 8px rgba(201,150,58,0.4);
-              "
-              aria-hidden="true"
-            ></div>
+            <!-- ── Costa Caribe (Córdoba · Sucre · Bolívar) ── -->
+            <circle cx="72" cy="76" r="5.5" fill="#C9963A" filter="url(#glow-gold)" class="dot-pulse"/>
+            <text x="81" y="72" fill="rgba(240,235,225,0.9)" font-size="8" font-family="Poppins,sans-serif" font-weight="600" letter-spacing="0.3">Costa Caribe</text>
+            <text x="81" y="82" fill="rgba(201,150,58,0.7)" font-size="6.5" font-family="Poppins,sans-serif">Córdoba · Sucre · Bolívar</text>
 
-            <!-- Punto dorado secundario -->
-            <div
-              class="absolute animate-glow-pulse"
-              style="
-                top: 55%; left: 42%;
-                width: 8px; height: 8px;
-                border-radius: 50%;
-                background-color: rgba(201,150,58,0.7);
-                box-shadow: 0 0 0 2px rgba(201,150,58,0.15), 0 0 12px 5px rgba(201,150,58,0.3);
-                animation-delay: 0.8s;
-              "
-              aria-hidden="true"
-            ></div>
+            <!-- ── Antioquia ── -->
+            <circle cx="66" cy="134" r="5" fill="#C9963A" filter="url(#glow-gold)" class="dot-pulse-b"/>
+            <text x="59" y="130" fill="rgba(240,235,225,0.9)" font-size="8" font-family="Poppins,sans-serif" font-weight="600" letter-spacing="0.3" text-anchor="end">Antioquia</text>
+            <text x="59" y="140" fill="rgba(201,150,58,0.7)" font-size="6.5" font-family="Poppins,sans-serif" text-anchor="end">~2,2 M cabezas</text>
 
-            <!-- Punto crema terciario -->
-            <div
-              class="absolute animate-glow-pulse"
-              style="
-                top: 45%; left: 55%;
-                width: 8px; height: 8px;
-                border-radius: 50%;
-                background-color: rgba(240,235,225,0.6);
-                box-shadow: 0 0 0 2px rgba(240,235,225,0.1), 0 0 12px 5px rgba(240,235,225,0.2);
-                animation-delay: 1.6s;
-              "
-              aria-hidden="true"
-            ></div>
+            <!-- ── Magdalena Medio ── -->
+            <circle cx="106" cy="122" r="3.5" fill="rgba(240,235,225,0.5)" filter="url(#glow-sm)" class="dot-pulse-d"/>
+            <text x="106" y="115" fill="rgba(240,235,225,0.62)" font-size="6.5" font-family="Poppins,sans-serif" text-anchor="middle">Magdalena Medio</text>
 
-            <div class="absolute bottom-2 right-2" aria-hidden="true">
-              <span class="font-sans text-[8px] tracking-widest uppercase" style="color: rgba(201,150,58,0.25);">
-                Col · 4°N 72°W
-              </span>
-            </div>
-          </div>
+            <!-- ── Llanos Orientales (mayor hato nacional) ── -->
+            <circle cx="148" cy="165" r="7" fill="#C9963A" filter="url(#glow-gold)" class="dot-pulse-c"/>
+            <text x="159" y="161" fill="rgba(240,235,225,0.9)" font-size="8" font-family="Poppins,sans-serif" font-weight="600" letter-spacing="0.3">Llanos Orientales</text>
+            <text x="159" y="171" fill="rgba(201,150,58,0.7)" font-size="6.5" font-family="Poppins,sans-serif">Casanare · Meta · Arauca</text>
+          </svg>
         </div>
       </div>
 

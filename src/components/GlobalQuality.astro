@@ -10,7 +10,7 @@ const mercados = [
 
 <section
   id="calidad"
-  class="relative py-28 px-6 overflow-hidden"
+  class="relative py-16 sm:py-20 md:py-28 px-5 sm:px-6 overflow-hidden"
   style="background-color: #1A1A1A; border-top: 1px solid rgba(139,26,26,0.35);"
   aria-labelledby="calidad-titulo"
 >
@@ -46,12 +46,12 @@ const mercados = [
     </div>
 
     <!-- Encabezado -->
-    <div class="grid md:grid-cols-2 gap-16 items-end mb-20">
+    <div class="grid md:grid-cols-2 gap-10 md:gap-16 items-end mb-12 md:mb-20">
       <div data-animate="fade-up">
-        <p class="font-sans text-xs tracking-[0.35em] uppercase font-semibold mb-5" style="color: #C9963A;">
+        <p class="font-sans text-xs tracking-[0.35em] uppercase font-semibold mb-4 sm:mb-5" style="color: #C9963A;">
           Calidad Global
         </p>
-        <h2 id="calidad-titulo" class="font-serif text-4xl md:text-5xl leading-[1.15]" style="color: #F0EBE1;">
+        <h2 id="calidad-titulo" class="font-serif text-3xl sm:text-4xl md:text-5xl leading-[1.15]" style="color: #F0EBE1;">
           Estándares sin frontera, listos para cualquier mercado
         </h2>
       </div>
@@ -73,11 +73,8 @@ const mercados = [
     >
       {mercados.map((m, i) => (
         <div
-          class="group relative py-10 px-8 transition-all duration-500"
-          style={`
-            background-color: #0D0D0D;
-            ${i < mercados.length - 1 ? 'border-right: 1px solid rgba(139,26,26,0.2);' : ''}
-          `}
+          class={`market-card group relative py-8 sm:py-10 px-6 sm:px-8 transition-all duration-500 market-idx-${i}`}
+          style="background-color: #0D0D0D;"
           role="listitem"
           data-animate="fade-up"
         >
@@ -106,11 +103,11 @@ const mercados = [
 
     <!-- Cita institucional — Playfair italic sobre negro, enmarcada en carmesí -->
     <div
-      class="mt-16 max-w-3xl mx-auto relative"
+      class="mt-10 sm:mt-16 max-w-3xl mx-auto relative"
       data-animate="fade-up"
     >
       <div
-        class="relative p-10 md:p-14 text-center overflow-hidden"
+        class="relative p-8 sm:p-10 md:p-14 text-center overflow-hidden"
         style="border: 1px solid rgba(139,26,26,0.3);"
       >
         <!-- Comillas decorativas en dorado muy tenue -->
@@ -130,3 +127,29 @@ const mercados = [
     </div>
   </div>
 </section>
+
+<style>
+  /* Bordes del grid de mercados — mobile 1-col, sm 2-col, lg 4-col */
+
+  /* xs: columna única → bordes bottom entre tarjetas */
+  .market-card { border-bottom: 1px solid rgba(139,26,26,0.2); }
+  .market-card:last-child { border-bottom: none; }
+
+  /* sm (640+): 2 columnas → derecha en impares, bottom en fila superior */
+  @media (min-width: 640px) {
+    .market-card { border-bottom: none; }
+    .market-card.market-idx-0,
+    .market-card.market-idx-2 { border-right: 1px solid rgba(139,26,26,0.2); }
+    .market-card.market-idx-0,
+    .market-card.market-idx-1 { border-bottom: 1px solid rgba(139,26,26,0.2); }
+  }
+
+  /* lg (1024+): 4 columnas → derecha en todos menos el último */
+  @media (min-width: 1024px) {
+    .market-card { border-bottom: none; border-right: 1px solid rgba(139,26,26,0.2); }
+    .market-card.market-idx-0,
+    .market-card.market-idx-1,
+    .market-card.market-idx-2 { border-bottom: none; border-right: 1px solid rgba(139,26,26,0.2); }
+    .market-card.market-idx-3 { border-right: none; border-bottom: none; }
+  }
+</style>

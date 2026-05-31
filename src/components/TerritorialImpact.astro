@@ -18,7 +18,7 @@ const pilares = [
 
 <section
   id="impacto"
-  class="relative py-28 px-6 overflow-hidden"
+  class="relative py-16 sm:py-20 md:py-28 px-5 sm:px-6 overflow-hidden"
   style="background-color: #141414; border-top: 1px solid rgba(139,26,26,0.35);"
   aria-labelledby="impacto-titulo"
 >
@@ -40,20 +40,20 @@ const pilares = [
     </div>
 
     <!-- Encabezado centrado -->
-    <div class="text-center mb-20" data-animate="fade-up">
-      <p class="font-sans text-xs tracking-[0.35em] uppercase font-semibold mb-5" style="color: #C9963A;">
+    <div class="text-center mb-12 md:mb-20" data-animate="fade-up">
+      <p class="font-sans text-xs tracking-[0.35em] uppercase font-semibold mb-4 sm:mb-5" style="color: #C9963A;">
         Impacto Territorial
       </p>
-      <h2 id="impacto-titulo" class="font-serif text-4xl md:text-5xl leading-[1.15] max-w-2xl mx-auto" style="color: #F0EBE1;">
+      <h2 id="impacto-titulo" class="font-serif text-3xl sm:text-4xl md:text-5xl leading-[1.15] max-w-2xl mx-auto" style="color: #F0EBE1;">
         La ganadería, pilar del corazón productivo de Colombia
       </h2>
     </div>
 
-    <div class="grid md:grid-cols-2 gap-16 items-center">
+    <div class="grid md:grid-cols-2 gap-10 md:gap-16 items-center">
 
       <!-- Mapa — puntos luminosos dorados sobre negro -->
       <div
-        class="relative flex items-center justify-center"
+        class="relative flex items-center justify-center order-2 md:order-1"
         data-animate="fade-up"
         aria-label="Mapa de presencia territorial en Colombia"
       >
@@ -138,10 +138,10 @@ const pilares = [
       </div>
 
       <!-- Pilares narrativos -->
-      <div class="flex flex-col" data-animate="fade-up" style="transition-delay: 0.2s;">
+      <div class="flex flex-col order-1 md:order-2" data-animate="fade-up" style="transition-delay: 0.2s;">
         {pilares.map((pilar, i) => (
           <div
-            class="group py-8 pl-7 transition-all duration-500"
+            class="group py-6 sm:py-8 pl-5 sm:pl-7 transition-all duration-500"
             style={`
               border-left: 1px solid rgba(139,26,26,0.3);
               ${i < pilares.length - 1 ? 'border-bottom: 1px solid rgba(240,235,225,0.06);' : ''}

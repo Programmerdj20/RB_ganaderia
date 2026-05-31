@@ -27,7 +27,7 @@ const ejes = [
 
 <section
   id="excelencia"
-  class="relative py-28 px-6 overflow-hidden"
+  class="relative py-16 sm:py-20 md:py-28 px-5 sm:px-6 overflow-hidden"
   style="background-color: #1A1A1A; border-top: 1px solid rgba(139,26,26,0.35);"
   aria-labelledby="excelencia-titulo"
 >
@@ -49,11 +49,11 @@ const ejes = [
     </div>
 
     <!-- Encabezado -->
-    <div class="mb-14" data-animate="fade-up">
-      <p class="font-sans text-xs tracking-[0.35em] uppercase font-semibold mb-5" style="color: #C9963A;">
+    <div class="mb-10 md:mb-14" data-animate="fade-up">
+      <p class="font-sans text-xs tracking-[0.35em] uppercase font-semibold mb-4 sm:mb-5" style="color: #C9963A;">
         Ejes de Excelencia Operativa
       </p>
-      <h2 id="excelencia-titulo" class="font-serif text-4xl md:text-5xl leading-[1.15] max-w-xl" style="color: #F0EBE1;">
+      <h2 id="excelencia-titulo" class="font-serif text-3xl sm:text-4xl md:text-5xl leading-[1.15] max-w-xl" style="color: #F0EBE1;">
         La ciencia detrás de cada decisión productiva
       </h2>
     </div>
@@ -69,7 +69,7 @@ const ejes = [
       {ejes.map((eje, i) => (
         <article
           class={`eje-panel relative overflow-hidden cursor-pointer transition-all duration-700 ease-in-out ${i === 0 ? 'md:flex-[3]' : 'md:flex-[1]'}`}
-          style={`background-color: #0D0D0D; ${i > 0 ? 'border-left: 1px solid rgba(139,26,26,0.2);' : ''}`}
+          style={`background-color: #0D0D0D; ${i > 0 ? 'border-left: 1px solid rgba(139,26,26,0.2); border-top: 1px solid rgba(139,26,26,0.2);' : ''}`}
           role="tab"
           tabindex="0"
           aria-selected={i === 0 ? 'true' : 'false'}
@@ -85,6 +85,7 @@ const ejes = [
               class="w-full h-full object-cover"
               style="opacity: 0.1;"
               aria-hidden="true"
+              onerror="this.style.display='none'"
             />
           </div>
 
@@ -102,7 +103,7 @@ const ejes = [
             aria-hidden="true"
           ></div>
 
-          <div class="relative z-10 p-8 md:p-10 h-full flex flex-col justify-between min-h-[440px]">
+          <div class="relative z-10 p-6 sm:p-8 md:p-10 h-full flex flex-col justify-between min-h-[280px] sm:min-h-[340px] md:min-h-[440px]">
             <div>
               <span class="font-sans text-xs tracking-[0.4em] font-medium" style="color: rgba(201,150,58,0.35);">
                 {eje.numero}

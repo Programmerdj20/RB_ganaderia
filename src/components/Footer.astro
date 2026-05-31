@@ -44,7 +44,7 @@ const anio = new Date().getFullYear();
 
 <footer
   id="contacto"
-  class="relative pt-20 pb-10 px-6 overflow-hidden"
+  class="relative pt-14 sm:pt-20 pb-8 sm:pb-10 px-5 sm:px-6 overflow-hidden"
   style="background-color: #0A0A0A; border-top: 1px solid rgba(139,26,26,0.35);"
   aria-label="Pie de página corporativo"
 >
@@ -59,7 +59,7 @@ const anio = new Date().getFullYear();
 
     <!-- Logo y tagline -->
     <div
-      class="flex flex-col md:flex-row md:items-end justify-between gap-10 mb-16 pb-16"
+      class="flex flex-col md:flex-row md:items-end justify-between gap-6 sm:gap-10 mb-10 sm:mb-16 pb-10 sm:pb-16"
       style="border-bottom: 1px solid rgba(240,235,225,0.06);"
     >
       <div>
@@ -80,7 +80,7 @@ const anio = new Date().getFullYear();
 
     <!-- Columnas de enlaces -->
     <nav aria-label="Navegación corporativa footer">
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-10 mb-16">
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 sm:gap-10 mb-10 sm:mb-16">
         {columnas.map((col) => (
           <div>
             <h3 class="font-sans text-[10px] tracking-[0.32em] uppercase font-semibold mb-6" style="color: rgba(201,150,58,0.5);">
@@ -106,13 +106,13 @@ const anio = new Date().getFullYear();
 
     <!-- Barra inferior -->
     <div
-      class="pt-8 flex flex-col md:flex-row justify-between items-center gap-4"
+      class="pt-6 sm:pt-8 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4"
       style="border-top: 1px solid rgba(240,235,225,0.06);"
     >
       <p class="font-body text-xs" style="color: rgba(240,235,225,0.18);">
         © {anio} RB Ganadería. Todos los derechos reservados.
       </p>
-      <div class="flex gap-6">
+      <div class="flex flex-wrap gap-x-5 gap-y-2">
         {['Aviso de Privacidad', 'Términos Corporativos', 'Accesibilidad'].map((link) => (
           <a
             href="#"

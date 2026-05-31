@@ -9,7 +9,7 @@ const metricas = [
 
 <section
   id="fundacion"
-  class="relative py-28 px-6 overflow-hidden"
+  class="relative py-16 sm:py-20 md:py-28 px-5 sm:px-6 overflow-hidden"
   style="background-color: #141414; border-top: 1px solid rgba(139,26,26,0.35);"
   aria-labelledby="fundacion-titulo"
 >
@@ -31,7 +31,7 @@ const metricas = [
     </div>
 
     <!-- Encabezado editorial -->
-    <div class="grid md:grid-cols-2 gap-16 items-start mb-24">
+    <div class="grid md:grid-cols-2 gap-10 md:gap-16 items-start mb-16 md:mb-24">
       <div data-animate="fade-up">
         <p class="font-sans text-xs tracking-[0.35em] uppercase font-semibold mb-5" style="color: #C9963A;">
           Identidad y Escala
@@ -64,11 +64,9 @@ const metricas = [
     >
       {metricas.map((m, i) => (
         <div
-          class="relative px-10 py-16 text-center group"
-          style={`${i < metricas.length - 1 ? 'border-right: 1px solid rgba(139,26,26,0.2);' : ''}`}
+          class={`metric-card relative px-6 py-12 sm:px-10 sm:py-16 text-center group`}
           role="listitem"
           data-animate="fade-up"
-          style2={`transition-delay: ${i * 0.12}s;`}
         >
           <!-- Glow dorado en hover -->
           <div
@@ -107,6 +105,25 @@ const metricas = [
     </div>
   </div>
 </section>
+
+<style>
+  /* Bordes del grid de métricas — mobile: horizontal, desktop: vertical */
+  .metric-card {
+    border-bottom: 1px solid rgba(139,26,26,0.2);
+  }
+  .metric-card:last-child {
+    border-bottom: none;
+  }
+  @media (min-width: 768px) {
+    .metric-card {
+      border-bottom: none;
+      border-right: 1px solid rgba(139,26,26,0.2);
+    }
+    .metric-card:last-child {
+      border-right: none;
+    }
+  }
+</style>
 
 <script>
   const observerOptions: IntersectionObserverInit = { threshold: 0.15 };

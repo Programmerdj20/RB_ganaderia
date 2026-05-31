@@ -1,0 +1,49 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import Foundation from '../components/Foundation.astro';
+import Excellence from '../components/Excellence.astro';
+import TerritorialImpact from '../components/TerritorialImpact.astro';
+import GlobalQuality from '../components/GlobalQuality.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout>
+  <main>
+    <Hero />
+    <Foundation />
+    <Excellence />
+    <TerritorialImpact />
+    <GlobalQuality />
+  </main>
+  <Footer />
+</Layout>
+
+<!-- Observer global de fade-up — inicializado una sola vez -->
+<script>
+  declare global {
+    interface Window { __fadeObserverInitialized: boolean; }
+  }
+
+  if (!window.__fadeObserverInitialized) {
+    window.__fadeObserverInitialized = true;
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target as HTMLElement;
+        el.style.opacity = '1';
+        el.style.transform = 'translateY(0)';
+        observer.unobserve(el);
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('[data-animate="fade-up"]').forEach((el) => {
+      const htmlEl = el as HTMLElement;
+      htmlEl.style.opacity = '0';
+      htmlEl.style.transform = 'translateY(28px)';
+      htmlEl.style.transition = 'opacity 0.75s ease-out, transform 0.75s ease-out';
+      observer.observe(htmlEl);
+    });
+  }
+</script>

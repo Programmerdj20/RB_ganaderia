@@ -1,0 +1,198 @@
+---
+// Sección 3: Ejes de Excelencia Operativa — paneles interactivos dark luxury
+const ejes = [
+  {
+    id:       'genetica',
+    numero:   '01',
+    titulo:   'Mejoramiento Genético',
+    subtitulo:'Ciencia aplicada al campo',
+    cuerpo:   'Nuestros programas de selección genética priorizan alta fertilidad, precocidad sexual y ganancia diaria de peso superior. Utilizamos protocolos de biotecnología reproductiva que elevan los índices zootécnicos de cada generación, garantizando rentabilidad y calidad cárnica sostenida.',
+  },
+  {
+    id:       'silvopastoril',
+    numero:   '02',
+    titulo:   'Sistemas Silvopastoriles',
+    subtitulo:'No cultivamos vacas, cultivamos bosques y suelos',
+    cuerpo:   'Los Sistemas Silvopastoriles Intensivos (SSPi) implementados en RB Ganadería revierten activamente la degradación del suelo, protegen la biodiversidad nativa y aumentan la eficiencia del engorde. Nuestras praderas son ecosistemas productivos, no monocultivos.',
+  },
+  {
+    id:       'bienestar',
+    numero:   '03',
+    titulo:   'Ética y Bienestar Animal',
+    subtitulo:'Los 5 principios universales',
+    cuerpo:   'Adherimos estrictamente a los cinco principios internacionales de bienestar animal: libre de hambre y sed, libre de incomodidad, libre de dolor y enfermedad, libre de expresar su comportamiento natural y libre de miedo y angustia. Esto no es marketing; es nuestro estándar operativo diario.',
+  },
+];
+---
+
+<section
+  id="excelencia"
+  class="relative py-28 px-6 overflow-hidden"
+  style="background-color: #1A1A1A; border-top: 1px solid rgba(139,26,26,0.35);"
+  aria-labelledby="excelencia-titulo"
+>
+  <!-- Resplandor dorado sutil centrado arriba -->
+  <div
+    class="absolute pointer-events-none"
+    style="top: -80px; left: 50%; transform: translateX(-50%); width: 600px; height: 200px;
+           background: radial-gradient(ellipse at 50% 0%, rgba(201,150,58,0.07) 0%, transparent 70%);"
+    aria-hidden="true"
+  ></div>
+
+  <div class="relative max-w-6xl mx-auto">
+
+    <!-- Separador -->
+    <div class="flex items-center gap-6 mb-16" aria-hidden="true">
+      <div class="flex-1 h-px" style="background: rgba(240,235,225,0.08);"></div>
+      <span class="font-sans text-[9px] tracking-[0.6em] uppercase" style="color: rgba(201,150,58,0.4);">02</span>
+      <div class="flex-1 h-px" style="background: rgba(240,235,225,0.08);"></div>
+    </div>
+
+    <!-- Encabezado -->
+    <div class="mb-14" data-animate="fade-up">
+      <p class="font-sans text-xs tracking-[0.35em] uppercase font-semibold mb-5" style="color: #C9963A;">
+        Ejes de Excelencia Operativa
+      </p>
+      <h2 id="excelencia-titulo" class="font-serif text-4xl md:text-5xl leading-[1.15] max-w-xl" style="color: #F0EBE1;">
+        La ciencia detrás de cada decisión productiva
+      </h2>
+    </div>
+
+    <!-- Paneles acordeón -->
+    <div
+      class="flex flex-col md:flex-row"
+      style="border: 1px solid rgba(139,26,26,0.2);"
+      role="tablist"
+      aria-label="Ejes de excelencia"
+      id="acordeon-container"
+    >
+      {ejes.map((eje, i) => (
+        <article
+          class={`eje-panel relative overflow-hidden cursor-pointer transition-all duration-700 ease-in-out ${i === 0 ? 'md:flex-[3]' : 'md:flex-[1]'}`}
+          style={`background-color: #0D0D0D; ${i > 0 ? 'border-left: 1px solid rgba(139,26,26,0.2);' : ''}`}
+          role="tab"
+          tabindex="0"
+          aria-selected={i === 0 ? 'true' : 'false'}
+          aria-controls={`panel-content-${eje.id}`}
+          id={`tab-${eje.id}`}
+          data-index={i}
+        >
+          <!-- Foto de la hacienda — placeholder -->
+          <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+            <img
+              src="/placeholder-foto.jpg"
+              alt=""
+              class="w-full h-full object-cover"
+              style="opacity: 0.1;"
+              aria-hidden="true"
+            />
+          </div>
+
+          <!-- Overlay dorado en panel activo -->
+          <div
+            class={`eje-overlay absolute inset-0 pointer-events-none transition-opacity duration-700 ${i === 0 ? 'opacity-100' : 'opacity-0'}`}
+            style="background: linear-gradient(145deg, rgba(201,150,58,0.08) 0%, transparent 60%);"
+            aria-hidden="true"
+          ></div>
+
+          <!-- Línea dorada superior en activo -->
+          <div
+            class={`eje-indicator absolute top-0 left-0 right-0 transition-all duration-500 ${i === 0 ? 'opacity-100' : 'opacity-0'}`}
+            style="height: 1px; background: linear-gradient(to right, #C9963A, rgba(201,150,58,0.3));"
+            aria-hidden="true"
+          ></div>
+
+          <div class="relative z-10 p-8 md:p-10 h-full flex flex-col justify-between min-h-[440px]">
+            <div>
+              <span class="font-sans text-xs tracking-[0.4em] font-medium" style="color: rgba(201,150,58,0.35);">
+                {eje.numero}
+              </span>
+              <h3 class="font-sans font-semibold text-xl md:text-2xl leading-snug mt-4 mb-3" style="color: #F0EBE1;">
+                {eje.titulo}
+              </h3>
+              <p class="font-body text-sm font-light italic leading-relaxed" style="color: rgba(240,235,225,0.35);">
+                {eje.subtitulo}
+              </p>
+            </div>
+
+            <!-- Cuerpo visible solo cuando activo -->
+            <div
+              id={`panel-content-${eje.id}`}
+              class={`eje-contenido mt-8 overflow-hidden transition-all duration-500 ${i === 0 ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}
+              role="tabpanel"
+              aria-labelledby={`tab-${eje.id}`}
+            >
+              <div class="mb-5 w-8 h-px" style="background-color: rgba(139,26,26,0.5);" aria-hidden="true"></div>
+              <p class="font-body text-sm leading-[1.85]" style="color: rgba(240,235,225,0.6);">
+                {eje.cuerpo}
+              </p>
+            </div>
+
+            <div class={`eje-expand mt-6 transition-opacity duration-300 ${i === 0 ? 'opacity-0' : 'opacity-60'}`}>
+              <span class="font-sans text-[10px] tracking-widest uppercase" style="color: rgba(201,150,58,0.5);">
+                Expandir
+              </span>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  const panels = document.querySelectorAll<HTMLElement>('.eje-panel');
+  const contents = document.querySelectorAll<HTMLElement>('.eje-contenido');
+  const overlays = document.querySelectorAll<HTMLElement>('.eje-overlay');
+  const indicators = document.querySelectorAll<HTMLElement>('.eje-indicator');
+  const expands = document.querySelectorAll<HTMLElement>('.eje-expand');
+
+  panels.forEach((panel) => {
+    const activate = () => {
+      const idx = parseInt(panel.dataset.index ?? '0', 10);
+      panels.forEach((p, i) => {
+        const active = i === idx;
+        p.classList.toggle('md:flex-[3]', active);
+        p.classList.toggle('md:flex-[1]', !active);
+        p.setAttribute('aria-selected', active ? 'true' : 'false');
+        contents[i].classList.toggle('max-h-0', !active);
+        contents[i].classList.toggle('opacity-0', !active);
+        contents[i].classList.toggle('max-h-96', active);
+        contents[i].classList.toggle('opacity-100', active);
+        overlays[i].classList.toggle('opacity-100', active);
+        overlays[i].classList.toggle('opacity-0', !active);
+        indicators[i].classList.toggle('opacity-100', active);
+        indicators[i].classList.toggle('opacity-0', !active);
+        expands[i].classList.toggle('opacity-0', active);
+        expands[i].classList.toggle('opacity-60', !active);
+      });
+    };
+    panel.addEventListener('click', activate);
+    panel.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); activate(); }
+    });
+  });
+
+  if (!window.__fadeObserverInitialized) {
+    const fo = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const el = entry.target as HTMLElement;
+          el.style.opacity = '1';
+          el.style.transform = 'translateY(0)';
+          fo.unobserve(el);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('[data-animate="fade-up"]').forEach((el) => {
+      const h = el as HTMLElement;
+      if (h.style.opacity === '') {
+        h.style.opacity = '0';
+        h.style.transform = 'translateY(28px)';
+        h.style.transition = 'opacity 0.8s ease-out, transform 0.8s ease-out';
+        fo.observe(h);
+      }
+    });
+  }
+</script>

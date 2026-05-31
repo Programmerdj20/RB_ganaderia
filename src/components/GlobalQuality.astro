@@ -1,0 +1,132 @@
+---
+// Sección 5: Calidad Global — estándares e inocuidad, dark luxury
+const mercados = [
+  { region: 'Asia',          descripcion: 'Mercados de alta exigencia en China, Japón y Corea del Sur' },
+  { region: 'Medio Oriente', descripcion: 'Exportaciones Halal certificadas a EAU, Arabia Saudita y Catar' },
+  { region: 'África',        descripcion: 'Presencia en mercados emergentes de alto crecimiento' },
+  { region: 'Colombia',      descripcion: '18,8 kg per cápita de consumo interno proyectado de proteína bovina' },
+];
+---
+
+<section
+  id="calidad"
+  class="relative py-28 px-6 overflow-hidden"
+  style="background-color: #1A1A1A; border-top: 1px solid rgba(139,26,26,0.35);"
+  aria-labelledby="calidad-titulo"
+>
+  <!-- Textura de líneas horizontales — sutilísima -->
+  <div
+    class="absolute inset-0 pointer-events-none"
+    style="
+      opacity: 0.025;
+      background-image: repeating-linear-gradient(
+        0deg,
+        transparent, transparent 47px,
+        rgba(240,235,225,0.8) 47px, rgba(240,235,225,0.8) 48px
+      );
+    "
+    aria-hidden="true"
+  ></div>
+
+  <!-- Resplandor dorado esquina inferior derecha -->
+  <div
+    class="absolute pointer-events-none"
+    style="bottom: -100px; right: -100px; width: 450px; height: 450px;
+           background: radial-gradient(circle, rgba(201,150,58,0.07) 0%, transparent 65%);"
+    aria-hidden="true"
+  ></div>
+
+  <div class="relative max-w-6xl mx-auto">
+
+    <!-- Separador -->
+    <div class="flex items-center gap-6 mb-20" aria-hidden="true">
+      <div class="flex-1 h-px" style="background: rgba(240,235,225,0.08);"></div>
+      <span class="font-sans text-[9px] tracking-[0.6em] uppercase" style="color: rgba(201,150,58,0.4);">04</span>
+      <div class="flex-1 h-px" style="background: rgba(240,235,225,0.08);"></div>
+    </div>
+
+    <!-- Encabezado -->
+    <div class="grid md:grid-cols-2 gap-16 items-end mb-20">
+      <div data-animate="fade-up">
+        <p class="font-sans text-xs tracking-[0.35em] uppercase font-semibold mb-5" style="color: #C9963A;">
+          Calidad Global
+        </p>
+        <h2 id="calidad-titulo" class="font-serif text-4xl md:text-5xl leading-[1.15]" style="color: #F0EBE1;">
+          Estándares sin frontera, listos para cualquier mercado
+        </h2>
+      </div>
+      <div data-animate="fade-up" style="transition-delay: 0.2s;">
+        <p class="font-body text-lg leading-relaxed" style="color: rgba(240,235,225,0.5);">
+          Colombia proyecta un consumo interno de proteína bovina de
+          <strong style="color: #C9963A; font-weight: 600;">18,8 kilos per cápita</strong>
+          y exporta carne y ganado en pie a mercados de alta exigencia. RB Ganadería opera con protocolos de inocuidad globales que garantizan trazabilidad total, desde el origen hasta la mesa.
+        </p>
+      </div>
+    </div>
+
+    <!-- Grilla de mercados — tarjetas negro profundo con acento dorado -->
+    <div
+      class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4"
+      style="border: 1px solid rgba(139,26,26,0.2);"
+      role="list"
+      aria-label="Mercados de operación"
+    >
+      {mercados.map((m, i) => (
+        <div
+          class="group relative py-10 px-8 transition-all duration-500"
+          style={`
+            background-color: #0D0D0D;
+            ${i < mercados.length - 1 ? 'border-right: 1px solid rgba(139,26,26,0.2);' : ''}
+          `}
+          role="listitem"
+          data-animate="fade-up"
+        >
+          <!-- Línea dorada top en hover -->
+          <div
+            class="absolute top-0 left-0 right-0 h-px opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+            style="background: linear-gradient(to right, #C9963A, rgba(201,150,58,0.2));"
+            aria-hidden="true"
+          ></div>
+
+          <div
+            class="mb-6 transition-all duration-500 group-hover:w-10"
+            style="width: 24px; height: 1px; background-color: rgba(139,26,26,0.5);"
+            aria-hidden="true"
+          ></div>
+
+          <h3 class="font-sans font-semibold text-xl mb-3 transition-colors duration-300" style="color: rgba(240,235,225,0.8);">
+            {m.region}
+          </h3>
+          <p class="font-body text-sm leading-relaxed" style="color: rgba(240,235,225,0.3);">
+            {m.descripcion}
+          </p>
+        </div>
+      ))}
+    </div>
+
+    <!-- Cita institucional — Playfair italic sobre negro, enmarcada en carmesí -->
+    <div
+      class="mt-16 max-w-3xl mx-auto relative"
+      data-animate="fade-up"
+    >
+      <div
+        class="relative p-10 md:p-14 text-center overflow-hidden"
+        style="border: 1px solid rgba(139,26,26,0.3);"
+      >
+        <!-- Comillas decorativas en dorado muy tenue -->
+        <div
+          class="absolute -top-6 left-8 font-serif leading-none select-none pointer-events-none"
+          style="font-size: 9rem; color: rgba(201,150,58,0.04);"
+          aria-hidden="true"
+        >"</div>
+
+        <p class="font-serif text-xl md:text-2xl leading-[1.7] italic relative z-10" style="color: rgba(240,235,225,0.75);">
+          Cada animal gestionado en RB Ganadería es trazable desde su nacimiento hasta su destino final,
+          cumpliendo con los más exigentes protocolos de inocuidad internacionales.
+        </p>
+
+        <div class="mt-8 mx-auto w-10 h-px" style="background-color: rgba(201,150,58,0.4);" aria-hidden="true"></div>
+      </div>
+    </div>
+  </div>
+</section>

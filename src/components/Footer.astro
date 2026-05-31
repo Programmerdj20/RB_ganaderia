@@ -1,0 +1,127 @@
+---
+// Footer corporativo — dark luxury, el nivel más profundo del sitio
+const columnas = [
+  {
+    titulo: 'Gobernanza',
+    enlaces: [
+      'Política Integral de Sostenibilidad',
+      'Línea de Transparencia y Ética',
+      'Código de Conducta Corporativa',
+      'Política de Derechos Humanos',
+    ],
+  },
+  {
+    titulo: 'Relaciones Corporativas',
+    enlaces: [
+      'Relaciones con Inversionistas',
+      'Alianzas Estratégicas',
+      'Proveedores y Cadena de Valor',
+      'Medios y Prensa',
+    ],
+  },
+  {
+    titulo: 'Sostenibilidad',
+    enlaces: [
+      'Reporte de Sostenibilidad',
+      'Huella de Carbono',
+      'Biodiversidad y Ecosistemas',
+      'Gestión del Agua',
+    ],
+  },
+  {
+    titulo: 'La Empresa',
+    enlaces: [
+      'Historia y Trayectoria',
+      'Equipo Directivo',
+      'Modelo Operativo',
+      'Certificaciones',
+    ],
+  },
+];
+
+const anio = new Date().getFullYear();
+---
+
+<footer
+  class="relative pt-20 pb-10 px-6 overflow-hidden"
+  style="background-color: #0A0A0A; border-top: 1px solid rgba(139,26,26,0.35);"
+  aria-label="Pie de página corporativo"
+>
+  <!-- Línea carmesí superior — misma firma del hero -->
+  <div
+    class="absolute top-0 left-0 right-0 h-px pointer-events-none"
+    style="background: linear-gradient(to right, transparent, #8B1A1A 30%, #8B1A1A 70%, transparent);"
+    aria-hidden="true"
+  ></div>
+
+  <div class="relative max-w-6xl mx-auto">
+
+    <!-- Logo y tagline -->
+    <div
+      class="flex flex-col md:flex-row md:items-end justify-between gap-10 mb-16 pb-16"
+      style="border-bottom: 1px solid rgba(240,235,225,0.06);"
+    >
+      <div>
+        <p class="font-serif text-3xl tracking-wide mb-3" style="color: #F0EBE1;">RB Ganadería</p>
+        <!-- Línea carmesí bajo el logo — firma del brand -->
+        <div class="mb-4" style="width: 48px; height: 1px; background-color: #8B1A1A;" aria-hidden="true"></div>
+        <p class="font-body text-sm font-light max-w-xs leading-relaxed" style="color: rgba(240,235,225,0.3);">
+          Elevando el estándar del campo colombiano con ciencia, ética y compromiso generacional.
+        </p>
+      </div>
+      <div class="flex flex-col items-start md:items-end gap-3">
+        <p class="font-sans text-[10px] tracking-[0.5em] uppercase" style="color: rgba(201,150,58,0.3);">
+          Colombia · Ganadería de Excelencia
+        </p>
+        <div style="width: 48px; height: 1px; background-color: rgba(201,150,58,0.2);" aria-hidden="true"></div>
+      </div>
+    </div>
+
+    <!-- Columnas de enlaces -->
+    <nav aria-label="Navegación corporativa footer">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-10 mb-16">
+        {columnas.map((col) => (
+          <div>
+            <h3 class="font-sans text-[10px] tracking-[0.32em] uppercase font-semibold mb-6" style="color: rgba(201,150,58,0.5);">
+              {col.titulo}
+            </h3>
+            <ul class="space-y-3">
+              {col.enlaces.map((enlace) => (
+                <li>
+                  <a
+                    href="#"
+                    class="font-body text-sm leading-snug block transition-colors duration-300 hover:opacity-70"
+                    style="color: rgba(240,235,225,0.25);"
+                  >
+                    {enlace}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </nav>
+
+    <!-- Barra inferior -->
+    <div
+      class="pt-8 flex flex-col md:flex-row justify-between items-center gap-4"
+      style="border-top: 1px solid rgba(240,235,225,0.06);"
+    >
+      <p class="font-body text-xs" style="color: rgba(240,235,225,0.18);">
+        © {anio} RB Ganadería. Todos los derechos reservados.
+      </p>
+      <div class="flex gap-6">
+        {['Aviso de Privacidad', 'Términos Corporativos', 'Accesibilidad'].map((link) => (
+          <a
+            href="#"
+            class="font-body text-xs transition-opacity duration-300 hover:opacity-60"
+            style="color: rgba(240,235,225,0.18);"
+          >
+            {link}
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+</footer>

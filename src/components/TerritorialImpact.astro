@@ -1,0 +1,150 @@
+---
+// Sección 4: Impacto Territorial — mapa de Colombia + narrativa, dark luxury
+const pilares = [
+  {
+    titulo:  'Dignificación del Trabajador Rural',
+    cuerpo:  'Cada empleado en RB Ganadería accede a formalidad laboral plena, capacitación continua y condiciones de trabajo que recuperan la dignidad del campo colombiano.',
+  },
+  {
+    titulo:  'Arraigo y Desarrollo Comunitario',
+    cuerpo:  'Operamos con conciencia territorial. Apoyamos las economías locales donde estamos presentes, generando encadenamientos productivos que benefician a proveedores y comunidades aledañas.',
+  },
+  {
+    titulo:  'Gestión Hídrica Responsable',
+    cuerpo:  'Nuestros sistemas silvopastoriles protegen las fuentes hídricas, reducen la escorrentía y contribuyen a la recarga de acuíferos en las regiones donde operamos.',
+  },
+];
+---
+
+<section
+  id="impacto"
+  class="relative py-28 px-6 overflow-hidden"
+  style="background-color: #141414; border-top: 1px solid rgba(139,26,26,0.35);"
+  aria-labelledby="impacto-titulo"
+>
+  <!-- Resplandor dorado muy tenue centrado arriba -->
+  <div
+    class="absolute pointer-events-none"
+    style="top: 0; left: 50%; transform: translateX(-50%); width: 700px; height: 250px;
+           background: radial-gradient(ellipse at 50% 0%, rgba(201,150,58,0.05) 0%, transparent 70%);"
+    aria-hidden="true"
+  ></div>
+
+  <div class="relative max-w-6xl mx-auto">
+
+    <!-- Separador -->
+    <div class="flex items-center gap-6 mb-20" aria-hidden="true">
+      <div class="flex-1 h-px" style="background: rgba(240,235,225,0.08);"></div>
+      <span class="font-sans text-[9px] tracking-[0.6em] uppercase" style="color: rgba(201,150,58,0.4);">03</span>
+      <div class="flex-1 h-px" style="background: rgba(240,235,225,0.08);"></div>
+    </div>
+
+    <!-- Encabezado centrado -->
+    <div class="text-center mb-20" data-animate="fade-up">
+      <p class="font-sans text-xs tracking-[0.35em] uppercase font-semibold mb-5" style="color: #C9963A;">
+        Impacto Territorial
+      </p>
+      <h2 id="impacto-titulo" class="font-serif text-4xl md:text-5xl leading-[1.15] max-w-2xl mx-auto" style="color: #F0EBE1;">
+        Presencia activa en el corazón productivo de Colombia
+      </h2>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-16 items-center">
+
+      <!-- Mapa — puntos luminosos dorados sobre negro -->
+      <div
+        class="relative flex items-center justify-center"
+        data-animate="fade-up"
+        aria-label="Mapa de presencia territorial en Colombia"
+      >
+        <div class="relative w-full max-w-sm mx-auto">
+          <!-- Marco carmesí del mapa — eco del logo -->
+          <div
+            class="absolute pointer-events-none"
+            style="inset: -12px; border: 1px solid rgba(139,26,26,0.25);"
+            aria-hidden="true"
+          ></div>
+
+          <div class="relative aspect-[3/4] p-4">
+            <img
+              src="/placeholder-mapa.png"
+              alt="Mapa topográfico de Colombia con zonas de operación de RB Ganadería"
+              class="w-full h-full object-contain"
+              style="opacity: 0.2;"
+            />
+
+            <!-- Punto dorado principal -->
+            <div
+              class="absolute animate-glow-pulse"
+              style="
+                top: 38%; left: 48%;
+                width: 12px; height: 12px;
+                border-radius: 50%;
+                background-color: #C9963A;
+                box-shadow: 0 0 0 3px rgba(201,150,58,0.2), 0 0 20px 8px rgba(201,150,58,0.4);
+              "
+              aria-hidden="true"
+            ></div>
+
+            <!-- Punto dorado secundario -->
+            <div
+              class="absolute animate-glow-pulse"
+              style="
+                top: 55%; left: 42%;
+                width: 8px; height: 8px;
+                border-radius: 50%;
+                background-color: rgba(201,150,58,0.7);
+                box-shadow: 0 0 0 2px rgba(201,150,58,0.15), 0 0 12px 5px rgba(201,150,58,0.3);
+                animation-delay: 0.8s;
+              "
+              aria-hidden="true"
+            ></div>
+
+            <!-- Punto crema terciario -->
+            <div
+              class="absolute animate-glow-pulse"
+              style="
+                top: 45%; left: 55%;
+                width: 8px; height: 8px;
+                border-radius: 50%;
+                background-color: rgba(240,235,225,0.6);
+                box-shadow: 0 0 0 2px rgba(240,235,225,0.1), 0 0 12px 5px rgba(240,235,225,0.2);
+                animation-delay: 1.6s;
+              "
+              aria-hidden="true"
+            ></div>
+
+            <div class="absolute bottom-2 right-2" aria-hidden="true">
+              <span class="font-sans text-[8px] tracking-widest uppercase" style="color: rgba(201,150,58,0.25);">
+                Col · 4°N 72°W
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pilares narrativos -->
+      <div class="flex flex-col" data-animate="fade-up" style="transition-delay: 0.2s;">
+        {pilares.map((pilar, i) => (
+          <div
+            class="group py-8 pl-7 transition-all duration-500"
+            style={`
+              border-left: 1px solid rgba(139,26,26,0.3);
+              ${i < pilares.length - 1 ? 'border-bottom: 1px solid rgba(240,235,225,0.06);' : ''}
+            `}
+          >
+            <span class="font-sans text-[10px] tracking-[0.4em] uppercase font-medium mb-3 block" style="color: rgba(201,150,58,0.6);">
+              0{i + 1}
+            </span>
+            <h3 class="font-sans font-semibold text-base leading-snug mb-3 transition-colors duration-300 group-hover:opacity-100" style="color: rgba(240,235,225,0.8);">
+              {pilar.titulo}
+            </h3>
+            <p class="font-body text-sm leading-relaxed transition-colors duration-300" style="color: rgba(240,235,225,0.38);">
+              {pilar.cuerpo}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

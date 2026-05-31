@@ -1,0 +1,52 @@
+---
+interface Props {
+  title?: string;
+}
+const { title = 'RB Ganadería — Elevando el Estándar del Campo Colombiano' } = Astro.props;
+---
+<!doctype html>
+<html lang="es" class="scroll-smooth" style="background-color: #111111;">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="RB Ganadería — Décadas de trayectoria, rigor genético y compromiso inquebrantable con la sostenibilidad productiva de Colombia." />
+    <title>{title}</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body style="background-color: #111111; color: #F0EBE1;" class="font-sans antialiased">
+    <!-- Grano sutil: añade profundidad táctil a las superficies oscuras -->
+    <div
+      aria-hidden="true"
+      style="
+        position: fixed; inset: -50%; width: 200%; height: 200%;
+        pointer-events: none; z-index: 9999; opacity: 0.04;
+        background-image: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23g)' opacity='1'/%3E%3C/svg%3E\");
+      "
+    ></div>
+
+    <slot />
+  </body>
+</html>
+
+<style is:global>
+  * { box-sizing: border-box; }
+
+  ::selection {
+    background-color: rgba(201, 150, 58, 0.2);
+    color: #F0EBE1;
+  }
+
+  ::-webkit-scrollbar { width: 3px; }
+  ::-webkit-scrollbar-track { background: #0A0A0A; }
+  ::-webkit-scrollbar-thumb { background: rgba(201, 150, 58, 0.3); border-radius: 2px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(201, 150, 58, 0.55); }
+
+  html { background-color: #111111; }
+</style>

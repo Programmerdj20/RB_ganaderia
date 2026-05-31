@@ -1,0 +1,368 @@
+---
+// Navbar: sticky corporativo — dark luxury con transición de transparencia al scroll
+const navLinks = [
+  { href: '#inicio',    label: 'Inicio' },
+  { href: '#fundacion', label: 'Legado' },
+  { href: '#excelencia',label: 'Excelencia' },
+  { href: '#impacto',   label: 'Territorio' },
+  { href: '#calidad',   label: 'Calidad Global' },
+  { href: '#contacto',  label: 'Contacto' },
+];
+---
+
+<header id="navbar" role="banner" aria-label="Navegación principal RB Ganadería">
+  <!-- Línea carmesí superior — eco del hero -->
+  <div class="nav-crimson-line" aria-hidden="true"></div>
+
+  <nav class="nav-inner" aria-label="Menú principal">
+    <!-- Logo -->
+    <a href="#inicio" class="nav-logo" aria-label="RB Ganadería — inicio">
+      <img
+        src="/logo.webp"
+        alt="RB Ganadería"
+        width="180"
+        height="60"
+        loading="eager"
+        decoding="async"
+      />
+    </a>
+
+    <!-- Separador vertical ornamental -->
+    <div class="nav-separator" aria-hidden="true"></div>
+
+    <!-- Links de navegación — desktop -->
+    <ul class="nav-links" role="list">
+      {navLinks.map((link) => (
+        <li>
+          <a href={link.href} class="nav-link" data-nav-link>
+            {link.label}
+            <span class="nav-link-line" aria-hidden="true"></span>
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <!-- Botón contacto CTA — desktop -->
+    <a href="#contacto" class="nav-cta" aria-label="Contactar RB Ganadería">
+      Contáctenos
+    </a>
+
+    <!-- Hamburger — mobile -->
+    <button
+      class="nav-hamburger"
+      aria-controls="mobile-menu"
+      aria-expanded="false"
+      aria-label="Abrir menú"
+      id="hamburger-btn"
+    >
+      <span class="ham-bar"></span>
+      <span class="ham-bar"></span>
+      <span class="ham-bar"></span>
+    </button>
+  </nav>
+
+  <!-- Menú móvil -->
+  <div id="mobile-menu" class="mobile-menu" aria-hidden="true" role="dialog" aria-label="Menú móvil">
+    <ul role="list">
+      {navLinks.map((link) => (
+        <li>
+          <a href={link.href} class="mobile-link" data-mobile-link>
+            {link.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</header>
+
+<style>
+  /* ── Variables ── */
+  :root {
+    --gold:    #C9963A;
+    --gold-lt: #E0B86A;
+    --crimson: #8B1A1A;
+    --dark:    #0A0A0A;
+    --nav-h:   72px;
+  }
+
+  /* ── Header base ── */
+  header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    transition: background 0.45s ease, box-shadow 0.45s ease;
+    /* Estado inicial: transparente sobre el hero */
+    background: transparent;
+  }
+
+  header.scrolled {
+    background: rgba(8, 8, 8, 0.97);
+    backdrop-filter: blur(18px) saturate(120%);
+    -webkit-backdrop-filter: blur(18px) saturate(120%);
+    box-shadow: 0 1px 0 rgba(201, 150, 58, 0.12), 0 4px 40px rgba(0, 0, 0, 0.6);
+  }
+
+  /* Línea carmesí */
+  .nav-crimson-line {
+    height: 2px;
+    background: linear-gradient(to right, transparent 0%, var(--crimson) 25%, var(--crimson) 75%, transparent 100%);
+    opacity: 0;
+    transition: opacity 0.45s ease;
+  }
+  header.scrolled .nav-crimson-line {
+    opacity: 1;
+  }
+
+  /* ── Inner nav ── */
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    height: var(--nav-h);
+    padding: 0 clamp(1.5rem, 5vw, 3.5rem);
+  }
+
+  /* ── Logo ── */
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    text-decoration: none;
+  }
+  .nav-logo img {
+    height: 46px;
+    width: auto;
+    /* El logo tiene fondo oscuro propio — mix-blend-mode lo integra sin efecto sticker */
+    mix-blend-mode: lighten;
+    filter: brightness(1.05) contrast(1.05);
+    transition: filter 0.3s ease;
+  }
+  .nav-logo:hover img {
+    filter: brightness(1.15) contrast(1.05);
+  }
+
+  /* ── Separador ornamental ── */
+  .nav-separator {
+    width: 1px;
+    height: 28px;
+    background: linear-gradient(to bottom, transparent, rgba(201, 150, 58, 0.25), transparent);
+    margin: 0 clamp(1rem, 2.5vw, 2rem);
+    flex-shrink: 0;
+  }
+
+  /* ── Links desktop ── */
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: clamp(0.5rem, 2vw, 1.75rem);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    flex: 1;
+  }
+
+  .nav-link {
+    position: relative;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(240, 235, 225, 0.7);
+    text-decoration: none;
+    padding: 0.25rem 0;
+    transition: color 0.25s ease;
+    white-space: nowrap;
+  }
+  .nav-link:hover,
+  .nav-link.active {
+    color: var(--gold-lt);
+  }
+
+  /* Línea dorada bajo el link */
+  .nav-link-line {
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 100%;
+    height: 1px;
+    background: linear-gradient(to right, var(--gold), var(--gold-lt));
+    transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .nav-link:hover .nav-link-line,
+  .nav-link.active .nav-link-line {
+    right: 0;
+  }
+
+  /* ── CTA button ── */
+  .nav-cta {
+    flex-shrink: 0;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--dark);
+    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-lt) 50%, var(--gold) 100%);
+    background-size: 200% 100%;
+    padding: 0.6rem 1.5rem;
+    text-decoration: none;
+    transition: background-position 0.4s ease, box-shadow 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 0 20px rgba(201, 150, 58, 0.2);
+    margin-left: clamp(0.75rem, 2vw, 1.5rem);
+  }
+  .nav-cta:hover {
+    background-position: 100% 0;
+    box-shadow: 0 0 35px rgba(201, 150, 58, 0.45);
+    transform: translateY(-1px);
+  }
+
+  /* ── Hamburger — mobile ── */
+  .nav-hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 36px;
+    height: 36px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    margin-left: auto;
+  }
+
+  .ham-bar {
+    display: block;
+    width: 100%;
+    height: 1.5px;
+    background: rgba(240, 235, 225, 0.8);
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.3s ease,
+                background 0.3s ease;
+    transform-origin: center;
+  }
+
+  /* Estado abierto hamburger */
+  .nav-hamburger[aria-expanded="true"] .ham-bar:nth-child(1) {
+    transform: translateY(6.5px) rotate(45deg);
+    background: var(--gold);
+  }
+  .nav-hamburger[aria-expanded="true"] .ham-bar:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+  .nav-hamburger[aria-expanded="true"] .ham-bar:nth-child(3) {
+    transform: translateY(-6.5px) rotate(-45deg);
+    background: var(--gold);
+  }
+
+  /* ── Menú móvil ── */
+  .mobile-menu {
+    display: none;
+    flex-direction: column;
+    background: rgba(6, 6, 6, 0.98);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-top: 1px solid rgba(201, 150, 58, 0.1);
+    padding: 1.5rem clamp(1.5rem, 5vw, 3.5rem) 2rem;
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+                padding 0.35s ease;
+  }
+  .mobile-menu.open {
+    max-height: 500px;
+    padding-top: 1.5rem;
+    padding-bottom: 2rem;
+  }
+  .mobile-menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .mobile-link {
+    display: block;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(240, 235, 225, 0.7);
+    text-decoration: none;
+    padding: 0.9rem 0;
+    border-bottom: 1px solid rgba(201, 150, 58, 0.08);
+    transition: color 0.2s ease, padding-left 0.2s ease;
+  }
+  .mobile-link:last-child { border-bottom: none; }
+  .mobile-link:hover {
+    color: var(--gold-lt);
+    padding-left: 0.5rem;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 900px) {
+    .nav-links { display: none; }
+    .nav-separator { display: none; }
+    .nav-cta { display: none; }
+    .nav-hamburger { display: flex; }
+    .mobile-menu { display: flex; }
+  }
+</style>
+
+<script>
+  /* ── Scroll handler: transparente → scrolled ── */
+  const header = document.getElementById('navbar') as HTMLElement;
+
+  const updateNavState = () => {
+    header.classList.toggle('scrolled', window.scrollY > 40);
+  };
+
+  window.addEventListener('scroll', updateNavState, { passive: true });
+  updateNavState();
+
+  /* ── Hamburger toggle ── */
+  const btn = document.getElementById('hamburger-btn') as HTMLButtonElement;
+  const menu = document.getElementById('mobile-menu') as HTMLElement;
+
+  btn?.addEventListener('click', () => {
+    const isOpen = btn.getAttribute('aria-expanded') === 'true';
+    btn.setAttribute('aria-expanded', String(!isOpen));
+    menu.setAttribute('aria-hidden', String(isOpen));
+    menu.classList.toggle('open', !isOpen);
+  });
+
+  /* ── Cerrar menú al hacer clic en un link móvil ── */
+  document.querySelectorAll('[data-mobile-link]').forEach((link) => {
+    link.addEventListener('click', () => {
+      btn.setAttribute('aria-expanded', 'false');
+      menu.setAttribute('aria-hidden', 'true');
+      menu.classList.remove('open');
+    });
+  });
+
+  /* ── Active link según sección visible ── */
+  const sections = document.querySelectorAll('section[id]');
+  const navLinkEls = document.querySelectorAll('[data-nav-link]');
+
+  const sectionObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const id = entry.target.id;
+        navLinkEls.forEach((el) => {
+          const href = el.getAttribute('href');
+          el.classList.toggle('active', href === `#${id}`);
+        });
+      });
+    },
+    { rootMargin: '-40% 0px -40% 0px', threshold: 0 }
+  );
+
+  sections.forEach((s) => sectionObserver.observe(s));
+</script>

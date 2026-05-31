@@ -1,4 +1,6 @@
 ---
+import Navbar from '../components/Navbar.astro';
+
 interface Props {
   title?: string;
 }
@@ -31,12 +33,18 @@ const { title = 'RB Ganadería — Elevando el Estándar del Campo Colombiano' }
       "
     ></div>
 
+    <Navbar />
     <slot />
   </body>
 </html>
 
 <style is:global>
   * { box-sizing: border-box; }
+
+  /* Compensa el navbar sticky al anclar secciones */
+  section[id], footer[id] {
+    scroll-margin-top: 72px;
+  }
 
   ::selection {
     background-color: rgba(201, 150, 58, 0.2);

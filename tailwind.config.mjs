@@ -4,9 +4,29 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Paleta "Dark Luxury — RB Gold"
-        oro:    '#C9963A',  // dorado cálido del logo
-        acento: '#8B1A1A',  // carmesí del borde del logo
+        // Paleta "Dark Luxury — RB Gold". Superficies con tinte cálido (nunca negro puro).
+        superficie: {
+          0: '#0B0A09',
+          1: '#121110',
+          2: '#181715',
+          3: '#1F1D1A',
+        },
+        // Texto sobre superficies oscuras; contraste ≥4.5:1 contra superficie-3
+        tinta: {
+          DEFAULT: '#F0EBE1',
+          2: '#C2BCB0',
+          3: '#A09A8E',
+        },
+        oro: {
+          DEFAULT: '#C9963A',
+          claro: '#E0B86A',
+        },
+        acento: '#8B1A1A',
+        linea: {
+          DEFAULT: 'rgba(240,235,225,0.10)',
+          acento: 'rgba(139,26,26,0.45)',
+          oro: 'rgba(201,150,58,0.35)',
+        },
         verde: {
           profundo: '#2C4A2E',
           oliva:    '#5A6E3A',
@@ -14,9 +34,6 @@ export default {
         tierra: {
           claro: '#C4A882',
         },
-        hueso:  '#F0EBE1',
-        carbon: '#111111',
-        gris:   '#7A7A7A',
       },
       fontFamily: {
         serif: ['Playfair Display', 'Georgia', 'serif'],
@@ -24,27 +41,22 @@ export default {
         body:  ['Inter', 'system-ui', 'sans-serif'],
       },
       animation: {
-        'fade-up':      'fadeUp 0.9s ease-out forwards',
-        'fade-in':      'fadeIn 1.2s ease-out forwards',
+        'fade-up':      'fadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards',
         'scroll-arrow': 'scrollArrow 2s ease-in-out infinite',
-        'glow-pulse':   'glowPulse 3s ease-in-out infinite',
+        'hero-drift':   'heroDrift 24s ease-out forwards',
       },
       keyframes: {
         fadeUp: {
           '0%':   { opacity: '0', transform: 'translateY(32px)' },
           '100%': { opacity: '1', transform: 'translateY(0)' },
         },
-        fadeIn: {
-          '0%':   { opacity: '0' },
-          '100%': { opacity: '1' },
-        },
         scrollArrow: {
           '0%, 100%': { transform: 'translateY(0)', opacity: '0.5' },
           '50%':      { transform: 'translateY(10px)', opacity: '1' },
         },
-        glowPulse: {
-          '0%, 100%': { opacity: '0.6', transform: 'scale(1)' },
-          '50%':      { opacity: '1',   transform: 'scale(1.15)' },
+        heroDrift: {
+          '0%':   { transform: 'scale(1.04)' },
+          '100%': { transform: 'scale(1.12)' },
         },
       },
     },

@@ -1,0 +1,250 @@
+---
+// Sección: La hacienda — ensayo fotográfico con visor a pantalla completa
+import { Image, getImage } from 'astro:assets';
+import hatoFrente from '../assets/galeria/hato-pradera-frente.jpg';
+import manga from '../assets/galeria/manga-amarilla-vertical.jpg';
+import hatoCercano from '../assets/galeria/hato-pradera-cercano.jpg';
+import corralValle from '../assets/galeria/corral-valle-amplio.jpg';
+import corralReunido from '../assets/galeria/corral-hato-reunido.jpg';
+import corralCrias from '../assets/galeria/corral-crias-colinas.jpg';
+import corralLateral from '../assets/galeria/corral-vista-lateral.jpg';
+import corralPanoramica from '../assets/galeria/corral-panoramica.jpg';
+
+const fotos = [
+  { src: hatoFrente,        pie: 'Hato en la pradera',            alt: 'Hato de ganado rojo de frente en una pradera verde bajo un cielo abierto', area: 'col-span-2 row-span-2' },
+  { src: manga,             pie: 'Manga de manejo',               alt: 'Ganado dentro de la manga de manejo con portón amarillo y potreros al fondo', area: 'row-span-2' },
+  { src: hatoCercano,       pie: 'Ganado en el potrero',          alt: 'Grupo de reses en un potrero con árboles al fondo', area: 'row-span-2' },
+  { src: corralValle,       pie: 'Corral con vista al valle',     alt: 'Corral con piso de adoquín y ganado reunido frente a un valle verde', area: 'col-span-2' },
+  { src: corralReunido,     pie: 'Hato reunido en el corral',     alt: 'Hato reunido en el corral bajo un cielo nublado', area: '' },
+  { src: corralCrias,       pie: 'Crías en el corral',            alt: 'Crías de ganado en el corral con colinas verdes al fondo', area: '' },
+  { src: corralLateral,     pie: 'Corral, vista lateral',         alt: 'Vista lateral del corral con la cerca oscura y el campo abierto', area: 'col-span-2 md:col-span-1' },
+  { src: corralPanoramica,  pie: 'Panorámica de la hacienda',     alt: 'Panorámica del corral y las colinas de la hacienda', area: 'col-span-2 md:col-span-3' },
+];
+
+// Versión ampliada para el visor
+const ampliadas = await Promise.all(
+  fotos.map((f) => getImage({ src: f.src, width: 1600, format: 'webp' })),
+);
+---
+
+<section
+  id="hacienda"
+  class="relative py-20 md:py-28 px-5 sm:px-6 bg-superficie-1 border-t border-linea-acento"
+  aria-labelledby="hacienda-titulo"
+>
+  <div class="max-w-6xl mx-auto">
+
+    <div class="mb-10 md:mb-14" data-reveal>
+      <h2 id="hacienda-titulo" class="font-serif text-3xl sm:text-4xl md:text-5xl leading-[1.15] max-w-2xl text-tinta text-balance">
+        Un recorrido por la hacienda
+      </h2>
+    </div>
+
+    <ul class="galeria grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3" data-reveal style="--d: 0.1s;">
+      {fotos.map((f, i) => (
+        <li class={`${f.area} relative min-h-0`}>
+          <button
+            type="button"
+            class="galeria-item group"
+            data-index={i}
+            aria-label={`Ampliar foto: ${f.pie}`}
+          >
+            <Image
+              src={f.src}
+              alt={f.alt}
+              widths={[480, 800, 1200]}
+              sizes="(min-width: 1152px) 560px, (min-width: 768px) 50vw, 100vw"
+              loading="lazy"
+              class="galeria-img"
+            />
+            <span class="galeria-pie" aria-hidden="true">{f.pie}</span>
+          </button>
+        </li>
+      ))}
+    </ul>
+  </div>
+
+  <!-- Visor: <dialog> nativo; Esc cierra, flechas navegan -->
+  <dialog id="visor" class="visor" aria-label="Visor de fotografías de la hacienda">
+    <figure class="visor-figura">
+      <img id="visor-img" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="" />
+      <figcaption id="visor-pie"></figcaption>
+    </figure>
+    <button type="button" class="visor-btn visor-cerrar" id="visor-cerrar" aria-label="Cerrar visor">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <button type="button" class="visor-btn visor-prev" id="visor-prev" aria-label="Foto anterior">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15 5l-7 7 7 7"/></svg>
+    </button>
+    <button type="button" class="visor-btn visor-next" id="visor-next" aria-label="Foto siguiente">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+    </button>
+  </dialog>
+
+  <script type="application/json" id="galeria-datos" set:html={JSON.stringify(
+    fotos.map((f, i) => ({ src: ampliadas[i].src, pie: f.pie, alt: f.alt })),
+  )} />
+</section>
+
+<style>
+  .galeria {
+    grid-auto-rows: 170px;
+  }
+  @media (min-width: 768px) {
+    .galeria { grid-auto-rows: 230px; }
+  }
+
+  .galeria-item {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    padding: 0;
+    border: 1px solid rgba(139, 26, 26, 0.3);
+    background: #0B0A09;
+    cursor: zoom-in;
+  }
+  .galeria-item :global(.galeria-img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease;
+    filter: saturate(0.92) brightness(0.92);
+  }
+  .galeria-item:hover :global(.galeria-img),
+  .galeria-item:focus-visible :global(.galeria-img) {
+    transform: scale(1.04);
+    filter: none;
+  }
+  .galeria-pie {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 2rem 1rem 0.8rem;
+    text-align: left;
+    font: 500 0.75rem/1.3 'Poppins', sans-serif;
+    letter-spacing: 0.06em;
+    color: #F0EBE1;
+    background: linear-gradient(to top, rgba(11,10,9,0.85), transparent);
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.4s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .galeria-item:hover .galeria-pie,
+  .galeria-item:focus-visible .galeria-pie {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* ── Visor ── */
+  .visor {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100svh;
+    max-width: none;
+    max-height: none;
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: rgba(11, 10, 9, 0.96);
+    color: #F0EBE1;
+  }
+  .visor:not([open]) { display: none; }
+  .visor::backdrop { background: rgba(11, 10, 9, 0.9); }
+  .visor-figura {
+    margin: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4.5rem 1rem 1.5rem;
+    gap: 1rem;
+  }
+  .visor-figura img {
+    max-width: 100%;
+    max-height: calc(100svh - 10rem);
+    object-fit: contain;
+    border: 1px solid rgba(139, 26, 26, 0.35);
+  }
+  .visor-figura figcaption {
+    font: 500 0.8rem/1.4 'Poppins', sans-serif;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #C2BCB0;
+  }
+  .visor-btn {
+    position: absolute;
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    background: rgba(24, 23, 21, 0.85);
+    border: 1px solid rgba(201, 150, 58, 0.35);
+    border-radius: 999px;
+    color: #E0B86A;
+    cursor: pointer;
+    transition: background 0.25s ease, border-color 0.25s ease;
+  }
+  .visor-btn:hover { background: #1F1D1A; border-color: #E0B86A; }
+  .visor-btn svg { width: 22px; height: 22px; }
+  .visor-cerrar { top: 1rem; right: 1rem; }
+  .visor-prev { left: 1rem; top: 50%; transform: translateY(-50%); }
+  .visor-next { right: 1rem; top: 50%; transform: translateY(-50%); }
+  @media (max-width: 640px) {
+    .visor-prev, .visor-next { top: auto; bottom: 1.25rem; transform: none; }
+    .visor-prev { left: calc(50% - 4rem); }
+    .visor-next { right: calc(50% - 4rem); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .galeria-item :global(.galeria-img), .galeria-pie { transition: none; }
+  }
+</style>
+
+<script>
+  type Foto = { src: string; pie: string; alt: string };
+
+  const datos: Foto[] = JSON.parse(document.getElementById('galeria-datos')?.textContent ?? '[]');
+  const visor = document.getElementById('visor') as HTMLDialogElement;
+  const img = document.getElementById('visor-img') as HTMLImageElement;
+  const pie = document.getElementById('visor-pie') as HTMLElement;
+  const items = document.querySelectorAll<HTMLButtonElement>('.galeria-item');
+
+  let actual = 0;
+  let origen: HTMLElement | null = null;
+
+  const mostrar = (i: number) => {
+    actual = (i + datos.length) % datos.length;
+    img.src = datos[actual].src;
+    img.alt = datos[actual].alt;
+    pie.textContent = `${datos[actual].pie} · ${actual + 1} / ${datos.length}`;
+  };
+
+  items.forEach((btn, i) => {
+    btn.addEventListener('click', () => {
+      origen = btn;
+      mostrar(i);
+      visor.showModal();
+    });
+  });
+
+  document.getElementById('visor-cerrar')?.addEventListener('click', () => visor.close());
+  document.getElementById('visor-prev')?.addEventListener('click', () => mostrar(actual - 1));
+  document.getElementById('visor-next')?.addEventListener('click', () => mostrar(actual + 1));
+
+  // Clic sobre el fondo (fuera de la foto y los botones) cierra
+  visor.addEventListener('click', (e) => {
+    if (e.target === visor || (e.target as HTMLElement).tagName === 'FIGURE') visor.close();
+  });
+
+  visor.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft') mostrar(actual - 1);
+    if (e.key === 'ArrowRight') mostrar(actual + 1);
+  });
+
+  visor.addEventListener('close', () => origen?.focus());
+</script>

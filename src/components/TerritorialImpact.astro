@@ -1,5 +1,5 @@
 ---
-// Sección 4: Impacto Territorial — mapa de Colombia + narrativa, dark luxury
+// Sección: Impacto Territorial — mapa de Colombia + narrativa
 const pilares = [
   {
     titulo:  'Una Potencia Ganadera Continental',
@@ -18,73 +18,48 @@ const pilares = [
 
 <section
   id="impacto"
-  class="relative py-16 sm:py-20 md:py-28 px-5 sm:px-6 overflow-hidden"
-  style="background-color: #141414; border-top: 1px solid rgba(139,26,26,0.35);"
+  class="relative py-20 md:py-28 px-5 sm:px-6 bg-superficie-2 border-t border-linea-acento"
   aria-labelledby="impacto-titulo"
 >
-  <!-- Resplandor dorado muy tenue centrado arriba -->
-  <div
-    class="absolute pointer-events-none"
-    style="top: 0; left: 50%; transform: translateX(-50%); width: 700px; height: 250px;
-           background: radial-gradient(ellipse at 50% 0%, rgba(201,150,58,0.05) 0%, transparent 70%);"
-    aria-hidden="true"
-  ></div>
+  <div class="max-w-6xl mx-auto">
 
-  <div class="relative max-w-6xl mx-auto">
-
-    <!-- Separador -->
-    <div class="flex items-center gap-6 mb-20" aria-hidden="true">
-      <div class="flex-1 h-px" style="background: rgba(240,235,225,0.08);"></div>
-      <span class="font-sans text-[9px] tracking-[0.6em] uppercase" style="color: rgba(201,150,58,0.4);">03</span>
-      <div class="flex-1 h-px" style="background: rgba(240,235,225,0.08);"></div>
-    </div>
-
-    <!-- Encabezado centrado -->
-    <div class="text-center mb-12 md:mb-20" data-animate="fade-up">
-      <p class="font-sans text-xs tracking-[0.35em] uppercase font-semibold mb-4 sm:mb-5" style="color: #C9963A;">
-        Impacto Territorial
-      </p>
-      <h2 id="impacto-titulo" class="font-serif text-3xl sm:text-4xl md:text-5xl leading-[1.15] max-w-2xl mx-auto" style="color: #F0EBE1;">
+    <div class="text-center mb-12 md:mb-20" data-reveal>
+      <h2 id="impacto-titulo" class="font-serif text-3xl sm:text-4xl md:text-5xl leading-[1.15] max-w-2xl mx-auto text-tinta text-balance">
         La ganadería, pilar del corazón productivo de Colombia
       </h2>
     </div>
 
-    <div class="grid md:grid-cols-2 gap-10 md:gap-16 items-center">
+    <div class="grid md:grid-cols-2 gap-12 md:gap-20 items-center">
 
       <!-- Mapa — puntos luminosos dorados sobre negro -->
-      <div
-        class="relative flex items-center justify-center order-2 md:order-1"
-        data-animate="fade-up"
-        aria-label="Mapa de presencia territorial en Colombia"
-      >
+      <div class="relative flex items-center justify-center order-2 md:order-1" data-reveal>
         <div class="relative w-full max-w-sm mx-auto">
           <!-- Marco carmesí del mapa — eco del logo -->
-          <div
-            class="absolute pointer-events-none"
-            style="inset: -12px; border: 1px solid rgba(139,26,26,0.25);"
-            aria-hidden="true"
-          ></div>
+          <div class="absolute pointer-events-none border border-linea-acento" style="inset: -12px;" aria-hidden="true"></div>
 
-          <!-- SVG Colombia inline — silueta trazada a escala geográfica real -->
+          <!-- Silueta de Colombia proyectada desde coordenadas geográficas (lon/lat) -->
           <svg
             viewBox="0 0 260 350"
             class="w-full h-auto"
             xmlns="http://www.w3.org/2000/svg"
             role="img"
-            aria-label="Mapa de las principales regiones ganaderas de Colombia"
+            aria-labelledby="mapa-titulo mapa-desc"
           >
+            <title id="mapa-titulo">Mapa de las principales regiones ganaderas de Colombia</title>
+            <desc id="mapa-desc">Silueta de Colombia con cuatro zonas marcadas: Costa Caribe, Antioquia, Magdalena Medio y Llanos Orientales, la región con el mayor hato nacional.</desc>
             <defs>
               <style>
-                .dot-pulse {
-                  animation: dotPulse 2.8s ease-in-out infinite;
-                }
-                @keyframes dotPulse {
-                  0%, 100% { opacity: 1; }
-                  50%       { opacity: 0.55; }
-                }
+                .dot-pulse   { animation: dotPulse 2.8s ease-in-out infinite; }
                 .dot-pulse-b { animation: dotPulse 2.8s ease-in-out infinite 0.7s; }
                 .dot-pulse-c { animation: dotPulse 2.8s ease-in-out infinite 1.3s; }
                 .dot-pulse-d { animation: dotPulse 2.8s ease-in-out infinite 2.0s; }
+                @keyframes dotPulse {
+                  0%, 100% { opacity: 1; }
+                  50%      { opacity: 0.55; }
+                }
+                @media (prefers-reduced-motion: reduce) {
+                  .dot-pulse, .dot-pulse-b, .dot-pulse-c, .dot-pulse-d { animation: none; }
+                }
               </style>
               <filter id="glow-gold" x="-60%" y="-60%" width="220%" height="220%">
                 <feGaussianBlur stdDeviation="4" result="blur"/>
@@ -98,62 +73,48 @@ const pilares = [
 
             <!-- Silueta de Colombia -->
             <path
-              d="M 49,98
-                 L 62,82 L 82,60 L 90,48 L 102,38
-                 L 118,28 L 128,18 L 140,10 L 152,20
-                 L 158,36 L 154,60 L 156,88
-                 L 170,108 L 192,120 L 230,132 L 240,155
-                 L 238,182 L 230,210 L 220,242 L 205,278
-                 L 188,308 L 165,318 L 140,312
-                 L 115,305 L 92,295 L 72,278
-                 L 52,260 L 20,238
-                 L 34,200 L 40,172 L 38,148 L 36,122
-                 Z"
-              fill="rgba(139,26,26,0.07)"
-              stroke="rgba(201,150,58,0.28)"
+              d="M 43,86.6 L 51,97 L 55,99 L 53,87 L 66,74 L 76,57 L 80,51 L 93,41 L 106,34 L 122,34 L 132,28 L 146,21 L 157,11 L 163,23 L 147,38 L 140,54 L 133,74 L 146,81 L 141,100 L 149,120 L 174,120 L 188,121 L 202,138 L 234,136 L 241,146 L 241,164 L 235,184 L 238,202 L 246,216 L 248,224 L 252,235 L 230,226 L 202,239 L 194,246 L 189,263 L 201,282 L 198,304 L 191,344 L 179,336 L 184,314 L 160,306 L 138,308 L 116,288 L 100,268 L 84,263 L 62,253 L 39,247 L 26,241 L 12,231 L 15,218 L 28,208 L 39,189 L 46,181 L 41,163 L 40,148 L 43,137 L 36,124 L 32,115 L 41,102 L 46,93 Z"
+              fill="rgba(139,26,26,0.1)"
+              stroke="rgba(201,150,58,0.5)"
               stroke-width="1.2"
               stroke-linejoin="round"
             />
 
-            <!-- ── Costa Caribe (Córdoba · Sucre · Bolívar) ── -->
-            <circle cx="72" cy="76" r="5.5" fill="#C9963A" filter="url(#glow-gold)" class="dot-pulse"/>
-            <text x="81" y="72" fill="rgba(240,235,225,0.9)" font-size="8" font-family="Poppins,sans-serif" font-weight="600" letter-spacing="0.3">Costa Caribe</text>
-            <text x="81" y="82" fill="rgba(201,150,58,0.7)" font-size="6.5" font-family="Poppins,sans-serif">Córdoba · Sucre · Bolívar</text>
+            <!-- Costa Caribe (Córdoba · Sucre · Bolívar) -->
+            <circle cx="82" cy="82" r="5.5" fill="#C9963A" filter="url(#glow-gold)" class="dot-pulse"/>
+            <text x="92" y="79" fill="#F0EBE1" font-size="9.5" font-family="Poppins,sans-serif" font-weight="600">Costa Caribe</text>
+            <text x="92" y="90" fill="#E0B86A" font-size="7.5" font-family="Poppins,sans-serif">Córdoba · Sucre · Bolívar</text>
 
-            <!-- ── Antioquia ── -->
-            <circle cx="66" cy="134" r="5" fill="#C9963A" filter="url(#glow-gold)" class="dot-pulse-b"/>
-            <text x="59" y="130" fill="rgba(240,235,225,0.9)" font-size="8" font-family="Poppins,sans-serif" font-weight="600" letter-spacing="0.3" text-anchor="end">Antioquia</text>
-            <text x="59" y="140" fill="rgba(201,150,58,0.7)" font-size="6.5" font-family="Poppins,sans-serif" text-anchor="end">~2,2 M cabezas</text>
+            <!-- Antioquia -->
+            <circle cx="78" cy="128" r="5" fill="#C9963A" filter="url(#glow-gold)" class="dot-pulse-b"/>
+            <text x="68" y="133" fill="#F0EBE1" font-size="9.5" font-family="Poppins,sans-serif" font-weight="600" text-anchor="end">Antioquia</text>
+            <text x="68" y="144" fill="#E0B86A" font-size="7.5" font-family="Poppins,sans-serif" text-anchor="end">~2,2 M cabezas</text>
 
-            <!-- ── Magdalena Medio ── -->
-            <circle cx="106" cy="122" r="3.5" fill="rgba(240,235,225,0.5)" filter="url(#glow-sm)" class="dot-pulse-d"/>
-            <text x="106" y="115" fill="rgba(240,235,225,0.62)" font-size="6.5" font-family="Poppins,sans-serif" text-anchor="middle">Magdalena Medio</text>
+            <!-- Magdalena Medio -->
+            <circle cx="102" cy="120" r="3.5" fill="#C2BCB0" filter="url(#glow-sm)" class="dot-pulse-d"/>
+            <text x="104" y="109" fill="#C2BCB0" font-size="7.5" font-family="Poppins,sans-serif" text-anchor="middle">Magdalena Medio</text>
 
-            <!-- ── Llanos Orientales (mayor hato nacional) ── -->
-            <circle cx="148" cy="165" r="7" fill="#C9963A" filter="url(#glow-gold)" class="dot-pulse-c"/>
-            <text x="159" y="161" fill="rgba(240,235,225,0.9)" font-size="8" font-family="Poppins,sans-serif" font-weight="600" letter-spacing="0.3">Llanos Orientales</text>
-            <text x="159" y="171" fill="rgba(201,150,58,0.7)" font-size="6.5" font-family="Poppins,sans-serif">Casanare · Meta · Arauca</text>
+            <!-- Llanos Orientales (mayor hato nacional) -->
+            <circle cx="154" cy="154" r="7" fill="#C9963A" filter="url(#glow-gold)" class="dot-pulse-c"/>
+            <text x="166" y="151" fill="#F0EBE1" font-size="9.5" font-family="Poppins,sans-serif" font-weight="600">Llanos Orientales</text>
+            <text x="166" y="162" fill="#E0B86A" font-size="7.5" font-family="Poppins,sans-serif">Casanare · Meta · Arauca</text>
           </svg>
         </div>
       </div>
 
       <!-- Pilares narrativos -->
-      <div class="flex flex-col order-1 md:order-2" data-animate="fade-up" style="transition-delay: 0.2s;">
+      <div class="flex flex-col order-1 md:order-2" data-reveal style="--d: 0.15s;">
         {pilares.map((pilar, i) => (
           <div
-            class="group py-6 sm:py-8 pl-5 sm:pl-7 transition-all duration-500"
-            style={`
-              border-left: 1px solid rgba(139,26,26,0.3);
-              ${i < pilares.length - 1 ? 'border-bottom: 1px solid rgba(240,235,225,0.06);' : ''}
-            `}
+            class:list={[
+              'py-6 sm:py-8 pl-5 sm:pl-7 border-l border-linea-acento',
+              { 'border-b border-b-linea': i < pilares.length - 1 },
+            ]}
           >
-            <span class="font-sans text-[10px] tracking-[0.4em] uppercase font-medium mb-3 block" style="color: rgba(201,150,58,0.6);">
-              0{i + 1}
-            </span>
-            <h3 class="font-sans font-semibold text-base leading-snug mb-3 transition-colors duration-300 group-hover:opacity-100" style="color: rgba(240,235,225,0.8);">
+            <h3 class="font-sans font-semibold text-lg leading-snug mb-3 text-tinta">
               {pilar.titulo}
             </h3>
-            <p class="font-body text-sm leading-relaxed transition-colors duration-300" style="color: rgba(240,235,225,0.38);">
+            <p class="font-body text-base leading-relaxed text-tinta-2" style="text-wrap: pretty;">
               {pilar.cuerpo}
             </p>
           </div>

@@ -1,25 +1,40 @@
 ---
-// Hero: cabecera inmersiva — video de fondo 100vh, estética dark luxury
+// Hero: cabecera inmersiva — foto a pantalla completa con video encima cuando exista
+import { Image } from 'astro:assets';
+import heroFoto from '../assets/galeria/hero-hato-frente.jpg';
 ---
 
 <section
   id="inicio"
-  class="relative h-screen w-full overflow-hidden flex items-center justify-center"
-  style="background-color: #0A0A0A;"
+  class="relative min-h-[100svh] w-full overflow-hidden flex items-center justify-center bg-superficie-0"
   aria-label="Cabecera principal RB Ganadería"
 >
+  <!-- Foto de respaldo: nunca queda negro si el video falta o tarda -->
+  <Image
+    src={heroFoto}
+    alt=""
+    widths={[768, 1280, 1920]}
+    sizes="100vw"
+    loading="eager"
+    fetchpriority="high"
+    class="absolute inset-0 w-full h-full object-cover animate-hero-drift"
+    aria-hidden="true"
+  />
+
   <!-- Video — reemplazar con video de drones de la hacienda -->
   <video
     class="absolute inset-0 w-full h-full object-cover"
     src="/placeholder.mp4"
     autoplay muted loop playsinline
+    preload="none"
     aria-hidden="true"
+    onerror="this.remove()"
   ></video>
 
-  <!-- Overlay negro profundo sobre video -->
+  <!-- Overlay cálido: protege la lectura del titular y la barra de navegación -->
   <div
     class="absolute inset-0"
-    style="background: linear-gradient(to bottom, rgba(10,10,10,0.55) 0%, rgba(10,10,10,0.65) 50%, rgba(10,10,10,0.95) 100%);"
+    style="background: linear-gradient(to bottom, rgba(11,10,9,0.78) 0%, rgba(11,10,9,0.5) 38%, rgba(11,10,9,0.62) 68%, #121110 100%);"
     aria-hidden="true"
   ></div>
 
@@ -32,38 +47,30 @@
 
   <!-- Contenido centrado -->
   <div
-    class="relative z-10 text-center px-5 sm:px-6 max-w-4xl mx-auto opacity-0 animate-fade-up"
-    style="animation-delay: 0.4s; animation-fill-mode: forwards;"
+    class="relative z-10 text-center px-5 sm:px-6 pt-28 pb-24 max-w-4xl mx-auto opacity-0 animate-fade-up"
+    style="animation-delay: 0.3s;"
   >
-    <!-- Overline dorado -->
-    <div class="flex items-center justify-center gap-3 sm:gap-5 mb-6 sm:mb-8">
-      <div class="h-px w-8 sm:w-14" style="background: linear-gradient(to right, transparent, #C9963A);"></div>
-      <p class="font-sans text-[10px] sm:text-xs tracking-[0.3em] sm:tracking-[0.4em] uppercase font-medium whitespace-nowrap" style="color: #C9963A;">
-        Colombia · Ganadería de Excelencia
-      </p>
-      <div class="h-px w-8 sm:w-14" style="background: linear-gradient(to left, transparent, #C9963A);"></div>
-    </div>
-
-    <h1 class="font-serif leading-[1.1] mb-6 sm:mb-8" style="font-size: clamp(2rem, 6.5vw, 5rem); color: #F0EBE1;">
+    <h1 class="font-serif leading-[1.1] mb-6 sm:mb-8 text-tinta text-balance" style="font-size: clamp(2.1rem, 6.5vw, 5rem); text-shadow: 0 2px 30px rgba(0,0,0,0.45);">
       RB Ganadería:<br/>
-      <em style="font-style: italic; color: rgba(240,235,225,0.65);">Elevando el Estándar<br class="sm:hidden"/>&#8202;del Campo Colombiano</em>
+      <em class="italic text-tinta-2">Elevando el Estándar<br class="sm:hidden"/>&#8202;del Campo Colombiano</em>
     </h1>
 
-    <p class="font-body text-base sm:text-lg md:text-xl font-light max-w-2xl mx-auto leading-relaxed px-2 sm:px-0" style="color: rgba(240,235,225,0.55);">
+    <div class="mx-auto mb-6 sm:mb-8 w-14 h-px bg-oro/70" aria-hidden="true"></div>
+
+    <p class="font-body text-base sm:text-lg md:text-xl font-light max-w-2xl mx-auto leading-relaxed text-tinta" style="text-wrap: pretty;">
       Décadas de trayectoria, rigor genético y compromiso inquebrantable con la sostenibilidad productiva de nuestra nación.
     </p>
   </div>
 
   <!-- Flecha de scroll — solo desktop -->
   <div class="hidden sm:block absolute bottom-10 left-1/2 -translate-x-1/2 z-10 animate-scroll-arrow">
-    <a href="#fundacion" class="flex flex-col items-center gap-3 group" aria-label="Ver más">
+    <a href="#fundacion" class="flex flex-col items-center gap-3" aria-label="Ir a la siguiente sección">
       <span
-        class="block w-px h-10 transition-all duration-500"
-        style="background: linear-gradient(to bottom, transparent, rgba(201,150,58,0.5));"
+        class="block w-px h-10"
+        style="background: linear-gradient(to bottom, transparent, rgba(224,184,106,0.8));"
       ></span>
       <svg
-        class="w-4 h-4 transition-colors duration-300"
-        style="color: rgba(201,150,58,0.55);"
+        class="w-4 h-4 text-oro-claro"
         fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
         aria-hidden="true"
       >

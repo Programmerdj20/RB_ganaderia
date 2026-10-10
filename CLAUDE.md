@@ -11,8 +11,8 @@ Sitio divulgativo sobre el **Brahman Rojo colombiano**, presentado por **RB Gana
 - Sin contacto, correo, botones de CTA ni columnas corporativas en el footer.
 - Audiencia mixta (gremio, aliados, autoridades, público); tono divulgativo de alto nivel, no comercial.
 - Cada cifra lleva fuente verificable (FEDEGAN, ICA, DANE, Asocebú, literatura científica) en comentario o visible en la sección. Si no se puede verificar, no se usa.
-- El mapa de `TerritorialImpact` no se toca. El logo (`public/rb-logo.webp`, fondo `#020101`) solo va sobre fondos de ese mismo color; sobre fotos se ve como sticker.
-- Se trabaja por partes, una sección a la vez. Hecho: navbar, footer, Hero, Foundation, Excellence ("La ciencia"), textos de GlobalQuality y TerritorialImpact. Pendiente: revisar Gallery, rediseño visual de las demás secciones, y etiquetas del mapa (Antioquia aparece con ~2,2 M cabezas; FEDEGAN reporta ~3,25 M).
+- El mapa de `TerritorialImpact` se rehízo (contorno real por departamentos en `src/data/colombia-departamentos.json`, datos de vacunación ciclo I 2025). El logo (`public/rb-logo.webp`, fondo `#020101`) solo va sobre fondos de ese mismo color; sobre fotos se ve como sticker.
+- Se trabaja por partes, una sección a la vez. Hecho: navbar, footer, Hero, Foundation, Excellence ("La ciencia"), TerritorialImpact (mapa interactivo) y textos de GlobalQuality. Pendiente: rediseño visual de Hero, Foundation, Gallery y GlobalQuality.
 - Contexto de producto en `PRODUCT.md`.
 
 ## Stack Tecnológico

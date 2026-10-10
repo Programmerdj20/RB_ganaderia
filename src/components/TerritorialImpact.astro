@@ -1,125 +1,262 @@
 ---
-// Sección: Impacto Territorial — mapa de Colombia + narrativa
+// Sección: Territorio — mapa por departamentos (contorno real, MGN-DANE 2018) con datos interactivos.
+// Fuente de los conteos: bovinos vacunados contra fiebre aftosa, ciclo I de 2025 (FEDEGAN-FNG e ICA),
+// reseñados por CONtexto Ganadero, agosto de 2025. Son un indicador del tamaño del hato, no un censo.
+import mapa from '../data/colombia-departamentos.json';
+
+const regiones = [
+  { id: 'ANTIOQUIA', nombre: 'Antioquia', zona: 'Región Andina', cabezas: 3237116,
+    texto: 'El departamento con más ganado del país: reúne cerca del 11 % del hato nacional.' },
+  { id: 'META', nombre: 'Meta', zona: 'Llanos Orientales', cabezas: 2471372,
+    texto: 'Puerta de los Llanos Orientales, con sabanas y piedemonte dedicados a la ganadería.' },
+  { id: 'CASANARE', nombre: 'Casanare', zona: 'Llanos Orientales', cabezas: 2460274,
+    texto: 'Sabanas inundables del piedemonte llanero, entre las zonas ganaderas más extensas del país.' },
+  { id: 'CÓRDOBA', nombre: 'Córdoba', zona: 'Costa Caribe', cabezas: 2275353,
+    texto: 'Los valles del Sinú y del San Jorge, en el trópico bajo del Caribe colombiano.' },
+  { id: 'CESAR', nombre: 'Cesar', zona: 'Costa Caribe', cabezas: 1702434,
+    texto: 'Valle del río Cesar y sabanas del Caribe seco, con una larga tradición ganadera.' },
+  { id: 'SANTANDER', nombre: 'Santander', zona: 'Magdalena Medio', cabezas: 1658525,
+    texto: 'Incluye parte del Magdalena Medio, uno de los corredores ganaderos históricos del país.' },
+  { id: 'ARAUCA', nombre: 'Arauca', zona: 'Llanos Orientales', cabezas: 1410557,
+    texto: 'Sabana llanera en la frontera con Venezuela.' },
+];
+const max = regiones[0].cabezas;
+const fmt = (n: number) => n.toLocaleString('es-CO');
+const activas = new Map(regiones.map((r) => [r.id, r]));
+const otros = Object.entries(mapa.paths).filter(([id]) => !activas.has(id));
+
 const pilares = [
   {
-    titulo:  'Una Potencia Ganadera Continental',
-    cuerpo:  'Colombia cuenta con cerca de 29 millones de bovinos repartidos en más de 600.000 predios (FEDEGAN, 2025). La ganadería genera más de 1,09 millones de empleos directos, el mayor aporte al empleo rural del país.',
+    titulo: 'Una potencia ganadera',
+    cuerpo: 'Colombia cuenta con cerca de 29 millones de bovinos repartidos en más de 600.000 predios (FEDEGAN, 2025). La ganadería genera más de 1,09 millones de empleos directos, el mayor aporte al empleo rural del país.',
   },
   {
-    titulo:  'Regiones que Sostienen el Hato Nacional',
-    cuerpo:  'Los Llanos Orientales —Casanare, Meta, Arauca y Vichada— concentran alrededor del 30 % del inventario bovino del país. La Costa Atlántica y Antioquia completan el triángulo productivo que define la geografía ganadera de Colombia.',
+    titulo: 'Regiones que sostienen el hato',
+    cuerpo: 'Meta, Casanare y Arauca reúnen más de 6,3 millones de bovinos vacunados, cerca de una quinta parte del hato nacional. La Costa Caribe y Antioquia completan el triángulo productivo del país.',
   },
   {
-    titulo:  'Biodiversidad y Vocación de Largo Plazo',
-    cuerpo:  'La adopción creciente de sistemas silvopastoriles en el territorio nacional combina producción bovina con conservación de suelos, protección de fuentes hídricas y secuestro de carbono, consolidando un modelo ganadero compatible con la biodiversidad colombiana.',
+    titulo: 'Biodiversidad y largo plazo',
+    cuerpo: 'Los sistemas silvopastoriles combinan producción bovina con conservación de suelos, protección de fuentes hídricas y captura de carbono, un modelo compatible con la biodiversidad colombiana.',
   },
 ];
 ---
 
 <section
   id="impacto"
-  class="relative py-20 md:py-28 px-5 sm:px-6 bg-superficie-2 border-t border-linea-acento"
+  class="relative py-20 md:py-32 px-5 sm:px-6 bg-superficie-2 border-t border-linea-acento"
   aria-labelledby="impacto-titulo"
 >
   <div class="max-w-6xl mx-auto">
 
-    <div class="text-center mb-12 md:mb-20" data-reveal>
-      <h2 id="impacto-titulo" class="font-serif text-3xl sm:text-4xl md:text-5xl leading-[1.15] max-w-2xl mx-auto text-tinta text-balance">
-        La ganadería, pilar del corazón productivo de Colombia
+    <div class="grid md:grid-cols-12 gap-6 md:gap-16 mb-14 md:mb-20" data-reveal>
+      <h2 id="impacto-titulo" class="md:col-span-7 font-serif text-3xl sm:text-4xl md:text-5xl leading-[1.15] text-tinta text-balance">
+        El trópico colombiano, hogar del ganado Brahman
       </h2>
+      <p class="md:col-span-5 md:pt-3 font-body text-lg leading-relaxed text-tinta-2" style="text-wrap: pretty;">
+        Del Caribe a los Llanos, las tierras bajas y cálidas concentran el hato del país. Explora los departamentos con más ganado.
+      </p>
     </div>
 
-    <div class="grid md:grid-cols-2 gap-12 md:gap-20 items-center">
+    <div class="territorio grid md:grid-cols-12 gap-10 md:gap-16 items-start">
 
-      <!-- Mapa — puntos luminosos dorados sobre negro -->
-      <div class="relative flex items-center justify-center order-2 md:order-1" data-reveal>
-        <div class="relative w-full max-w-sm mx-auto">
-          <!-- Marco carmesí del mapa — eco del logo -->
-          <div class="absolute pointer-events-none border border-linea-acento" style="inset: -12px;" aria-hidden="true"></div>
+      <!-- Mapa por departamentos -->
+      <div class="md:col-span-6 relative mx-auto w-full max-w-md md:max-w-none" data-reveal>
+        <svg
+          viewBox={`0 0 ${mapa.w} ${mapa.h}`}
+          class="mapa w-full h-auto"
+          xmlns="http://www.w3.org/2000/svg"
+          role="img"
+          aria-labelledby="mapa-titulo mapa-desc"
+        >
+          <title id="mapa-titulo">Mapa de Colombia por departamentos</title>
+          <desc id="mapa-desc">Siete departamentos con mayor inventario bovino resaltados: Antioquia, Meta, Casanare, Córdoba, Cesar, Santander y Arauca. La lista de la derecha da el detalle de cada uno.</desc>
+          <defs>
+            <filter id="brillo" x="-80%" y="-80%" width="260%" height="260%">
+              <feGaussianBlur stdDeviation="5" result="blur" />
+              <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
+            </filter>
+          </defs>
 
-          <!-- Silueta de Colombia proyectada desde coordenadas geográficas (lon/lat) -->
-          <svg
-            viewBox="0 0 260 350"
-            class="w-full h-auto"
-            xmlns="http://www.w3.org/2000/svg"
-            role="img"
-            aria-labelledby="mapa-titulo mapa-desc"
-          >
-            <title id="mapa-titulo">Mapa de las principales regiones ganaderas de Colombia</title>
-            <desc id="mapa-desc">Silueta de Colombia con cuatro zonas marcadas: Costa Caribe, Antioquia, Magdalena Medio y Llanos Orientales, la región con el mayor hato nacional.</desc>
-            <defs>
-              <style>
-                .dot-pulse   { animation: dotPulse 2.8s ease-in-out infinite; }
-                .dot-pulse-b { animation: dotPulse 2.8s ease-in-out infinite 0.7s; }
-                .dot-pulse-c { animation: dotPulse 2.8s ease-in-out infinite 1.3s; }
-                .dot-pulse-d { animation: dotPulse 2.8s ease-in-out infinite 2.0s; }
-                @keyframes dotPulse {
-                  0%, 100% { opacity: 1; }
-                  50%      { opacity: 0.55; }
-                }
-                @media (prefers-reduced-motion: reduce) {
-                  .dot-pulse, .dot-pulse-b, .dot-pulse-c, .dot-pulse-d { animation: none; }
-                }
-              </style>
-              <filter id="glow-gold" x="-60%" y="-60%" width="220%" height="220%">
-                <feGaussianBlur stdDeviation="4" result="blur"/>
-                <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-              </filter>
-              <filter id="glow-sm" x="-60%" y="-60%" width="220%" height="220%">
-                <feGaussianBlur stdDeviation="2.5" result="blur"/>
-                <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-              </filter>
-            </defs>
+          <g aria-hidden="true">
+            {otros.map(([id, d]) => (
+              <path d={d} class="depto-base" />
+            ))}
+            {regiones.map((r) => (
+              <path
+                d={mapa.paths[r.id as keyof typeof mapa.paths]}
+                class="depto"
+                data-id={r.id}
+                style={`--i: ${(0.2 + 0.5 * (r.cabezas / max)).toFixed(2)};`}
+              />
+            ))}
+            {regiones.map((r) => {
+              const [cx, cy] = mapa.centros[r.id as keyof typeof mapa.centros];
+              return (
+                <g class="marca" data-id={r.id}>
+                  <circle cx={cx} cy={cy} r="7" class="punto" filter="url(#brillo)" />
+                  <text x={cx} y={cy - 22} text-anchor="middle" class="etiqueta">{r.nombre}</text>
+                </g>
+              );
+            })}
+          </g>
+        </svg>
+      </div>
 
-            <!-- Silueta de Colombia -->
-            <path
-              d="M 43,86.6 L 51,97 L 55,99 L 53,87 L 66,74 L 76,57 L 80,51 L 93,41 L 106,34 L 122,34 L 132,28 L 146,21 L 157,11 L 163,23 L 147,38 L 140,54 L 133,74 L 146,81 L 141,100 L 149,120 L 174,120 L 188,121 L 202,138 L 234,136 L 241,146 L 241,164 L 235,184 L 238,202 L 246,216 L 248,224 L 252,235 L 230,226 L 202,239 L 194,246 L 189,263 L 201,282 L 198,304 L 191,344 L 179,336 L 184,314 L 160,306 L 138,308 L 116,288 L 100,268 L 84,263 L 62,253 L 39,247 L 26,241 L 12,231 L 15,218 L 28,208 L 39,189 L 46,181 L 41,163 L 40,148 L 43,137 L 36,124 L 32,115 L 41,102 L 46,93 Z"
-              fill="rgba(139,26,26,0.1)"
-              stroke="rgba(201,150,58,0.5)"
-              stroke-width="1.2"
-              stroke-linejoin="round"
-            />
+      <!-- Datos por departamento -->
+      <div class="md:col-span-6" data-reveal style="--d: 0.12s;">
+        <h3 class="font-sans font-semibold text-lg text-tinta mb-1">Bovinos por departamento</h3>
+        <p class="font-body text-sm text-tinta-3 mb-6">Vacunados contra la fiebre aftosa, ciclo I de 2025</p>
 
-            <!-- Costa Caribe (Córdoba · Sucre · Bolívar) -->
-            <circle cx="82" cy="82" r="5.5" fill="#C9963A" filter="url(#glow-gold)" class="dot-pulse"/>
-            <text x="92" y="79" fill="#F0EBE1" font-size="9.5" font-family="Poppins,sans-serif" font-weight="600">Costa Caribe</text>
-            <text x="92" y="90" fill="#E0B86A" font-size="7.5" font-family="Poppins,sans-serif">Córdoba · Sucre · Bolívar</text>
+        <ul class="lista m-0 p-0 list-none border-t border-linea">
+          {regiones.map((r, i) => (
+            <li class="border-b border-linea">
+              <button
+                type="button"
+                class:list={['fila', { 'is-active': i === 0 }]}
+                data-id={r.id}
+                aria-pressed={i === 0 ? 'true' : 'false'}
+              >
+                <span class="fila-nombre">{r.nombre}</span>
+                <span class="fila-cifra">{fmt(r.cabezas)}</span>
+                <span class="fila-barra" aria-hidden="true"><span style={`width: ${((r.cabezas / max) * 100).toFixed(1)}%;`}></span></span>
+              </button>
+            </li>
+          ))}
+        </ul>
 
-            <!-- Antioquia (FEDEGAN 2025: 3,18 M bovinos) -->
-            <circle cx="78" cy="128" r="5" fill="#C9963A" filter="url(#glow-gold)" class="dot-pulse-b"/>
-            <text x="68" y="133" fill="#F0EBE1" font-size="9.5" font-family="Poppins,sans-serif" font-weight="600" text-anchor="end">Antioquia</text>
-            <text x="68" y="144" fill="#E0B86A" font-size="7.5" font-family="Poppins,sans-serif" text-anchor="end">~3,2 M bovinos</text>
-
-            <!-- Magdalena Medio -->
-            <circle cx="102" cy="120" r="3.5" fill="#C2BCB0" filter="url(#glow-sm)" class="dot-pulse-d"/>
-            <text x="104" y="109" fill="#C2BCB0" font-size="7.5" font-family="Poppins,sans-serif" text-anchor="middle">Magdalena Medio</text>
-
-            <!-- Llanos Orientales (mayor hato nacional) -->
-            <circle cx="154" cy="154" r="7" fill="#C9963A" filter="url(#glow-gold)" class="dot-pulse-c"/>
-            <text x="166" y="151" fill="#F0EBE1" font-size="9.5" font-family="Poppins,sans-serif" font-weight="600">Llanos Orientales</text>
-            <text x="166" y="162" fill="#E0B86A" font-size="7.5" font-family="Poppins,sans-serif">Casanare · Meta · Arauca</text>
-          </svg>
+        <div class="detalle mt-8 min-h-[7.5rem]" aria-live="polite">
+          {regiones.map((r, i) => (
+            <div class="detalle-item" data-id={r.id} hidden={i !== 0}>
+              <p class="font-sans text-xs tracking-[0.2em] uppercase text-oro-claro mb-2">{r.zona}</p>
+              <p class="font-body text-base leading-relaxed text-tinta-2" style="text-wrap: pretty;">{r.texto}</p>
+            </div>
+          ))}
         </div>
-      </div>
 
-      <!-- Pilares narrativos -->
-      <div class="flex flex-col order-1 md:order-2" data-reveal style="--d: 0.15s;">
-        {pilares.map((pilar, i) => (
-          <div
-            class:list={[
-              'py-6 sm:py-8 pl-5 sm:pl-7 border-l border-linea-acento',
-              { 'border-b border-b-linea': i < pilares.length - 1 },
-            ]}
-          >
-            <h3 class="font-sans font-semibold text-lg leading-snug mb-3 text-tinta">
-              {pilar.titulo}
-            </h3>
-            <p class="font-body text-base leading-relaxed text-tinta-2" style="text-wrap: pretty;">
-              {pilar.cuerpo}
-            </p>
-          </div>
-        ))}
+        <p class="mt-6 font-body text-xs leading-relaxed text-tinta-3">
+          Fuente: FEDEGAN-FNG e ICA, reseñado por CONtexto Ganadero (agosto de 2025). La vacunación es un indicador del tamaño del hato, no un censo.
+        </p>
       </div>
+    </div>
+
+    <!-- Pilares narrativos -->
+    <div class="grid md:grid-cols-3 gap-10 md:gap-12 mt-20 md:mt-28 pt-10 border-t border-linea">
+      {pilares.map((p, i) => (
+        <div data-reveal style={`--d: ${i * 0.1}s;`}>
+          <h3 class="font-sans font-semibold text-lg leading-snug mb-3 text-tinta">{p.titulo}</h3>
+          <p class="font-body text-base leading-relaxed text-tinta-2" style="text-wrap: pretty;">{p.cuerpo}</p>
+        </div>
+      ))}
     </div>
   </div>
 </section>
+
+<style>
+  .mapa { overflow: visible; }
+
+  .depto-base {
+    fill: rgba(240, 235, 225, 0.04);
+    stroke: rgba(240, 235, 225, 0.14);
+    stroke-width: 0.8;
+    stroke-linejoin: round;
+  }
+  .depto {
+    fill: rgba(201, 150, 58, var(--i));
+    stroke: rgba(224, 184, 106, 0.55);
+    stroke-width: 1;
+    stroke-linejoin: round;
+    cursor: pointer;
+    transition: fill 0.4s cubic-bezier(0.16, 1, 0.3, 1), stroke 0.4s;
+  }
+  .depto:hover { stroke: #E0B86A; }
+  .depto.is-active {
+    fill: rgba(224, 184, 106, 0.8);
+    stroke: #F0EBE1;
+    stroke-width: 1.4;
+  }
+
+  .punto { fill: #C9963A; opacity: 0.75; animation: pulso 2.8s ease-in-out infinite; pointer-events: none; }
+  .marca:nth-of-type(2n) .punto { animation-delay: 0.7s; }
+  .marca:nth-of-type(3n) .punto { animation-delay: 1.4s; }
+  .marca.is-active .punto { fill: #F0EBE1; opacity: 1; }
+  @keyframes pulso { 0%, 100% { opacity: 0.85; } 50% { opacity: 0.4; } }
+
+  .etiqueta {
+    font: 600 22px 'Poppins', sans-serif;
+    fill: #F0EBE1;
+    paint-order: stroke;
+    stroke: #181715;
+    stroke-width: 5px;
+    stroke-linejoin: round;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.35s ease, transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: none;
+  }
+  .marca.is-active .etiqueta { opacity: 1; transform: none; }
+
+  /* Lista de departamentos: filas con barra proporcional, sin tarjetas */
+  .fila {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: baseline;
+    column-gap: 1rem;
+    width: 100%;
+    min-height: 48px;
+    padding: 0.8rem 0.25rem 1rem;
+    text-align: left;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: #C2BCB0;
+    transition: color 0.3s;
+  }
+  .fila-nombre { font: 500 1rem/1.3 'Poppins', sans-serif; }
+  .fila-cifra { font: 500 1.25rem/1.2 'Playfair Display', Georgia, serif; font-variant-numeric: tabular-nums; color: #E0B86A; }
+  .fila-barra {
+    grid-column: 1 / -1;
+    margin-top: 0.55rem;
+    height: 2px;
+    background: rgba(240, 235, 225, 0.08);
+  }
+  .fila-barra > span {
+    display: block;
+    height: 100%;
+    background: rgba(201, 150, 58, 0.55);
+    transition: background 0.3s;
+  }
+  .fila:hover, .fila.is-active { color: #F0EBE1; }
+  .fila.is-active .fila-barra > span { background: #E0B86A; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .punto { animation: none; }
+    .etiqueta, .depto { transition: none; }
+  }
+</style>
+
+<script>
+  const root = document.querySelector<HTMLElement>('#impacto');
+  if (root) {
+    const ids = (sel: string) => root.querySelectorAll<SVGElement | HTMLElement>(sel);
+    const activate = (id: string) => {
+      ids('.depto, .marca').forEach((el) => el.classList.toggle('is-active', el.dataset.id === id));
+      ids('.fila').forEach((el) => {
+        const on = el.dataset.id === id;
+        el.classList.toggle('is-active', on);
+        el.setAttribute('aria-pressed', String(on));
+      });
+      ids('.detalle-item').forEach((el) => ((el as HTMLElement).hidden = el.dataset.id !== id));
+    };
+
+    ids('.fila').forEach((el) => {
+      el.addEventListener('click', () => activate(el.dataset.id!));
+      el.addEventListener('mouseenter', () => activate(el.dataset.id!));
+    });
+    ids('.depto').forEach((el) => {
+      el.addEventListener('mouseenter', () => activate(el.dataset.id!));
+      el.addEventListener('click', () => activate(el.dataset.id!));
+    });
+    activate('ANTIOQUIA');
+  }
+</script>

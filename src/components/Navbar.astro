@@ -1,12 +1,12 @@
 ---
-// Navbar corporativo — layout grid 3 columnas: logo | menú centrado | CTA
+// Navbar — layout grid 3 columnas: logo | menú centrado | hamburguesa (móvil)
 const navLinks = [
   { href: '#inicio',     label: 'Inicio' },
-  { href: '#fundacion',  label: 'Legado' },
-  { href: '#excelencia', label: 'Excelencia' },
-  { href: '#hacienda',   label: 'Hacienda' },
+  { href: '#fundacion',  label: 'La raza' },
+  { href: '#excelencia', label: 'La ciencia' },
+  { href: '#hacienda',   label: 'El hato' },
   { href: '#impacto',    label: 'Territorio' },
-  { href: '#calidad',    label: 'Calidad Global' },
+  { href: '#calidad',    label: 'Exportación' },
 ];
 ---
 
@@ -19,10 +19,10 @@ const navLinks = [
     <!-- Col 1: Logo -->
     <a href="#inicio" class="nav-logo" aria-label="RB Ganadería — inicio">
       <img
-        src="/logo.webp"
+        src="/rb-logo.webp"
         alt="RB Ganadería"
-        width="218"
-        height="82"
+        width="264"
+        height="348"
         loading="eager"
         decoding="async"
       />
@@ -40,9 +40,8 @@ const navLinks = [
       ))}
     </ul>
 
-    <!-- Col 3: CTA desktop + Hamburger mobile -->
+    <!-- Col 3: Hamburger mobile -->
     <div class="nav-end">
-      <a href="#contacto" class="nav-cta">Contacto</a>
       <button
         class="nav-hamburger"
         aria-controls="mobile-menu"
@@ -69,7 +68,6 @@ const navLinks = [
           </li>
         ))}
       </ul>
-      <a href="#contacto" class="mobile-cta" data-mobile-link>Contacto</a>
     </div>
   </div>
 </header>
@@ -80,12 +78,12 @@ const navLinks = [
     --gold:       #C9963A;
     --gold-lt:    #E0B86A;
     --crimson:    #8B1A1A;
-    --logo-bg:    #090909;   /* color exacto del fondo del logo.webp */
-    --nav-h:      92px;
+    --logo-bg:    #020101;   /* color exacto del fondo del logo (rb-logo.webp) */
+    --nav-h:      118px;
   }
 
   @media (max-width: 1023px) {
-    :root { --nav-h: 80px; }
+    :root { --nav-h: 96px; }
   }
 
   /* ── Header base: fondo igual al logo para que no haya sticker ── */
@@ -127,13 +125,13 @@ const navLinks = [
     text-decoration: none;
   }
   .nav-logo img {
-    height: 82px;
+    height: 98px;
     width: auto;
     display: block;
   }
 
   @media (max-width: 1023px) {
-    .nav-logo img { height: 74px; }
+    .nav-logo img { height: 80px; }
   }
 
   /* ── Col 2: Links centrados ── */
@@ -180,34 +178,12 @@ const navLinks = [
     right: 0;
   }
 
-  /* ── Col 3: CTA + Hamburger ── */
+  /* ── Col 3: Hamburger ── */
   .nav-end {
     display: flex;
     align-items: center;
     justify-self: end;
   }
-
-  .nav-cta {
-    font-family: 'Poppins', sans-serif;
-    font-size: 0.7rem;
-    font-weight: 600;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: #0a0a0a;
-    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-lt) 50%, var(--gold) 100%);
-    background-size: 200% 100%;
-    padding: 0.8rem 1.6rem;
-    border-radius: 4px;
-    text-decoration: none;
-    transition: background-position 0.4s ease, box-shadow 0.3s ease, transform 0.2s ease;
-    box-shadow: 0 2px 14px rgba(201, 150, 58, 0.2);
-  }
-  .nav-cta:hover {
-    background-position: 100% 0;
-    box-shadow: 0 4px 22px rgba(201, 150, 58, 0.38);
-    transform: translateY(-1px);
-  }
-  .nav-cta:active { transform: translateY(0); }
 
   /* ── Hamburger (oculto en desktop) ── */
   .nav-hamburger {
@@ -255,7 +231,7 @@ const navLinks = [
     display: none;
     grid-template-rows: 0fr;
     visibility: hidden;
-    background: #090909;
+    background: var(--logo-bg);
     border-top: 1px solid rgba(201, 150, 58, 0.12);
     transition: grid-template-rows 0.45s cubic-bezier(0.16, 1, 0.3, 1),
                 visibility 0s linear 0.45s;
@@ -304,31 +280,10 @@ const navLinks = [
   @media (hover: hover) {
     .mobile-link:hover { color: var(--gold-lt); }
   }
-  .mobile-cta {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 1.75rem;
-    font-family: 'Poppins', sans-serif;
-    font-size: 0.84rem;
-    font-weight: 600;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: #0a0a0a;
-    background: linear-gradient(135deg, var(--gold), var(--gold-lt));
-    padding: 0.85rem 2.5rem;
-    border-radius: 4px;
-    text-decoration: none;
-    align-self: flex-start;
-    min-height: 48px;
-    touch-action: manipulation;
-  }
-
   /* ── Responsive ── */
   @media (max-width: 1023px) {
     .nav-inner { grid-template-columns: 1fr auto; }
-    .nav-links,
-    .nav-cta { display: none; }
+    .nav-links { display: none; }
     .nav-hamburger { display: flex; }
     .mobile-menu { display: grid; }
   }

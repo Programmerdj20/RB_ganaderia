@@ -1,51 +1,18 @@
 ---
-// Footer corporativo — dark luxury, el nivel más profundo del sitio
-const columnas = [
-  {
-    titulo: 'Gobernanza',
-    enlaces: [
-      'Política Integral de Sostenibilidad',
-      'Línea de Transparencia y Ética',
-      'Código de Conducta Corporativa',
-      'Política de Derechos Humanos',
-    ],
-  },
-  {
-    titulo: 'Relaciones Corporativas',
-    enlaces: [
-      'Relaciones con Inversionistas',
-      'Alianzas Estratégicas',
-      'Proveedores y Cadena de Valor',
-      'Medios y Prensa',
-    ],
-  },
-  {
-    titulo: 'Sostenibilidad',
-    enlaces: [
-      'Reporte de Sostenibilidad',
-      'Huella de Carbono',
-      'Biodiversidad y Ecosistemas',
-      'Gestión del Agua',
-    ],
-  },
-  {
-    titulo: 'La Empresa',
-    enlaces: [
-      'Historia y Trayectoria',
-      'Equipo Directivo',
-      'Modelo Operativo',
-      'Certificaciones',
-    ],
-  },
+// Footer — firma discreta de RB Ganadería, índice de secciones y fuentes de los datos
+const secciones = [
+  { href: '#fundacion',  label: 'La raza' },
+  { href: '#excelencia', label: 'La ciencia' },
+  { href: '#hacienda',   label: 'El hato' },
+  { href: '#impacto',    label: 'Territorio' },
+  { href: '#calidad',    label: 'Exportación' },
 ];
-
 const anio = new Date().getFullYear();
 ---
 
 <footer
-  id="contacto"
-  class="relative pt-14 sm:pt-20 pb-8 sm:pb-10 px-5 sm:px-6 overflow-hidden bg-superficie-0 border-t border-linea-acento"
-  aria-label="Pie de página corporativo"
+  class="relative pt-14 sm:pt-20 pb-8 sm:pb-10 px-5 sm:px-6 overflow-hidden bg-[#020101] border-t border-linea-acento"
+  aria-label="Pie de página"
 >
   <!-- Línea carmesí superior — misma firma del hero -->
   <div
@@ -56,68 +23,36 @@ const anio = new Date().getFullYear();
 
   <div class="relative max-w-6xl mx-auto">
 
-    <!-- Logo y tagline -->
-    <div
-      class="flex flex-col md:flex-row md:items-end justify-between gap-6 sm:gap-10 mb-10 sm:mb-16 pb-10 sm:pb-16 border-b border-linea"
-    >
-      <div>
-        <p class="font-serif text-3xl tracking-wide mb-3 text-tinta">RB Ganadería</p>
-        <!-- Línea carmesí bajo el logo — firma del brand -->
-        <div class="mb-4 w-12 h-px bg-acento" aria-hidden="true"></div>
-        <p class="font-body text-sm font-light max-w-xs leading-relaxed text-tinta-2">
-          Elevando el estándar del campo colombiano con ciencia, ética y compromiso generacional.
-        </p>
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-10 mb-10 sm:mb-14 pb-10 sm:pb-14 border-b border-linea">
+      <div class="flex items-center gap-5">
+        <img src="/rb-logo.webp" alt="RB Ganadería" width="264" height="348" loading="lazy" class="h-28 sm:h-36 w-auto" />
+        <div>
+          <p class="font-serif text-xl text-tinta mb-1">El Brahman Rojo colombiano</p>
+          <p class="font-body text-sm text-tinta-2">Una iniciativa de RB Ganadería</p>
+        </div>
       </div>
-      <div class="flex flex-col items-start md:items-end gap-3">
-        <p class="font-sans text-xs tracking-[0.4em] uppercase text-oro">
-          Colombia · Ganadería de Excelencia
-        </p>
-        <div class="w-12 h-px bg-oro/50" aria-hidden="true"></div>
-      </div>
+
+      <nav aria-label="Secciones del sitio">
+        <ul class="flex flex-wrap gap-x-7 gap-y-1">
+          {secciones.map((s) => (
+            <li>
+              <a
+                href={s.href}
+                class="font-sans text-xs tracking-[0.2em] uppercase block py-2 text-tinta-2 transition-colors duration-300 hover:text-oro-claro"
+              >
+                {s.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
     </div>
 
-    <!-- Columnas de enlaces -->
-    <nav aria-label="Navegación corporativa footer">
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 sm:gap-10 mb-10 sm:mb-16">
-        {columnas.map((col) => (
-          <div>
-            <h3 class="font-sans text-xs tracking-[0.28em] uppercase font-semibold mb-6 text-oro">
-              {col.titulo}
-            </h3>
-            <ul class="space-y-1">
-              {col.enlaces.map((enlace) => (
-                <li>
-                  <a
-                    href="#"
-                    class="font-body text-sm leading-snug block py-1 text-tinta-2 transition-colors duration-300 hover:text-oro-claro"
-                  >
-                    {enlace}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </div>
-    </nav>
-
-    <!-- Barra inferior -->
-    <div
-      class="pt-6 sm:pt-8 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-t border-linea"
-    >
-      <p class="font-body text-xs text-tinta-3">
-        © {anio} RB Ganadería. Todos los derechos reservados.
+    <div class="flex flex-col sm:flex-row justify-between gap-3">
+      <p class="font-body text-xs leading-relaxed text-tinta-3 max-w-2xl">
+        Información divulgativa. Cifras tomadas de FEDEGAN, ICA, DANE, Asocebú y de la literatura científica citada en cada sección.
       </p>
-      <div class="flex flex-wrap gap-x-5 gap-y-2">
-        {['Aviso de Privacidad', 'Términos Corporativos', 'Accesibilidad'].map((link) => (
-          <a
-            href="#"
-            class="font-body text-xs py-1 text-tinta-3 transition-colors duration-300 hover:text-oro-claro"
-          >
-            {link}
-          </a>
-        ))}
-      </div>
+      <p class="font-body text-xs text-tinta-3">© {anio} RB Ganadería</p>
     </div>
   </div>
 </footer>

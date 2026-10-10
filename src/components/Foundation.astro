@@ -1,9 +1,12 @@
 ---
-// Sección: Identidad y Escala — contadores animados en dorado
+// Sección: La raza y su escala — contadores animados con cifras del sector ganadero colombiano
 const metricas = [
-  { valor: 30,   sufijo: '+', etiqueta: 'Años de Tradición',      descripcion: 'De liderazgo ganadero ininterrumpido' },
-  { valor: 5000, sufijo: '+', etiqueta: 'Hectáreas bajo Gestión', descripcion: 'De praderas y bosques productivos' },
-  { valor: 120,  sufijo: '+', etiqueta: 'Empleos Directos',       descripcion: 'Familias colombianas en formalidad laboral' },
+  // Fuente: FEDEGAN, inventario bovino y bufalino (29.034.525 bovinos), 2025
+  { valor: 29034525, sufijo: '', etiqueta: 'Bovinos en Colombia',    descripcion: 'Inventario nacional registrado por FEDEGAN' },
+  // Fuente: FEDEGAN, Oficina de Estudios Económicos, 2025
+  { valor: 1099273,  sufijo: '', etiqueta: 'Empleos Directos',       descripcion: 'Generados por la ganadería bovina y bufalina' },
+  // Fuente: DANE, procesado por FEDEGAN, 2025
+  { valor: 227429,   sufijo: '', etiqueta: 'Bovinos Exportados',     descripcion: 'Animales en pie enviados al exterior en 2025' },
 ];
 const fmt = (n: number) => n.toLocaleString('es-CO');
 ---
@@ -19,26 +22,26 @@ const fmt = (n: number) => n.toLocaleString('es-CO');
     <div class="grid md:grid-cols-12 gap-10 md:gap-16 items-start mb-16 md:mb-24">
       <div class="md:col-span-7" data-reveal>
         <h2 id="fundacion-titulo" class="font-serif text-4xl md:text-5xl leading-[1.15] text-tinta text-balance">
-          Un motor dentro de la economía más grande del campo colombiano
+          El Brahman Rojo, una raza al servicio del campo colombiano
         </h2>
       </div>
       <div class="md:col-span-5 md:pt-10" data-reveal style="--d: 0.15s;">
         <p class="font-body text-lg leading-relaxed mb-6 text-tinta-2">
-          Colombia posee más de
-          <strong class="font-semibold text-tinta">29,5 millones de cabezas de ganado</strong>
-          y la cadena cárnica genera más de
-          <strong class="font-semibold text-tinta">un millón de empleos</strong>
-          directos e indirectos. RB Ganadería es un motor activo de esta economía nacional.
+          Colombia tiene cerca de
+          <strong class="font-semibold text-tinta">29 millones de bovinos</strong>
+          y la ganadería genera más de
+          <strong class="font-semibold text-tinta">un millón de empleos directos</strong>.
+          En ese hato, el Brahman es la base del ganado cebú del país.
         </p>
         <p class="font-body text-lg leading-relaxed text-tinta-2">
-          Nuestra operación integra genética de precisión, manejo silvopastoril y gestión territorial responsable,
-          consolidando un modelo replicable de producción bovina sostenible.
+          Su adaptación al calor, su habilidad materna y su resistencia explican por qué el Brahman Rojo
+          es una de las razas que mejor se desempeña en el trópico bajo colombiano.
         </p>
       </div>
     </div>
 
     <!-- Contadores: el HTML trae el valor final; el script anima desde 0 solo si hay movimiento -->
-    <ul class="metricas grid grid-cols-1 md:grid-cols-3 border border-linea-acento" aria-label="Métricas de la empresa">
+    <ul class="metricas grid grid-cols-1 md:grid-cols-3 border border-linea-acento" aria-label="Cifras de la ganadería colombiana">
       {metricas.map((m, i) => (
         <li class="metric-card px-6 py-12 sm:px-10 sm:py-16 text-center" data-reveal style={`--d: ${i * 0.12}s;`}>
           <p

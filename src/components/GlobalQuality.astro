@@ -1,9 +1,9 @@
 ---
-// Sección: Calidad Global — estándares e inocuidad
+// Sección: Exportación — ganado colombiano en el mundo. Fuente de cifras: DANE, procesado por FEDEGAN (primer semestre 2025)
 const mercados = [
-  { region: 'Asia',          descripcion: 'Mercados de alta exigencia en China, Japón y Corea del Sur' },
-  { region: 'Medio Oriente', descripcion: 'Exportaciones Halal certificadas a EAU, Arabia Saudita y Catar' },
-  { region: 'África',        descripcion: 'Presencia en mercados emergentes de alto crecimiento' },
+  { region: 'Egipto',        descripcion: '47.372 bovinos en pie recibidos en el primer semestre de 2025' },
+  { region: 'Arabia Saudita',descripcion: '43.541 bovinos en pie recibidos en el primer semestre de 2025' },
+  { region: 'Irak',          descripcion: '40.933 bovinos en pie recibidos en el primer semestre de 2025' },
   { region: 'Colombia',      descripcion: '18,8 kg per cápita de consumo interno proyectado de proteína bovina' },
 ];
 ---
@@ -18,20 +18,20 @@ const mercados = [
     <div class="grid md:grid-cols-12 gap-10 md:gap-16 items-end mb-12 md:mb-20">
       <div class="md:col-span-6" data-reveal>
         <h2 id="calidad-titulo" class="font-serif text-3xl sm:text-4xl md:text-5xl leading-[1.15] text-tinta text-balance">
-          Estándares sin frontera, listos para cualquier mercado
+          Ganado colombiano con destino al mundo
         </h2>
       </div>
       <div class="md:col-span-6" data-reveal style="--d: 0.15s;">
         <p class="font-body text-lg leading-relaxed text-tinta-2" style="text-wrap: pretty;">
           Colombia proyecta un consumo interno de proteína bovina de
           <strong class="font-semibold text-oro">18,8 kilos per cápita</strong>
-          y exporta carne y ganado en pie a mercados de alta exigencia. RB Ganadería opera con protocolos de inocuidad globales que garantizan trazabilidad total, desde el origen hasta la mesa.
+          y exporta carne y ganado en pie. En 2025 salieron 227.429 bovinos vivos, principalmente hacia Egipto, Irak y Arabia Saudita, con controles sanitarios del ICA y trazabilidad desde el origen.
         </p>
       </div>
     </div>
 
     <!-- Mercados: filas separadas por filetes, sin tarjetas -->
-    <ul class="mercados grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 border border-linea-acento" aria-label="Mercados de operación">
+    <ul class="mercados grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 border border-linea-acento" aria-label="Principales destinos de exportación">
       {mercados.map((m, i) => (
         <li class={`mercado group relative py-8 sm:py-10 px-6 sm:px-8 bg-superficie-0 market-idx-${i}`} data-reveal style={`--d: ${i * 0.1}s;`}>
           <div class="absolute top-0 left-0 right-0 h-px bg-oro opacity-0 group-hover:opacity-100 transition-opacity duration-500" aria-hidden="true"></div>
@@ -49,8 +49,8 @@ const mercados = [
     <!-- Cita institucional -->
     <figure class="mt-12 sm:mt-20 max-w-3xl mx-auto text-center" data-reveal>
       <blockquote class="font-serif text-xl md:text-2xl leading-[1.65] italic text-tinta text-balance">
-        Cada animal gestionado en RB Ganadería es trazable desde su nacimiento hasta su destino final,
-        cumpliendo con los más exigentes protocolos de inocuidad internacionales.
+        Cada animal que sale del país lleva su historia: origen, vacunación y movimientos quedan
+        registrados en el sistema nacional de trazabilidad.
       </blockquote>
       <div class="mt-8 mx-auto w-10 h-px bg-oro" aria-hidden="true"></div>
     </figure>

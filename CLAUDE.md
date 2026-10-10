@@ -4,7 +4,16 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Descripción del Proyecto
 
-Landing page institucional de posicionamiento corporativo para **RB Ganadería** (Colombia). **No** es una página transaccional ni de e-commerce — es un portal de diplomacia corporativa que proyecta autoridad, solidez técnica, vanguardia científica y respeto ambiental.
+Sitio divulgativo sobre el **Brahman Rojo colombiano**, presentado por **RB Ganadería** (Colombia). **No** es transaccional, ni e-commerce, ni blog, y **no habla de la empresa**: RB solo aparece como firma discreta (logo en navbar y footer, "Una iniciativa de RB Ganadería"). Es como si RB entregara información de la raza, no de sí misma.
+
+### Reglas de contenido (no olvidar)
+- Todo el texto informa sobre la raza y el sector: adaptación al trópico, genética, cuidado y bienestar, dónde se cría, exportación, importancia, empleo que genera. Nunca "nuestra operación", "décadas de trayectoria", hectáreas o empleos propios.
+- Sin contacto, correo, botones de CTA ni columnas corporativas en el footer.
+- Audiencia mixta (gremio, aliados, autoridades, público); tono divulgativo de alto nivel, no comercial.
+- Cada cifra lleva fuente verificable (FEDEGAN, ICA, DANE, Asocebú, literatura científica) en comentario o visible en la sección. Si no se puede verificar, no se usa.
+- El mapa de `TerritorialImpact` no se toca. El logo (`public/rb-logo.webp`, fondo `#020101`) solo va sobre fondos de ese mismo color; sobre fotos se ve como sticker.
+- Se trabaja por partes, una sección a la vez. Hecho: navbar, footer, Hero, Foundation, Excellence ("La ciencia"), textos de GlobalQuality y TerritorialImpact. Pendiente: revisar Gallery, rediseño visual de las demás secciones, y etiquetas del mapa (Antioquia aparece con ~2,2 M cabezas; FEDEGAN reporta ~3,25 M).
+- Contexto de producto en `PRODUCT.md`.
 
 ## Stack Tecnológico
 
@@ -28,16 +37,16 @@ El proyecto sigue una arquitectura de componentes modulares en Astro. Cada secci
 | Componente | Sección |
 |---|---|
 | `Hero` | Cabecera inmersiva con foto de fondo (100vh), sin video, overlay y flecha animada de scroll |
-| `Foundation` | Identidad/escala con contadores animados (count-ups) |
-| `Excellence` | Paneles interactivos: Mejoramiento Genético, SSPi, Bienestar Animal |
+| `Foundation` | La raza y su escala: contadores animados con cifras del sector |
+| `Excellence` | La ciencia de la raza: tres capítulos (trópico, genética, bienestar/SSPi) con datos y fuentes |
 | `TerritorialImpact` | Mapa topográfico de Colombia con puntos luminosos |
-| `GlobalQuality` | Estándares de inocuidad y mercados de exportación |
-| `Footer` | Footer corporativo con enlaces institucionales |
+| `GlobalQuality` | Exportación de ganado colombiano y destinos |
+| `Footer` | Firma discreta de RB, índice de secciones y nota de fuentes |
 
 ## Dirección de Arte
 
 - **Tipografía:** Playfair Display (h1/h2 editoriales, `font-serif`) + Poppins (h3, labels, UI, `font-sans`) + Inter (párrafos de lectura, `font-body`)
-- **Paleta:** Verdes profundos/oliva, tonos tierra, `hueso: #F8F6F0` (balance con carbón), gris carbón (nunca negro puro)
+- **Paleta:** carbón cálido (`superficie-*`), oro `#C9963A`/`#E0B86A`, carmesí `#8B1A1A` (ver `tailwind.config.mjs`)
 - **Animaciones:** Sutiles — fade-ins, parallax suave, reveal al scroll (CSS puro, sin librerías pesadas)
 - **Sin botones de CTA comerciales** en el hero
 

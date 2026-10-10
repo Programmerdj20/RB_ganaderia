@@ -61,7 +61,7 @@ const {
 
   /* Compensa el navbar fijo al anclar secciones */
   section[id], footer[id] {
-    scroll-margin-top: 100px;
+    scroll-margin-top: 120px;
   }
 
   ::selection {
@@ -125,9 +125,7 @@ const {
 
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
-    .animate-scroll-arrow,
-    .animate-hero-drift { animation: none !important; }
-    .animate-fade-up { animation: none !important; opacity: 1 !important; }
+    .animate-scroll-arrow { animation: none !important; }
   }
 </style>
 

@@ -12,7 +12,7 @@ Sitio divulgativo sobre el **Brahman Rojo colombiano**, presentado por **RB Gana
 - Audiencia mixta (gremio, aliados, autoridades, público); tono divulgativo de alto nivel, no comercial.
 - Cada cifra lleva fuente verificable (FEDEGAN, ICA, DANE, Asocebú, literatura científica) en comentario o visible en la sección. Si no se puede verificar, no se usa.
 - El mapa de `TerritorialImpact` se rehízo (contorno real por departamentos en `src/data/colombia-departamentos.json`, datos de vacunación ciclo I 2025). El logo (`public/rb-logo.webp`, fondo `#020101`) solo va sobre fondos de ese mismo color; sobre fotos se ve como sticker.
-- Se trabaja por partes, una sección a la vez. Hecho: navbar, footer, Hero, Foundation, Excellence ("La ciencia"), Foundation, TerritorialImpact (mapa interactivo) y GlobalQuality (Exportación). Hero con dos fotos (public/galeria/Banner_1.webp y Banner_2.webp, fundido cruzado). Gallery ("El hato", id `#hato`, fotos en `src/assets/hato`). Pendiente: pulido final de todo el sitio y limpiar assets sin uso en `src/assets/galeria`.
+- Se trabaja por partes, una sección a la vez. Hecho: navbar, footer, Hero, Foundation, Excellence ("La ciencia"), Foundation, TerritorialImpact (mapa interactivo) y GlobalQuality (Exportación). Hero con dos fotos (public/galeria/Banner_1.webp y Banner_2.webp, fundido cruzado). Gallery ("El hato", id `#hato`, fotos en `src/assets/hato`). Pulido final hecho. Pendiente: fotos de mayor resolución (las actuales son de 1024 px) y revisar con el cliente las cifras marcadas como de prensa.
 - Contexto de producto en `PRODUCT.md`.
 
 ## Stack Tecnológico

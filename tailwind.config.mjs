@@ -41,22 +41,12 @@ export default {
         body:  ['Inter', 'system-ui', 'sans-serif'],
       },
       animation: {
-        'fade-up':      'fadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards',
         'scroll-arrow': 'scrollArrow 2s ease-in-out infinite',
-        'hero-drift':   'heroDrift 24s ease-out forwards',
       },
       keyframes: {
-        fadeUp: {
-          '0%':   { opacity: '0', transform: 'translateY(32px)' },
-          '100%': { opacity: '1', transform: 'translateY(0)' },
-        },
         scrollArrow: {
           '0%, 100%': { transform: 'translateY(0)', opacity: '0.5' },
           '50%':      { transform: 'translateY(10px)', opacity: '1' },
-        },
-        heroDrift: {
-          '0%':   { transform: 'scale(1.04)' },
-          '100%': { transform: 'scale(1.12)' },
         },
       },
     },

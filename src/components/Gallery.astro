@@ -337,6 +337,22 @@ const datos = orden.map((n, i) => ({ src: ampliadas[i].src, pie: info[n].pie, al
     (seccion.querySelector<HTMLElement>(`.tira:not(.copia) .foto[data-index="${i}"]`) ?? origen)?.focus({ preventScroll: true });
   });
 
+  // Con teclado, la hilera se detiene sobre la foto enfocada: se centra para que no quede fuera de pantalla
+  seccion.querySelectorAll<HTMLElement>('.foto').forEach((btn) => {
+    btn.addEventListener('focus', () => {
+      if (!btn.matches(':focus-visible')) return;
+      const pista = btn.closest<HTMLElement>('.pista');
+      const anim = pista?.getAnimations()[0];
+      const total = anim?.effect?.getComputedTiming().duration;
+      if (!pista || !anim || typeof total !== 'number' || anim.currentTime === null) return;
+      const r = btn.getBoundingClientRect();
+      const px = r.left + r.width / 2 - window.innerWidth / 2;
+      const sentido = pista.classList.contains('hacia-izq') ? 1 : -1;
+      const velocidad = pista.scrollWidth / 2 / total;
+      anim.currentTime = (((Number(anim.currentTime) + (sentido * px) / velocidad) % total) + total) % total;
+    });
+  });
+
   // Botón de pausa manual
   const pausa = document.getElementById('pausa') as HTMLButtonElement;
   const texto = pausa.querySelector('.pausa-texto') as HTMLElement;

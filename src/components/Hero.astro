@@ -1,30 +1,44 @@
 ---
-// Hero: cabecera inmersiva — foto a pantalla completa
-import { Image } from 'astro:assets';
-import heroFoto from '../assets/galeria/hero-hato-frente.jpg';
+// Hero: cabecera inmersiva — dos fotos a pantalla completa en fundido cruzado con zoom lento.
+// Las fotos son de 1024×768: si el cliente aporta originales de 1920 px o más, reemplazar los archivos sin tocar el código.
 ---
 
 <section
   id="inicio"
-  class="relative min-h-[100svh] w-full overflow-hidden flex items-center justify-center bg-superficie-0"
+  class="hero relative min-h-[100svh] w-full overflow-hidden flex items-end bg-superficie-0"
   aria-label="Cabecera principal"
 >
-  <!-- Foto de fondo -->
-  <Image
-    src={heroFoto}
-    alt=""
-    widths={[768, 1280, 1920]}
-    sizes="100vw"
-    loading="eager"
-    fetchpriority="high"
-    class="absolute inset-0 w-full h-full object-cover animate-hero-drift"
-    aria-hidden="true"
-  />
+  <!-- Fotos de fondo: cada una dura ~10 s; la segunda entra mientras la primera sale -->
+  <div class="absolute inset-0" aria-hidden="true">
+    <img
+      src="/galeria/Banner_1.webp"
+      alt=""
+      width="1024"
+      height="768"
+      loading="eager"
+      fetchpriority="high"
+      decoding="async"
+      class="foto foto-a"
+    />
+    <img
+      src="/galeria/Banner_2.webp"
+      alt=""
+      width="1024"
+      height="768"
+      loading="eager"
+      fetchpriority="low"
+      decoding="async"
+      class="foto foto-b"
+    />
+  </div>
 
-  <!-- Overlay cálido: protege la lectura del titular y la barra de navegación -->
+  <!-- Velo mínimo + degradado inferior: el texto se apoya en la parte baja y la foto queda limpia arriba -->
   <div
     class="absolute inset-0"
-    style="background: linear-gradient(to bottom, rgba(11,10,9,0.78) 0%, rgba(11,10,9,0.5) 38%, rgba(11,10,9,0.62) 68%, #121110 100%);"
+    style="background:
+      linear-gradient(to top, #121110 0%, rgba(18,17,16,0.92) 24%, rgba(18,17,16,0.68) 48%, rgba(18,17,16,0) 76%),
+      linear-gradient(to bottom, rgba(11,10,9,0.35) 0%, rgba(11,10,9,0) 24%),
+      rgba(11,10,9,0.08);"
     aria-hidden="true"
   ></div>
 
@@ -35,26 +49,27 @@ import heroFoto from '../assets/galeria/hero-hato-frente.jpg';
     aria-hidden="true"
   ></div>
 
-  <!-- Contenido centrado -->
-  <div
-    class="relative z-10 text-center px-5 sm:px-6 pt-28 pb-24 max-w-4xl mx-auto opacity-0 animate-fade-up"
-    style="animation-delay: 0.3s;"
-  >
-    <h1 class="font-serif leading-[1.1] mb-6 sm:mb-8 text-tinta text-balance" style="font-size: clamp(2.1rem, 6.5vw, 5rem); text-shadow: 0 2px 30px rgba(0,0,0,0.45);">
-      Brahman Rojo:<br/>
-      <em class="italic text-tinta-2">la raza hecha para<br class="sm:hidden"/>&#8202;el trópico colombiano</em>
+  <!-- Contenido anclado abajo a la izquierda -->
+  <div class="relative z-10 w-full max-w-6xl mx-auto px-5 sm:px-6 pt-40 pb-16 sm:pb-20 md:pb-24">
+    <h1 class="font-serif leading-[1.08] mb-6 sm:mb-8 text-tinta max-w-3xl" style="font-size: clamp(2.3rem, 6vw, 5.2rem); text-shadow: 0 2px 28px rgba(0,0,0,0.5);">
+      <span class="rev block" style="--d: 0.2s;">Brahman Rojo:</span>
+      <em class="rev block italic text-tinta" style="--d: 0.45s;">la raza hecha para el trópico colombiano</em>
     </h1>
 
-    <div class="mx-auto mb-6 sm:mb-8 w-14 h-px bg-oro/70" aria-hidden="true"></div>
+    <div class="regla mb-6 sm:mb-8 h-px w-16 bg-oro" aria-hidden="true"></div>
 
-    <p class="font-body text-base sm:text-lg md:text-xl font-light max-w-2xl mx-auto leading-relaxed text-tinta" style="text-wrap: pretty;">
+    <p class="rev font-body text-base sm:text-lg md:text-xl font-light max-w-xl leading-relaxed text-tinta" style="--d: 0.95s; text-wrap: pretty; text-shadow: 0 1px 16px rgba(0,0,0,0.5);">
       Adaptación, genética y manejo de una raza que sostiene empleo, territorio y exportaciones en el campo colombiano.
     </p>
   </div>
 
-  <!-- Flecha de scroll — solo desktop -->
-  <div class="hidden sm:block absolute bottom-10 left-1/2 -translate-x-1/2 z-10 animate-scroll-arrow">
-    <a href="#fundacion" class="flex flex-col items-center gap-3" aria-label="Ir a la siguiente sección">
+  <!-- Indicador de foto activa + flecha de scroll (solo escritorio) -->
+  <div class="hidden sm:flex absolute bottom-16 md:bottom-24 right-6 md:right-[max(1.5rem,calc((100vw-72rem)/2+1.5rem))] z-10 flex-col items-center gap-6 rev" style="--d: 1.4s;">
+    <div class="flex gap-2" aria-hidden="true">
+      <span class="pista"><span class="llenado llenado-a"></span></span>
+      <span class="pista"><span class="llenado llenado-b"></span></span>
+    </div>
+    <a href="#fundacion" class="flex flex-col items-center gap-3 animate-scroll-arrow" aria-label="Ir a la siguiente sección">
       <span
         class="block w-px h-10"
         style="background: linear-gradient(to bottom, transparent, rgba(224,184,106,0.8));"
@@ -69,3 +84,78 @@ import heroFoto from '../assets/galeria/hero-hato-frente.jpg';
     </a>
   </div>
 </section>
+
+<style>
+  /* Ciclo de 20 s: cada foto se ve ~10 s y el fundido dura 1,6 s.
+     La foto A arranca con delay negativo para estar visible desde el primer fotograma. */
+  .foto {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 25%;
+    opacity: 0;
+    will-change: opacity, transform;
+    animation: ciclo 20s linear infinite;
+  }
+  .foto-a { transform-origin: 62% 42%; animation-delay: -1.6s; }
+  .foto-b { transform-origin: 38% 55%; animation-delay: 8.4s; }
+
+  @keyframes ciclo {
+    0%   { opacity: 0; transform: scale(1.02); }
+    8%   { opacity: 1; }
+    50%  { opacity: 1; }
+    58%  { opacity: 0; transform: scale(1.1); }
+    100% { opacity: 0; transform: scale(1.1); }
+  }
+
+  /* Entrada del texto: sube y se enfoca, escalonada */
+  .rev { animation: revelar 1.1s cubic-bezier(0.16, 1, 0.3, 1) var(--d, 0s) backwards; }
+  @keyframes revelar {
+    from { opacity: 0; transform: translateY(22px); filter: blur(8px); }
+  }
+  .regla { transform-origin: left; animation: trazar 1s cubic-bezier(0.16, 1, 0.3, 1) 0.8s backwards; }
+  @keyframes trazar { from { transform: scaleX(0); } }
+
+  /* Indicador: una pista por foto, se llena mientras esa foto está activa */
+  .pista { display: block; width: 1.75rem; height: 2px; background: rgba(240, 235, 225, 0.25); overflow: hidden; }
+  .llenado {
+    display: block;
+    height: 100%;
+    background: #E0B86A;
+    transform-origin: left;
+    transform: scaleX(0);
+    animation: llenar 20s linear infinite;
+  }
+  .llenado-b { animation-delay: 8.4s; }
+  @keyframes llenar {
+    0%    { transform: scaleX(0); }
+    42%   { transform: scaleX(1); }
+    50%   { transform: scaleX(1); }
+    50.1% { transform: scaleX(0); }
+    100%  { transform: scaleX(0); }
+  }
+
+  /* Fuera de pantalla se pausa todo el movimiento */
+  .hero.fuera :global(*) { animation-play-state: paused !important; }
+
+  /* Movimiento reducido: solo la primera foto, quieta; el texto aparece con un fundido simple */
+  @media (prefers-reduced-motion: reduce) {
+    .foto { animation: none; }
+    .foto-a { opacity: 1; transform: none; }
+    .foto-b, .llenado, .pista { display: none; }
+    .rev { animation: aparecer 0.6s ease-out var(--d, 0s) backwards; }
+    .regla { animation: none; }
+    @keyframes aparecer { from { opacity: 0; } }
+  }
+</style>
+
+<script>
+  const hero = document.querySelector<HTMLElement>('#inicio');
+  if (hero && 'IntersectionObserver' in window) {
+    new IntersectionObserver(([entry]) => {
+      hero.classList.toggle('fuera', !entry.isIntersecting);
+    }).observe(hero);
+  }
+</script>

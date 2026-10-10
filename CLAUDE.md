@@ -12,7 +12,7 @@ Sitio divulgativo sobre el **Brahman Rojo colombiano**, presentado por **RB Gana
 - Audiencia mixta (gremio, aliados, autoridades, público); tono divulgativo de alto nivel, no comercial.
 - Cada cifra lleva fuente verificable (FEDEGAN, ICA, DANE, Asocebú, literatura científica) en comentario o visible en la sección. Si no se puede verificar, no se usa.
 - El mapa de `TerritorialImpact` se rehízo (contorno real por departamentos en `src/data/colombia-departamentos.json`, datos de vacunación ciclo I 2025). El logo (`public/rb-logo.webp`, fondo `#020101`) solo va sobre fondos de ese mismo color; sobre fotos se ve como sticker.
-- Se trabaja por partes, una sección a la vez. Hecho: navbar, footer, Hero, Foundation, Excellence ("La ciencia"), TerritorialImpact (mapa interactivo) y textos de GlobalQuality. Pendiente: rediseño visual de Hero, Foundation, Gallery y GlobalQuality.
+- Se trabaja por partes, una sección a la vez. Hecho: navbar, footer, Hero, Foundation, Excellence ("La ciencia"), Foundation, TerritorialImpact (mapa interactivo) y GlobalQuality (Exportación). Hero con dos fotos (public/galeria/Banner_1.webp y Banner_2.webp, fundido cruzado). Gallery ("El hato", id `#hato`, fotos en `src/assets/hato`). Pendiente: pulido final de todo el sitio y limpiar assets sin uso en `src/assets/galeria`.
 - Contexto de producto en `PRODUCT.md`.
 
 ## Stack Tecnológico
@@ -36,11 +36,11 @@ El proyecto sigue una arquitectura de componentes modulares en Astro. Cada secci
 
 | Componente | Sección |
 |---|---|
-| `Hero` | Cabecera inmersiva con foto de fondo (100vh), sin video, overlay y flecha animada de scroll |
+| `Hero` | Cabecera a pantalla completa con dos fotos en fundido cruzado y zoom lento, texto abajo a la izquierda, sin video ni CTA |
 | `Foundation` | La raza y su escala: contadores animados con cifras del sector |
 | `Excellence` | La ciencia de la raza: tres capítulos (trópico, genética, bienestar/SSPi) con datos y fuentes |
 | `TerritorialImpact` | Mapa topográfico de Colombia con puntos luminosos |
-| `GlobalQuality` | Exportación de ganado colombiano y destinos |
+| `GlobalQuality` | Exportación: destinos del ganado en pie, ruta sanitaria del ICA y consumo interno |
 | `Footer` | Firma discreta de RB, índice de secciones y nota de fuentes |
 
 ## Dirección de Arte

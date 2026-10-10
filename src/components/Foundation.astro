@@ -1,112 +1,133 @@
 ---
-// Sección: La raza y su escala — contadores animados con cifras del sector ganadero colombiano
-const metricas = [
+// Sección: La raza y su escala — enunciado con cifras animadas + línea de origen del Brahman.
+const cifras = {
   // Fuente: FEDEGAN, inventario bovino y bufalino (29.034.525 bovinos), 2025
-  { valor: 29034525, sufijo: '', etiqueta: 'Bovinos en Colombia',    descripcion: 'Inventario nacional registrado por FEDEGAN' },
+  bovinos:     29034525,
   // Fuente: FEDEGAN, Oficina de Estudios Económicos, 2025
-  { valor: 1099273,  sufijo: '', etiqueta: 'Empleos Directos',       descripcion: 'Generados por la ganadería bovina y bufalina' },
+  empleos:     1099273,
   // Fuente: DANE, procesado por FEDEGAN, 2025
-  { valor: 227429,   sufijo: '', etiqueta: 'Bovinos Exportados',     descripcion: 'Animales en pie enviados al exterior en 2025' },
-];
+  exportados:  227429,
+};
 const fmt = (n: number) => n.toLocaleString('es-CO');
+
+// Fuentes: brahman.org y American Brahman (1885, 1924); CONtexto Ganadero / Asocebú (línea roja y 95 %)
+const linaje = [
+  { marca: '1885',        titulo: 'De la India a Texas',  texto: 'Se suele situar aquí el origen del Brahman: toros cebuinos traídos directamente de la India y cruzados con ganado local.' },
+  { marca: '1924',        titulo: 'Nace el nombre',       texto: 'En Houston se funda la asociación de criadores y se propone el nombre «Brahman». Llegan desde Brasil reproductores Guzerá, Gyr y Nelore.' },
+  { marca: 'Línea roja',  titulo: 'El Brahman Rojo',      texto: 'Una línea cebuina más reciente, obtenida a partir de Gyr e Indubrasil y valorada por su habilidad materna.' },
+  { marca: 'Hoy',         titulo: 'La base del cebú',     texto: 'Más del 95 % del hato cebú colombiano es Brahman, entre variedades roja y gris.' },
+];
 ---
 
 <section
   id="fundacion"
-  class="relative py-20 md:py-28 px-5 sm:px-6 bg-superficie-1 border-t border-linea-acento"
+  class="relative py-20 md:py-32 px-5 sm:px-6 bg-superficie-1 border-t border-linea-acento"
   aria-labelledby="fundacion-titulo"
 >
   <div class="max-w-6xl mx-auto">
 
-    <!-- Encabezado editorial -->
-    <div class="grid md:grid-cols-12 gap-10 md:gap-16 items-start mb-16 md:mb-24">
-      <div class="md:col-span-7" data-reveal>
-        <h2 id="fundacion-titulo" class="font-serif text-4xl md:text-5xl leading-[1.15] text-tinta text-balance">
-          El Brahman Rojo, una raza al servicio del campo colombiano
-        </h2>
-      </div>
-      <div class="md:col-span-5 md:pt-10" data-reveal style="--d: 0.15s;">
-        <p class="font-body text-lg leading-relaxed mb-6 text-tinta-2">
-          Colombia tiene cerca de
-          <strong class="font-semibold text-tinta">29 millones de bovinos</strong>
-          y la ganadería genera más de
-          <strong class="font-semibold text-tinta">un millón de empleos directos</strong>.
-          En ese hato, el Brahman es la base del ganado cebú del país.
-        </p>
-        <p class="font-body text-lg leading-relaxed text-tinta-2">
-          Su adaptación al calor, su habilidad materna y su resistencia explican por qué el Brahman Rojo
-          es una de las razas que mejor se desempeña en el trópico bajo colombiano.
-        </p>
-      </div>
+    <div class="grid md:grid-cols-12 gap-6 md:gap-16 mb-16 md:mb-24" data-reveal>
+      <h2 id="fundacion-titulo" class="md:col-span-7 font-serif text-3xl sm:text-4xl md:text-5xl leading-[1.15] text-tinta text-balance">
+        El Brahman Rojo, una raza al servicio del campo colombiano
+      </h2>
+      <p class="md:col-span-5 md:pt-3 font-body text-lg leading-relaxed text-tinta-2" style="text-wrap: pretty;">
+        Su adaptación al calor, su habilidad materna y su resistencia explican por qué es una de las razas que mejor se desempeña en el trópico bajo colombiano.
+      </p>
     </div>
 
-    <!-- Contadores: el HTML trae el valor final; el script anima desde 0 solo si hay movimiento -->
-    <ul class="metricas grid grid-cols-1 md:grid-cols-3 border border-linea-acento" aria-label="Cifras de la ganadería colombiana">
-      {metricas.map((m, i) => (
-        <li class="metric-card px-6 py-12 sm:px-10 sm:py-16 text-center" data-reveal style={`--d: ${i * 0.12}s;`}>
-          <p
-            class="font-serif tabular-nums tracking-tight text-oro mb-5"
-            style="font-size: clamp(3.5rem, 8vw, 6rem); line-height: 1;"
-            data-counter
-            data-target={m.valor}
-            data-suffix={m.sufijo}
-          >
-            {fmt(m.valor)}{m.sufijo}
-          </p>
-          <p class="font-sans font-medium text-xs uppercase tracking-[0.2em] mb-2 text-tinta">
-            {m.etiqueta}
-          </p>
-          <p class="font-body text-sm leading-snug text-tinta-3">
-            {m.descripcion}
-          </p>
+    <!-- Enunciado con cifras: cada número cuenta desde 0; el HTML trae el valor final -->
+    <p class="enunciado font-serif text-tinta-2 mb-6 md:mb-8" data-reveal>
+      Colombia cría
+      <span class="cifra"><span class="sizer" aria-hidden="true">{fmt(cifras.bovinos)}</span><span class="valor" aria-hidden="true" data-counter data-target={cifras.bovinos}>{fmt(cifras.bovinos)}</span><span class="sr-only">{fmt(cifras.bovinos)}</span></span>
+      bovinos. Su ganadería sostiene
+      <span class="cifra"><span class="sizer" aria-hidden="true">{fmt(cifras.empleos)}</span><span class="valor" aria-hidden="true" data-counter data-target={cifras.empleos}>{fmt(cifras.empleos)}</span><span class="sr-only">{fmt(cifras.empleos)}</span></span>
+      empleos directos y, en 2025, envió
+      <span class="cifra"><span class="sizer" aria-hidden="true">{fmt(cifras.exportados)}</span><span class="valor" aria-hidden="true" data-counter data-target={cifras.exportados}>{fmt(cifras.exportados)}</span><span class="sr-only">{fmt(cifras.exportados)}</span></span>
+      animales vivos al mundo.
+    </p>
+    <p class="font-body text-xs text-tinta-3 mb-20 md:mb-32" data-reveal>
+      Fuentes: FEDEGAN (inventario y empleo, 2025) y DANE (exportaciones, 2025).
+    </p>
+
+    <!-- Línea de origen de la raza -->
+    <div data-reveal>
+      <h3 class="font-sans font-semibold text-xl md:text-2xl text-tinta mb-10 md:mb-14">
+        De la India al trópico colombiano
+      </h3>
+    </div>
+    <ol class="linaje grid md:grid-cols-4 gap-x-8 gap-y-10 list-none m-0 p-0">
+      {linaje.map((l, i) => (
+        <li class="linaje-item" data-reveal style={`--d: ${i * 0.1}s;`}>
+          <p class="font-serif text-2xl text-oro-claro mb-3">{l.marca}</p>
+          <h4 class="font-sans font-semibold text-base text-tinta mb-2">{l.titulo}</h4>
+          <p class="font-body text-sm leading-relaxed text-tinta-2" style="text-wrap: pretty;">{l.texto}</p>
         </li>
       ))}
-    </ul>
+    </ol>
   </div>
 </section>
 
 <style>
-  /* Divisores del grid de métricas — mobile: horizontal, desktop: vertical */
-  .metric-card { border-bottom: 1px solid rgba(139, 26, 26, 0.35); }
-  .metric-card:last-child { border-bottom: none; }
-  @media (min-width: 768px) {
-    .metric-card { border-bottom: none; border-right: 1px solid rgba(139, 26, 26, 0.35); }
-    .metric-card:last-child { border-right: none; }
+  /* Las cifras reservan su ancho final para que la frase no se reacomode al contar */
+  .enunciado {
+    font-size: clamp(1.75rem, 4.2vw, 3.4rem);
+    line-height: 1.3;
+    text-wrap: pretty;
+    max-width: 24em;
+  }
+  .cifra { display: inline-grid; vertical-align: baseline; }
+  .cifra > * { grid-area: 1 / 1; }
+  .sizer { visibility: hidden; }
+  .valor {
+    color: #E0B86A;
+    font-variant-numeric: tabular-nums;
+    font-style: italic;
+  }
+
+  /* Línea de tiempo: filete superior con un punto por hito, sin tarjetas */
+  .linaje-item {
+    position: relative;
+    padding-top: 1.75rem;
+    border-top: 1px solid rgba(240, 235, 225, 0.12);
+  }
+  .linaje-item::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: 0;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #C9963A;
   }
 </style>
 
 <script>
   const counters = document.querySelectorAll<HTMLElement>('[data-counter]');
   const motionOk = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
   if (motionOk && 'IntersectionObserver' in window) {
     const format = (n: number) => n.toLocaleString('es-CO');
-
     const animate = (el: HTMLElement) => {
       const target = parseInt(el.dataset.target ?? '0', 10);
-      const suffix = el.dataset.suffix ?? '';
-      const duration = 2000;
+      const duration = 2200;
       const start = performance.now();
-
       const step = (now: number) => {
         const progress = Math.min((now - start) / duration, 1);
         const eased = 1 - Math.pow(1 - progress, 3);
-        el.textContent = format(Math.floor(eased * target)) + suffix;
+        el.textContent = format(Math.floor(eased * target));
         if (progress < 1) requestAnimationFrame(step);
       };
       requestAnimationFrame(step);
     };
-
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (!entry.isIntersecting) return;
         animate(entry.target as HTMLElement);
         observer.unobserve(entry.target);
       });
-    }, { threshold: 0.5 });
-
+    }, { threshold: 0.6 });
     counters.forEach((el) => {
-      el.textContent = '0' + (el.dataset.suffix ?? '');
+      el.textContent = '0';
       observer.observe(el);
     });
   }

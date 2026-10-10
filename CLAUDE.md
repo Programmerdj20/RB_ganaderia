@@ -12,7 +12,7 @@ Sitio divulgativo sobre el **Brahman Rojo colombiano**, presentado por **RB Gana
 - Audiencia mixta (gremio, aliados, autoridades, público); tono divulgativo de alto nivel, no comercial.
 - Cada cifra lleva fuente verificable (FEDEGAN, ICA, DANE, Asocebú, literatura científica) en comentario o visible en la sección. Si no se puede verificar, no se usa.
 - El mapa de `TerritorialImpact` se rehízo (contorno real por departamentos en `src/data/colombia-departamentos.json`, datos de vacunación ciclo I 2025). El logo (`public/rb-logo.webp`, fondo `#020101`) solo va sobre fondos de ese mismo color; sobre fotos se ve como sticker.
-- Se trabaja por partes, una sección a la vez. Hecho: navbar, footer, Hero, Foundation, Excellence ("La ciencia"), Foundation, TerritorialImpact (mapa interactivo) y GlobalQuality (Exportación). Hero con dos fotos (public/galeria/Banner_1.webp y Banner_2.webp, fundido cruzado). Gallery ("El hato", id `#hato`, fotos en `src/assets/hato`). Pulido final hecho. Pendiente: fotos de mayor resolución (las actuales son de 1024 px) y revisar con el cliente las cifras marcadas como de prensa.
+- Se trabaja por partes, una sección a la vez. Hecho: todas las secciones (navbar, footer, Hero, Foundation, Excellence "La ciencia", Gallery, TerritorialImpact con mapa interactivo, GlobalQuality "Exportación"). Gallery ("El hato", id `#hato`, fotos en `src/assets/hato`). Pulido final hecho. Pendiente: fotos de mayor resolución (las actuales son de 1024 px) y revisar con el cliente las cifras marcadas como de prensa.
 - Contexto de producto en `PRODUCT.md`.
 
 ## Stack Tecnológico
@@ -37,11 +37,21 @@ El proyecto sigue una arquitectura de componentes modulares en Astro. Cada secci
 | Componente | Sección |
 |---|---|
 | `Hero` | Cabecera a pantalla completa con dos fotos en fundido cruzado y zoom lento, texto abajo a la izquierda, sin video ni CTA |
+| `Navbar` | Navegación con logo de RB y enlaces a las secciones |
 | `Foundation` | La raza y su escala: contadores animados con cifras del sector |
 | `Excellence` | La ciencia de la raza: tres capítulos (trópico, genética, bienestar/SSPi) con datos y fuentes |
-| `TerritorialImpact` | Mapa topográfico de Colombia con puntos luminosos |
+| `Gallery` | "El hato" (`#hato`): galería con lightbox; datos de las fotos en un `<script type="application/json">`; imágenes en `src/assets/hato` |
+| `TerritorialImpact` | Mapa interactivo de Colombia por departamentos (`src/data/colombia-departamentos.json`) |
 | `GlobalQuality` | Exportación: destinos del ganado en pie, ruta sanitaria del ICA y consumo interno |
 | `Footer` | Firma discreta de RB, índice de secciones y nota de fuentes |
+
+### Arquitectura transversal
+- Es una sola página: `src/pages/index.astro` compone `Layout` + las secciones en orden; `Navbar` va dentro de `Layout.astro` y `Footer` fuera de `<main id="contenido">`.
+- `Layout.astro` concentra CSS global (`<style is:global>`), fuentes (Google Fonts) y el sistema de reveal: cualquier elemento con `data-reveal` aparece al scroll mediante un único `IntersectionObserver`. La clase `js` en `<html>` se añade antes del primer pintado y `reveal-all` es el failsafe a los 3 s; no crear observers propios por componente.
+- Los comportamientos interactivos viven en `<script>` dentro de cada componente (Hero, Foundation, Gallery, TerritorialImpact, Navbar).
+- Imágenes de `src/assets` pasan por el optimizador de Astro (`sharp`); las de `public/` se sirven tal cual.
+- No hay linter ni tests: la verificación es `pnpm build` y revisión visual con `pnpm dev`.
+- `prompt.md` es el brief inicial y está desactualizado (incluye cosas que luego se descartaron: corporativo, CTA); mandan este archivo y `PRODUCT.md`.
 
 ## Dirección de Arte
 

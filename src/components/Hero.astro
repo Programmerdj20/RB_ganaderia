@@ -1,5 +1,5 @@
 ---
-// Hero: cabecera inmersiva — foto a pantalla completa con video encima cuando exista
+// Hero: cabecera inmersiva — foto a pantalla completa
 import { Image } from 'astro:assets';
 import heroFoto from '../assets/galeria/hero-hato-frente.jpg';
 ---
@@ -9,7 +9,7 @@ import heroFoto from '../assets/galeria/hero-hato-frente.jpg';
   class="relative min-h-[100svh] w-full overflow-hidden flex items-center justify-center bg-superficie-0"
   aria-label="Cabecera principal RB Ganadería"
 >
-  <!-- Foto de respaldo: nunca queda negro si el video falta o tarda -->
+  <!-- Foto de fondo -->
   <Image
     src={heroFoto}
     alt=""
@@ -20,16 +20,6 @@ import heroFoto from '../assets/galeria/hero-hato-frente.jpg';
     class="absolute inset-0 w-full h-full object-cover animate-hero-drift"
     aria-hidden="true"
   />
-
-  <!-- Video — reemplazar con video de drones de la hacienda -->
-  <video
-    class="absolute inset-0 w-full h-full object-cover"
-    src="/placeholder.mp4"
-    autoplay muted loop playsinline
-    preload="none"
-    aria-hidden="true"
-    onerror="this.remove()"
-  ></video>
 
   <!-- Overlay cálido: protege la lectura del titular y la barra de navegación -->
   <div

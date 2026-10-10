@@ -27,7 +27,7 @@ El proyecto sigue una arquitectura de componentes modulares en Astro. Cada secci
 
 | Componente | Sección |
 |---|---|
-| `Hero` | Cabecera inmersiva con video de fondo (100vh), overlay y flecha animada de scroll |
+| `Hero` | Cabecera inmersiva con foto de fondo (100vh), sin video, overlay y flecha animada de scroll |
 | `Foundation` | Identidad/escala con contadores animados (count-ups) |
 | `Excellence` | Paneles interactivos: Mejoramiento Genético, SSPi, Bienestar Animal |
 | `TerritorialImpact` | Mapa topográfico de Colombia con puntos luminosos |
@@ -45,5 +45,5 @@ El proyecto sigue una arquitectura de componentes modulares en Astro. Cada secci
 
 - Código limpio y modular; comentarios solo donde el `por qué` no sea obvio
 - Mobile-first con Tailwind; accesibilidad con atributos ARIA y contraste adecuado
-- Los placeholders de media deben quedar claramente marcados: `src="/placeholder.mp4"`, `src="/placeholder-foto.jpg"`
+- Los placeholders de media deben quedar claramente marcados: `src="/placeholder-foto.jpg"`. No usar videos en el sitio
 - Seguir las convenciones de componentes `.astro` y no generar archivos innecesarios

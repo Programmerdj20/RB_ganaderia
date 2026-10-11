@@ -35,14 +35,14 @@ const linaje = [
       </p>
     </div>
 
-    <!-- Enunciado con cifras: cada número cuenta desde 0; el HTML trae el valor final -->
+    <!-- Enunciado con cifras: el texto no cambia; cada número "se enciende" en oro al entrar, sin mover el layout -->
     <p class="enunciado font-serif text-tinta-2 mb-6 md:mb-8" data-reveal>
       Colombia cría
-      <span class="cifra"><span class="sizer" aria-hidden="true">{fmt(cifras.bovinos)}</span><span class="valor" aria-hidden="true" data-counter data-target={cifras.bovinos}>{fmt(cifras.bovinos)}</span><span class="sr-only">{fmt(cifras.bovinos)}</span></span>
+      <span class="cifra">{fmt(cifras.bovinos)}</span>
       bovinos. Su ganadería sostiene
-      <span class="cifra"><span class="sizer" aria-hidden="true">{fmt(cifras.empleos)}</span><span class="valor" aria-hidden="true" data-counter data-target={cifras.empleos}>{fmt(cifras.empleos)}</span><span class="sr-only">{fmt(cifras.empleos)}</span></span>
+      <span class="cifra" style="--i:1">{fmt(cifras.empleos)}</span>
       empleos directos y, en 2025, envió
-      <span class="cifra"><span class="sizer" aria-hidden="true">{fmt(cifras.exportados)}</span><span class="valor" aria-hidden="true" data-counter data-target={cifras.exportados}>{fmt(cifras.exportados)}</span><span class="sr-only">{fmt(cifras.exportados)}</span></span>
+      <span class="cifra" style="--i:2">{fmt(cifras.exportados)}</span>
       animales vivos al mundo.
     </p>
     <p class="font-body text-[0.8125rem] text-tinta-3 mb-20 md:mb-32" data-reveal>
@@ -68,20 +68,26 @@ const linaje = [
 </section>
 
 <style>
-  /* Las cifras reservan su ancho final para que la frase no se reacomode al contar */
   .enunciado {
     font-size: clamp(1.75rem, 4.2vw, 3.4rem);
     line-height: 1.3;
     text-wrap: pretty;
     max-width: 24em;
   }
-  .cifra { display: inline-grid; vertical-align: baseline; }
-  .cifra > * { grid-area: 1 / 1; }
-  .sizer { visibility: hidden; }
-  .valor {
-    color: #E0B86A;
-    font-variant-numeric: tabular-nums;
+  .cifra {
+    color: var(--oro-claro);
     font-style: italic;
+    font-variant-numeric: tabular-nums;
+  }
+  /* Solo color: no hay cambio de texto ni de caja, así la frase no se reacomoda */
+  @media (prefers-reduced-motion: no-preference) {
+    :global(html.js:not(.reveal-all)) .enunciado .cifra {
+      color: inherit;
+      transition: color 0.7s cubic-bezier(0.16, 1, 0.3, 1) calc(0.35s + var(--i, 0) * 0.18s);
+    }
+    :global(html.js:not(.reveal-all)) .enunciado.is-visible .cifra {
+      color: var(--oro-claro);
+    }
   }
 
   /* Línea de tiempo: filete superior con un punto por hito, sin tarjetas */
@@ -98,37 +104,6 @@ const linaje = [
     width: 7px;
     height: 7px;
     border-radius: 50%;
-    background: #C9963A;
+    background: var(--oro);
   }
 </style>
-
-<script>
-  const counters = document.querySelectorAll<HTMLElement>('[data-counter]');
-  const motionOk = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (motionOk && 'IntersectionObserver' in window) {
-    const format = (n: number) => n.toLocaleString('es-CO');
-    const animate = (el: HTMLElement) => {
-      const target = parseInt(el.dataset.target ?? '0', 10);
-      const duration = 2200;
-      const start = performance.now();
-      const step = (now: number) => {
-        const progress = Math.min((now - start) / duration, 1);
-        const eased = 1 - Math.pow(1 - progress, 3);
-        el.textContent = format(Math.floor(eased * target));
-        if (progress < 1) requestAnimationFrame(step);
-      };
-      requestAnimationFrame(step);
-    };
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        animate(entry.target as HTMLElement);
-        observer.unobserve(entry.target);
-      });
-    }, { threshold: 0.6 });
-    counters.forEach((el) => {
-      el.textContent = '0';
-      observer.observe(el);
-    });
-  }
-</script>

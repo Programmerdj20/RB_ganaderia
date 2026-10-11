@@ -108,7 +108,7 @@ const capitulos = [
 </section>
 
 <style>
-  .capitulo-foto { overflow: hidden; background: #0B0A09; }
+  .capitulo-foto { overflow: hidden; background: var(--superficie-0); }
   .capitulo-foto :global(img) { display: block; }
 
   /* Registro de datos: filas separadas por filetes, sin tarjetas */
@@ -124,13 +124,13 @@ const capitulos = [
   /* El oro señala una sola cifra por capítulo, la primera; las demás son de apoyo */
   .registro-valor {
     font: 500 1.3rem/1.1 'Playfair Display', Georgia, serif;
-    color: #F0EBE1;
+    color: var(--tinta);
     font-variant-numeric: tabular-nums;
     white-space: nowrap;
   }
   .registro-fila:first-child .registro-valor {
     font-size: 1.75rem;
-    color: #E0B86A;
+    color: var(--oro-claro);
   }
   @media (max-width: 30rem) {
     .registro-fila { grid-template-columns: 1fr; row-gap: 0.3rem; }
@@ -138,13 +138,13 @@ const capitulos = [
   .registro-texto {
     margin: 0;
     font: 400 0.9rem/1.55 'Inter', system-ui, sans-serif;
-    color: #C2BCB0;
+    color: var(--tinta-2);
   }
   .registro-fuente {
     display: block;
     margin-top: 0.2rem;
     font-size: 0.8125rem;
-    color: #A09A8E;
+    color: var(--tinta-3);
   }
 
   /* Un solo momento de movimiento: la foto se revela con un clip-path ligado al scroll */

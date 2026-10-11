@@ -20,6 +20,10 @@ import poppins500 from '@fontsource/poppins/files/poppins-latin-500-normal.woff2
 import inter300 from '@fontsource/inter/files/inter-latin-300-normal.woff2?url';
 const precargar = [playfair400, playfair400i, poppins500, inter300];
 
+// Las vistas previas al compartir exigen URLs absolutas: solo se emiten cuando `site` está definido en astro.config.mjs.
+const urlCanonica = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : null;
+const urlImagen = Astro.site ? new URL('/og.jpg', Astro.site).href : null;
+
 interface Props {
   title?: string;
   description?: string;
@@ -38,8 +42,20 @@ const {
     <meta name="theme-color" content="#0B0A09" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="es_CO" />
+    <meta property="og:site_name" content="Brahman Rojo colombiano" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
+    {urlCanonica && <link rel="canonical" href={urlCanonica} />}
+    {urlCanonica && <meta property="og:url" content={urlCanonica} />}
+    {urlImagen && (
+      <>
+        <meta property="og:image" content={urlImagen} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:alt" content="Hato de ganado Brahman Rojo en la pradera colombiana" />
+        <meta name="twitter:card" content="summary_large_image" />
+      </>
+    )}
     <link rel="icon" type="image/png" href="/favicon.png" />
     <title>{title}</title>
 
@@ -69,8 +85,20 @@ const {
 </html>
 
 <style is:global>
+  /* Paleta compartida por los estilos de cada componente; mantener en sintonía con tailwind.config.mjs */
   :root {
     --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    --oro: #C9963A;
+    --oro-claro: #E0B86A;
+    --acento: #8B1A1A;
+    --tinta: #F0EBE1;
+    --tinta-2: #C2BCB0;
+    --tinta-3: #A09A8E;
+    --superficie-0: #0B0A09;
+    --superficie-1: #121110;
+    --superficie-2: #1C1A17;
+    --superficie-3: #1F1D1A;
+    --logo-bg: #020101;   /* color exacto del fondo del logo (rb-logo.webp) */
   }
 
   * { box-sizing: border-box; }
@@ -82,21 +110,21 @@ const {
 
   ::selection {
     background-color: rgba(201, 150, 58, 0.28);
-    color: #F0EBE1;
+    color: var(--tinta);
   }
 
   /* Anillo de foco visible y coherente con la paleta */
   :focus-visible {
-    outline: 2px solid #E0B86A;
+    outline: 2px solid var(--oro-claro);
     outline-offset: 3px;
     border-radius: 2px;
   }
 
   ::-webkit-scrollbar { width: 6px; }
-  ::-webkit-scrollbar-track { background: #0B0A09; }
+  ::-webkit-scrollbar-track { background: var(--superficie-0); }
   ::-webkit-scrollbar-thumb { background: rgba(201, 150, 58, 0.35); border-radius: 3px; }
   ::-webkit-scrollbar-thumb:hover { background: rgba(201, 150, 58, 0.6); }
-  html { scrollbar-color: rgba(201, 150, 58, 0.35) #0B0A09; scrollbar-width: thin; }
+  html { scrollbar-color: rgba(201, 150, 58, 0.35) var(--superficie-0); scrollbar-width: thin; }
 
   .grain {
     position: fixed;
@@ -116,8 +144,8 @@ const {
     font: 600 0.8rem/1 'Poppins', sans-serif;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: #0B0A09;
-    background: #E0B86A;
+    color: var(--superficie-0);
+    background: var(--oro-claro);
     border-radius: 4px;
     transform: translateY(-200%);
     transition: transform 0.2s var(--ease-out);

@@ -151,26 +151,26 @@ const otros = Object.entries(mapa.paths).filter(([id]) => !activas.has(id));
     cursor: pointer;
     transition: fill 0.4s cubic-bezier(0.16, 1, 0.3, 1), stroke 0.4s;
   }
-  .depto:hover { stroke: #E0B86A; }
+  .depto:hover { stroke: var(--oro-claro); }
   .depto.is-active {
     fill: rgba(224, 184, 106, 0.8);
-    stroke: #F0EBE1;
+    stroke: var(--tinta);
     stroke-width: 1.4;
   }
 
-  .punto { fill: #C9963A; opacity: 0.75; animation: pulso 2.8s ease-in-out infinite; pointer-events: none; }
+  .punto { fill: var(--oro); opacity: 0.75; animation: pulso 2.8s ease-in-out infinite; pointer-events: none; }
   /* El pulso repinta un filtro SVG en cada fotograma: fuera de pantalla se detiene */
   section.fuera .punto { animation-play-state: paused; }
   .marca:nth-of-type(2n) .punto { animation-delay: 0.7s; }
   .marca:nth-of-type(3n) .punto { animation-delay: 1.4s; }
-  .marca.is-active .punto { fill: #F0EBE1; opacity: 1; }
+  .marca.is-active .punto { fill: var(--tinta); opacity: 1; }
   @keyframes pulso { 0%, 100% { opacity: 0.85; } 50% { opacity: 0.4; } }
 
   .etiqueta {
     font: 600 22px 'Poppins', sans-serif;
-    fill: #F0EBE1;
+    fill: var(--tinta);
     paint-order: stroke;
-    stroke: #1C1A17;
+    stroke: var(--superficie-2);
     stroke-width: 5px;
     stroke-linejoin: round;
     opacity: 0;
@@ -194,7 +194,7 @@ const otros = Object.entries(mapa.paths).filter(([id]) => !activas.has(id));
     background: transparent;
     border: none;
     cursor: pointer;
-    color: #C2BCB0;
+    color: var(--tinta-2);
     transition: color 0.3s;
   }
   .fila-nombre { font: 500 1rem/1.3 'Poppins', sans-serif; }
@@ -211,9 +211,9 @@ const otros = Object.entries(mapa.paths).filter(([id]) => !activas.has(id));
     background: rgba(201, 150, 58, 0.55);
     transition: background 0.3s;
   }
-  .fila:hover, .fila.is-active { color: #F0EBE1; }
-  .fila.is-active .fila-barra > span { background: #E0B86A; }
-  .fila.is-active .fila-cifra { color: #E0B86A; }
+  .fila:hover, .fila.is-active { color: var(--tinta); }
+  .fila.is-active .fila-barra > span { background: var(--oro-claro); }
+  .fila.is-active .fila-cifra { color: var(--oro-claro); }
 
   @media (prefers-reduced-motion: reduce) {
     .punto { animation: none; }

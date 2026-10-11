@@ -5,6 +5,7 @@ export default {
     extend: {
       colors: {
         // Paleta "Dark Luxury — RB Gold". Superficies con tinte cálido (nunca negro puro).
+        // Los estilos de componente leen las mismas cifras como variables CSS en Layout.astro: cambiar ambos sitios a la vez.
         superficie: {
           0: '#0B0A09',
           1: '#121110',
@@ -26,13 +27,6 @@ export default {
           DEFAULT: 'rgba(240,235,225,0.10)',
           acento: 'rgba(139,26,26,0.45)',
           oro: 'rgba(201,150,58,0.35)',
-        },
-        verde: {
-          profundo: '#2C4A2E',
-          oliva:    '#5A6E3A',
-        },
-        tierra: {
-          claro: '#C4A882',
         },
       },
       fontFamily: {

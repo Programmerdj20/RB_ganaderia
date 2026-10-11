@@ -51,33 +51,28 @@ const navLinks = [
       >
         <span class="ham-bar"></span>
         <span class="ham-bar"></span>
-        <span class="ham-bar"></span>
       </button>
     </div>
 
   </nav>
 
-  <!-- Menú móvil: desplegable de navegación; cerrado queda fuera del foco (inert) -->
-  <div id="mobile-menu" class="mobile-menu" inert>
-    <div class="mobile-menu-inner">
-      <ul>
-        {navLinks.map((link) => (
-          <li>
-            <a href={link.href} class="mobile-link" data-mobile-link>{link.label}</a>
-          </li>
-        ))}
-      </ul>
-    </div>
+  <!-- Menú móvil: panel lateral; cerrado queda fuera del foco (inert) -->
+  <div id="menu-backdrop" class="menu-backdrop" aria-hidden="true"></div>
+  <div id="mobile-menu" class="mobile-menu" role="dialog" aria-modal="true" aria-label="Menú" inert>
+    <ul>
+      {navLinks.map((link, i) => (
+        <li style={`--i: ${i};`}>
+          <a href={link.href} class="mobile-link" data-mobile-link>{link.label}</a>
+        </li>
+      ))}
+    </ul>
+    <p class="mobile-firma">Una iniciativa de RB Ganadería</p>
   </div>
 </header>
 
 <style>
   /* ── Variables ── */
   :root {
-    --gold:       #C9963A;
-    --gold-lt:    #E0B86A;
-    --crimson:    #8B1A1A;
-    --logo-bg:    #020101;   /* color exacto del fondo del logo (rb-logo.webp) */
     --nav-h:      100px;
   }
 
@@ -109,7 +104,7 @@ const navLinks = [
   /* Línea carmesí */
   .nav-crimson-line {
     height: 2px;
-    background: linear-gradient(to right, transparent 0%, var(--crimson) 25%, var(--crimson) 75%, transparent 100%);
+    background: linear-gradient(to right, transparent 0%, var(--acento) 25%, var(--acento) 75%, transparent 100%);
     opacity: 0.7;
   }
 
@@ -165,7 +160,7 @@ const navLinks = [
     font-weight: 500;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: #C2BCB0;
+    color: var(--tinta-2);
     text-decoration: none;
     padding: 0.55rem 0;
     transition: color 0.25s ease;
@@ -173,7 +168,7 @@ const navLinks = [
   }
   .nav-link:hover,
   .nav-link.active {
-    color: var(--gold-lt);
+    color: var(--oro-claro);
   }
 
   /* Línea dorada bajo el link */
@@ -183,7 +178,7 @@ const navLinks = [
     left: 0;
     right: 100%;
     height: 1px;
-    background: linear-gradient(to right, var(--gold), var(--gold-lt));
+    background: linear-gradient(to right, var(--oro), var(--oro-claro));
     transition: right 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   }
   .nav-link:hover .nav-link-line,
@@ -193,25 +188,24 @@ const navLinks = [
 
   /* ── Col 3: Hamburger ── */
   .nav-end {
-    display: flex;
+    display: none;
     align-items: center;
     justify-self: end;
   }
-  .nav-end { display: none; }
 
-  /* ── Hamburger (oculto en desktop) ── */
+  /* ── Hamburger (oculto en desktop): dos líneas asimétricas que se cruzan en X ── */
   .nav-hamburger {
     display: none;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
-    gap: 5px;
+    align-items: flex-end;
+    gap: 7px;
     width: 48px;
     height: 48px;
     background: transparent;
     border: none;
     cursor: pointer;
-    padding: 4px;
+    padding: 0 11px;
     touch-action: manipulation;
     -webkit-tap-highlight-color: transparent;
   }
@@ -221,91 +215,121 @@ const navLinks = [
     width: 26px;
     height: 1.5px;
     background: #E8E2D6;
-    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-                opacity 0.3s ease,
-                background 0.3s ease;
-    transform-origin: center;
+    transform-origin: right center;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s ease;
   }
+  .ham-bar:nth-child(2) { transform: scaleX(0.62); }
 
-  .nav-hamburger[aria-expanded="true"] .ham-bar:nth-child(1) {
-    transform: translateY(6.5px) rotate(45deg);
-    background: var(--gold);
+  @media (hover: hover) {
+    .nav-hamburger:hover .ham-bar:nth-child(2) { transform: scaleX(1); }
   }
-  .nav-hamburger[aria-expanded="true"] .ham-bar:nth-child(2) {
+  .nav-hamburger[aria-expanded="true"] .ham-bar { background: var(--oro); transform-origin: center; }
+  .nav-hamburger[aria-expanded="true"] .ham-bar:nth-child(1) { transform: translateY(4.25px) rotate(45deg); }
+  .nav-hamburger[aria-expanded="true"] .ham-bar:nth-child(2) { transform: translateY(-4.25px) rotate(-45deg); }
+
+  /* ── Panel lateral: entra desde la derecha, por debajo de la barra (logo + X siguen visibles) ── */
+  .nav-inner { position: relative; z-index: 2; }
+
+  .menu-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    background: rgba(2, 1, 1, 0.6);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
     opacity: 0;
-    transform: scaleX(0);
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0s linear 0.3s;
   }
-  .nav-hamburger[aria-expanded="true"] .ham-bar:nth-child(3) {
-    transform: translateY(-6.5px) rotate(-45deg);
-    background: var(--gold);
+  .menu-backdrop.open {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.4s ease, visibility 0s;
   }
 
-  /* ── Menú móvil: la altura se anima con grid-template-rows (sin tocar layout props) ── */
   .mobile-menu {
     display: none;
-    grid-template-rows: 0fr;
-    visibility: hidden;
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 1;
+    width: min(85vw, 420px);
+    height: 100dvh;
+    box-sizing: border-box;
+    flex-direction: column;
+    padding: calc(var(--nav-h) + 1.5rem) clamp(1.5rem, 6vw, 2.5rem) 2rem;
+    overflow-y: auto;
     background: var(--logo-bg);
-    border-top: 1px solid rgba(201, 150, 58, 0.12);
-    transition: grid-template-rows 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-                visibility 0s linear 0.45s;
+    border-left: 1px solid rgba(201, 150, 58, 0.14);
+    box-shadow: -24px 0 60px rgba(0, 0, 0, 0.55);
+    transform: translateX(100%);
+    visibility: hidden;
+    transition: transform 0.32s cubic-bezier(0.7, 0, 0.84, 0), visibility 0s linear 0.32s;
   }
   .mobile-menu.open {
-    grid-template-rows: 1fr;
+    transform: translateX(0);
     visibility: visible;
-    transition: grid-template-rows 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-                visibility 0s;
-  }
-  .mobile-menu-inner {
-    min-height: 0;
-    overflow-y: auto;
-    max-height: calc(100svh - var(--nav-h));
-    padding: 0 clamp(1.25rem, 5vw, 3.5rem);
-    display: flex;
-    flex-direction: column;
-  }
-  .mobile-menu.open .mobile-menu-inner {
-    padding-top: 0.75rem;
-    padding-bottom: 2rem;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), visibility 0s;
   }
   .mobile-menu ul {
     list-style: none;
     margin: 0;
     padding: 0;
   }
+  .mobile-menu li {
+    opacity: 0;
+    transform: translateX(16px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+  .mobile-menu.open li {
+    opacity: 1;
+    transform: none;
+    transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1) calc(0.12s + var(--i) * 0.05s),
+                transform 0.5s cubic-bezier(0.16, 1, 0.3, 1) calc(0.12s + var(--i) * 0.05s);
+  }
   .mobile-link {
     display: flex;
     align-items: center;
-    font-family: 'Poppins', sans-serif;
-    font-size: 1rem;
-    font-weight: 500;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: #C2BCB0;
+    min-height: 60px;
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 7vw, 2rem);
+    color: var(--tinta-2);
     text-decoration: none;
-    padding: 0 0;
     border-bottom: 1px solid rgba(201, 150, 58, 0.1);
     transition: color 0.2s ease;
-    min-height: 56px;
     touch-action: manipulation;
     -webkit-tap-highlight-color: transparent;
   }
-  .mobile-link:active { color: var(--gold-lt); }
+  .mobile-link:active,
+  .mobile-link.active { color: var(--oro-claro); }
   @media (hover: hover) {
-    .mobile-link:hover { color: var(--gold-lt); }
+    .mobile-link:hover { color: var(--oro-claro); }
   }
+  .mobile-firma {
+    margin: auto 0 0;
+    padding-top: 2rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.875rem;
+    color: var(--tinta-3);
+  }
+
   /* ── Responsive ── */
   @media (max-width: 1023px) {
     .nav-inner { grid-template-columns: 1fr auto; }
     .nav-links { display: none; }
     .nav-hamburger { display: flex; }
     .nav-end { display: flex; }
-    .mobile-menu { display: grid; }
+    .mobile-menu { display: flex; }
+    .menu-backdrop { display: block; }
   }
 
   @media (prefers-reduced-motion: reduce) {
     .mobile-menu,
-    .mobile-menu.open { transition: none; }
+    .mobile-menu.open { transform: none; opacity: 0; transition: opacity 0.2s ease, visibility 0s linear 0.2s; }
+    .mobile-menu.open { opacity: 1; transition: opacity 0.2s ease, visibility 0s; }
+    .mobile-menu li, .mobile-menu.open li { opacity: 1; transform: none; transition: none; }
+    .nav-hamburger[aria-expanded="true"] .ham-bar { transition: background 0.2s ease; }
   }
 </style>
 
@@ -313,6 +337,8 @@ const navLinks = [
   const header = document.getElementById('navbar') as HTMLElement;
   const btn = document.getElementById('hamburger-btn') as HTMLButtonElement;
   const menu = document.getElementById('mobile-menu') as HTMLElement;
+  const backdrop = document.getElementById('menu-backdrop') as HTMLElement;
+  const behind = document.querySelectorAll<HTMLElement>('#contenido, footer');
 
   /* ── Scroll: agrega sombra al bajar ── */
   const updateNavState = () => header.classList.toggle('scrolled', window.scrollY > 40);
@@ -325,11 +351,16 @@ const navLinks = [
     btn.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
     menu.classList.toggle('open', open);
     menu.toggleAttribute('inert', !open);
+    backdrop.classList.toggle('open', open);
+    behind.forEach((el) => el.toggleAttribute('inert', open));
+    document.documentElement.style.overflow = open ? 'hidden' : '';
     if (open) menu.querySelector<HTMLElement>('[data-mobile-link]')?.focus();
     else if (returnFocus) btn.focus();
   };
 
   btn.addEventListener('click', () => setMenu(btn.getAttribute('aria-expanded') !== 'true'));
+
+  backdrop.addEventListener('click', () => setMenu(false, true));
 
   menu.querySelectorAll('[data-mobile-link]').forEach((link) => {
     link.addEventListener('click', () => setMenu(false));
@@ -362,7 +393,7 @@ const navLinks = [
 
   /* ── Active link según sección visible ── */
   const sections = document.querySelectorAll('section[id]');
-  const navLinkEls = document.querySelectorAll('[data-nav-link]');
+  const navLinkEls = document.querySelectorAll('[data-nav-link], [data-mobile-link]');
 
   const sectionObserver = new IntersectionObserver(
     (entries) => {
@@ -370,7 +401,10 @@ const navLinks = [
         if (!entry.isIntersecting) return;
         const id = entry.target.id;
         navLinkEls.forEach((el) => {
-          el.classList.toggle('active', el.getAttribute('href') === `#${id}`);
+          const actual = el.getAttribute('href') === `#${id}`;
+          el.classList.toggle('active', actual);
+          if (actual) el.setAttribute('aria-current', 'location');
+          else el.removeAttribute('aria-current');
         });
       });
     },

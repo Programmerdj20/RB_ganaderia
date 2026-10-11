@@ -6,27 +6,27 @@ import { Image, getImage } from 'astro:assets';
 const archivos = import.meta.glob<{ default: ImageMetadata }>('../assets/hato/*.webp', { eager: true });
 const foto = (n: number) => archivos[`../assets/hato/hato-${String(n).padStart(2, '0')}.webp`].default;
 
-// Pie y descripción por foto. Orden de cada hilera: se alternan pradera/corral y horizontal/vertical.
-const info: Record<number, { pie: string; alt: string }> = {
-  3:  { pie: 'Hato en la pradera',        alt: 'Hato de ganado rojo de frente en la pradera bajo un cielo azul' },
-  4:  { pie: 'Ganado en el potrero',      alt: 'Reses caminando por un potrero verde, vistas desde lejos' },
-  5:  { pie: 'Hato en el corral',         alt: 'Hato alineado junto a la cerca del corral bajo un cielo nublado' },
-  6:  { pie: 'Corral con portón amarillo', alt: 'Hato reunido en el corral junto a un portón amarillo' },
-  7:  { pie: 'Reses en la pradera',       alt: 'Grupo de reses rojas mirando a la cámara en la pradera' },
-  8:  { pie: 'Corral, vista lateral',     alt: 'Reses en el corral con la cerca oscura y el campo abierto al fondo' },
-  9:  { pie: 'Hato reunido',              alt: 'Hato reunido en el corral con piso de adoquín' },
-  10: { pie: 'Hato en el corral',         alt: 'Reses de pie en el corral bajo un cielo cubierto' },
-  11: { pie: 'Corral y colinas',          alt: 'Hato en el corral con colinas verdes en el horizonte' },
-  12: { pie: 'Manga de manejo',           alt: 'Ganado dentro de la manga de manejo con portón amarillo' },
-  13: { pie: 'Corral con vista al valle', alt: 'Hato en el corral con un valle verde y árboles al fondo' },
-  14: { pie: 'Reses en el corral',        alt: 'Reses rojas en el corral con la cerca y el campo detrás' },
-  15: { pie: 'Corral y praderas',         alt: 'Hato apretado en el corral frente a praderas extensas' },
-  16: { pie: 'Hato frente al valle',      alt: 'Hato mirando al frente en el corral con el valle detrás' },
-  17: { pie: 'Panorámica del corral',     alt: 'Vista amplia del corral vacío con el hato al fondo' },
-  18: { pie: 'Ganado en movimiento',      alt: 'Reses caminando dentro del corral' },
-  19: { pie: 'Crías en el corral',        alt: 'Crías y reses reunidas en el corral con colinas detrás' },
-  20: { pie: 'Hato en el corral',         alt: 'Reses en el corral con el campo abierto al fondo' },
-  21: { pie: 'Hato al frente',            alt: 'Hato mirando a la cámara en el corral con praderas detrás' },
+// Descripción por foto. Orden de cada hilera: se alternan pradera/corral y horizontal/vertical.
+const info: Record<number, { alt: string }> = {
+  3:  { alt: 'Hato de ganado rojo de frente en la pradera bajo un cielo azul' },
+  4:  { alt: 'Reses caminando por un potrero verde, vistas desde lejos' },
+  5:  { alt: 'Hato alineado junto a la cerca del corral bajo un cielo nublado' },
+  6:  { alt: 'Hato reunido en el corral junto a un portón amarillo' },
+  7:  { alt: 'Grupo de reses rojas mirando a la cámara en la pradera' },
+  8:  { alt: 'Reses en el corral con la cerca oscura y el campo abierto al fondo' },
+  9:  { alt: 'Hato reunido en el corral con piso de adoquín' },
+  10: { alt: 'Reses de pie en el corral bajo un cielo cubierto' },
+  11: { alt: 'Hato en el corral con colinas verdes en el horizonte' },
+  12: { alt: 'Ganado dentro de la manga de manejo con portón amarillo' },
+  13: { alt: 'Hato en el corral con un valle verde y árboles al fondo' },
+  14: { alt: 'Reses rojas en el corral con la cerca y el campo detrás' },
+  15: { alt: 'Hato apretado en el corral frente a praderas extensas' },
+  16: { alt: 'Hato mirando al frente en el corral con el valle detrás' },
+  17: { alt: 'Vista amplia del corral vacío con el hato al fondo' },
+  18: { alt: 'Reses caminando dentro del corral' },
+  19: { alt: 'Crías y reses reunidas en el corral con colinas detrás' },
+  20: { alt: 'Reses en el corral con el campo abierto al fondo' },
+  21: { alt: 'Hato mirando a la cámara en el corral con praderas detrás' },
 };
 
 const hilera1 = [3, 8, 12, 13, 7, 15, 18, 10, 4, 21];
@@ -41,7 +41,7 @@ const orden = [...hilera1, ...hilera2];
 const indice = new Map(orden.map((n, i) => [n, i]));
 
 const ampliadas = await Promise.all(orden.map((n) => getImage({ src: foto(n), width: 1600, format: 'webp' })));
-const datos = orden.map((n, i) => ({ src: ampliadas[i].src, pie: info[n].pie, alt: info[n].alt }));
+const datos = orden.map((n, i) => ({ src: ampliadas[i].src, alt: info[n].alt }));
 ---
 
 <section
@@ -87,7 +87,7 @@ const datos = orden.map((n, i) => ({ src: ampliadas[i].src, pie: info[n].pie, al
                     type="button"
                     class="foto"
                     data-index={indice.get(n)}
-                    aria-label={`Ampliar foto: ${info[n].pie}`}
+                    aria-label={`Ampliar foto: ${info[n].alt}`}
                     tabindex={copia === 1 ? -1 : undefined}
                   >
                     <Image
@@ -98,7 +98,6 @@ const datos = orden.map((n, i) => ({ src: ampliadas[i].src, pie: info[n].pie, al
                       loading="lazy"
                       class="foto-img"
                     />
-                    <span class="foto-pie" aria-hidden="true">{info[n].pie}</span>
                   </button>
                 </li>
               ))}
@@ -171,19 +170,6 @@ const datos = orden.map((n, i) => ({ src: ampliadas[i].src, pie: info[n].pie, al
     width: auto;
     transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
   }
-  .foto-pie {
-    position: absolute;
-    inset: auto 0 0 0;
-    padding: 2.2rem 0.9rem 0.7rem;
-    text-align: left;
-    font: 500 0.75rem/1.3 'Poppins', sans-serif;
-    letter-spacing: 0.06em;
-    color: var(--tinta);
-    background: linear-gradient(to top, rgba(11, 10, 9, 0.88), transparent);
-    opacity: 0;
-    transform: translateY(8px);
-    transition: opacity 0.4s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-  }
 
   /* Cursor sobre una hilera: se detiene, la foto señalada se acerca y las demás bajan de tono */
   @media (hover: hover) and (prefers-reduced-motion: no-preference) {
@@ -191,7 +177,6 @@ const datos = orden.map((n, i) => ({ src: ampliadas[i].src, pie: info[n].pie, al
     .hilera:hover .foto:not(:hover) { opacity: 0.5; filter: saturate(0.65); }
     .foto:hover, .foto:focus-visible { transform: scale(1.05); z-index: 2; box-shadow: 0 14px 40px rgba(0, 0, 0, 0.55); }
     .foto:hover :global(.foto-img), .foto:focus-visible :global(.foto-img) { transform: scale(1.1); }
-    .foto:hover .foto-pie, .foto:focus-visible .foto-pie { opacity: 1; transform: none; }
   }
 
   /* Pausa manual (WCAG 2.2.2) y pausa cuando la sección sale de pantalla */
@@ -225,7 +210,6 @@ const datos = orden.map((n, i) => ({ src: ampliadas[i].src, pie: info[n].pie, al
     .pista { animation: none; }
     .copia, .pausa { display: none; }
     .celda { scroll-snap-align: center; }
-    .foto-pie { opacity: 1; transform: none; }
   }
   @media (hover: hover) { .ayuda { display: block; } }
   @media (hover: none) { .ayuda { display: none; } }
@@ -295,7 +279,7 @@ const datos = orden.map((n, i) => ({ src: ampliadas[i].src, pie: info[n].pie, al
 </style>
 
 <script>
-  type Foto = { src: string; pie: string; alt: string };
+  type Foto = { src: string; alt: string };
 
   const seccion = document.getElementById('hato') as HTMLElement;
   const datos: Foto[] = JSON.parse(document.getElementById('galeria-datos')?.textContent ?? '[]');
@@ -310,7 +294,7 @@ const datos = orden.map((n, i) => ({ src: ampliadas[i].src, pie: info[n].pie, al
     actual = (i + datos.length) % datos.length;
     img.src = datos[actual].src;
     img.alt = datos[actual].alt;
-    pie.textContent = `${datos[actual].pie} · ${actual + 1} / ${datos.length}`;
+    pie.textContent = `${actual + 1} / ${datos.length}`;
   };
 
   // Las dos copias de cada tira abren la misma foto

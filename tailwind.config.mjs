@@ -8,7 +8,7 @@ export default {
         superficie: {
           0: '#0B0A09',
           1: '#121110',
-          2: '#181715',
+          2: '#1C1A17',
           3: '#1F1D1A',
         },
         // Texto sobre superficies oscuras; contraste ≥4.5:1 contra superficie-3

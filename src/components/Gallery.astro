@@ -46,7 +46,7 @@ const datos = orden.map((n, i) => ({ src: ampliadas[i].src, pie: info[n].pie, al
 
 <section
   id="hato"
-  class="galeria-seccion relative py-20 md:py-32 bg-superficie-1 border-t border-linea-acento overflow-hidden"
+  class="galeria-seccion relative py-20 md:py-32 bg-superficie-1 overflow-hidden"
   aria-labelledby="hato-titulo"
 >
   <div class="max-w-6xl mx-auto px-5 sm:px-6">
@@ -63,8 +63,11 @@ const datos = orden.map((n, i) => ({ src: ampliadas[i].src, pie: info[n].pie, al
         </p>
         <button type="button" id="pausa" class="pausa mt-4" aria-pressed="false">
           <svg class="pausa-icono" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <rect class="p1" x="6" y="5" width="4" height="14" rx="1" />
-            <rect class="p2" x="14" y="5" width="4" height="14" rx="1" />
+            <g class="i-pausa">
+              <rect x="6" y="5" width="4" height="14" rx="1" />
+              <rect x="14" y="5" width="4" height="14" rx="1" />
+            </g>
+            <path class="i-play" d="M7 5 L19 12 L7 19 Z" />
           </svg>
           <span class="pausa-texto">Pausar el movimiento</span>
         </button>
@@ -211,8 +214,9 @@ const datos = orden.map((n, i) => ({ src: ampliadas[i].src, pie: info[n].pie, al
   }
   .pausa:hover { background: rgba(201, 150, 58, 0.1); border-color: #E0B86A; }
   .pausa-icono { width: 14px; height: 14px; }
-  .pausa[aria-pressed='true'] .p1 { d: path('M7 5 L19 12 L7 19 Z'); }
-  .pausa[aria-pressed='true'] .p2 { display: none; }
+  .pausa .i-play { display: none; }
+  .pausa[aria-pressed='true'] .i-pausa { display: none; }
+  .pausa[aria-pressed='true'] .i-play { display: inline; }
 
   /* Sin cursor (táctil) o con movimiento reducido: hileras desplazables a mano, sin animación ni copia */
   @media (hover: none), (prefers-reduced-motion: reduce) {
@@ -270,7 +274,7 @@ const datos = orden.map((n, i) => ({ src: ampliadas[i].src, pie: info[n].pie, al
     place-items: center;
     width: 48px;
     height: 48px;
-    background: rgba(24, 23, 21, 0.85);
+    background: rgba(28, 26, 23, 0.85);
     border: 1px solid rgba(201, 150, 58, 0.35);
     border-radius: 999px;
     color: #E0B86A;

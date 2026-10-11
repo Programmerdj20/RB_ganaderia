@@ -1,7 +1,6 @@
 ---
 // Navbar — grid: logo a la izquierda | links a la derecha (como el footer) | hamburguesa (móvil)
 const navLinks = [
-  { href: '#inicio',     label: 'Inicio' },
   { href: '#fundacion',  label: 'La raza' },
   { href: '#excelencia', label: 'La ciencia' },
   { href: '#hato',   label: 'El hato' },
@@ -79,11 +78,11 @@ const navLinks = [
     --gold-lt:    #E0B86A;
     --crimson:    #8B1A1A;
     --logo-bg:    #020101;   /* color exacto del fondo del logo (rb-logo.webp) */
-    --nav-h:      142px;
+    --nav-h:      100px;
   }
 
   @media (max-width: 1023px) {
-    :root { --nav-h: 116px; }
+    :root { --nav-h: 84px; }
   }
 
   /* ── Header base: fondo igual al logo para que no haya sticker ── */
@@ -139,13 +138,13 @@ const navLinks = [
     text-decoration: none;
   }
   .nav-logo img {
-    height: 120px;
+    height: 84px;
     width: auto;
     display: block;
   }
 
   @media (max-width: 1023px) {
-    .nav-logo img { height: 96px; }
+    .nav-logo img { height: 68px; }
   }
 
   /* ── Col 2: Links centrados ── */

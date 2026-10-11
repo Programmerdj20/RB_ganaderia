@@ -63,13 +63,22 @@
     </p>
   </div>
 
-  <!-- Indicador de foto activa + flecha de scroll (solo escritorio) -->
-  <div class="hidden sm:flex absolute bottom-16 md:bottom-24 right-6 md:right-[max(1.5rem,calc((100vw-72rem)/2+1.5rem))] z-10 flex-col items-center gap-6 rev" style="--d: 1.4s;">
-    <div class="flex gap-2" aria-hidden="true">
-      <span class="pista"><span class="llenado llenado-a"></span></span>
-      <span class="pista"><span class="llenado llenado-b"></span></span>
+  <!-- Pausa del movimiento (WCAG 2.2.2), indicador de foto activa y flecha de scroll.
+       En móvil solo queda el botón de pausa; indicador y flecha son de escritorio. -->
+  <div class="absolute bottom-3 right-4 sm:bottom-16 md:bottom-24 sm:right-6 md:right-[max(1.5rem,calc((100vw-72rem)/2+1.5rem))] z-10 flex flex-col items-end sm:items-center gap-6 rev" style="--d: 1.4s;">
+    <div class="flex items-center gap-4">
+      <div class="hidden sm:flex gap-2" aria-hidden="true">
+        <span class="pista"><span class="llenado llenado-a"></span></span>
+        <span class="pista"><span class="llenado llenado-b"></span></span>
+      </div>
+      <button type="button" id="hero-pausa" class="hero-pausa" aria-pressed="false" aria-label="Pausar el movimiento de las fotos">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path class="i-pausa" d="M9 6v12M15 6v12" />
+          <path class="i-play" d="M8 5.5v13l10.5-6.5z" />
+        </svg>
+      </button>
     </div>
-    <a href="#fundacion" class="flex flex-col items-center gap-3 animate-scroll-arrow" aria-label="Ir a la siguiente sección">
+    <a href="#fundacion" class="hidden sm:flex flex-col items-center gap-3 animate-scroll-arrow p-3.5 -m-3.5" aria-label="Ir a la siguiente sección">
       <span
         class="block w-px h-10"
         style="background: linear-gradient(to bottom, transparent, rgba(224,184,106,0.8));"
@@ -137,11 +146,31 @@
     100%  { transform: scaleX(0); }
   }
 
-  /* Fuera de pantalla se pausa todo el movimiento */
-  .hero.fuera :global(*) { animation-play-state: paused !important; }
+  /* Fuera de pantalla o con la pausa del visitante se detiene todo el movimiento */
+  .hero.fuera :global(*),
+  .hero.pausado :global(*) { animation-play-state: paused !important; }
+
+  .hero-pausa {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    background: rgba(11, 10, 9, 0.55);
+    border: 1px solid rgba(224, 184, 106, 0.45);
+    border-radius: 999px;
+    color: #E0B86A;
+    cursor: pointer;
+    transition: background 0.25s ease, border-color 0.25s ease;
+  }
+  .hero-pausa:hover { background: rgba(11, 10, 9, 0.8); border-color: #E0B86A; }
+  .hero-pausa svg { width: 18px; height: 18px; }
+  .hero-pausa .i-play { display: none; fill: currentColor; }
+  .hero-pausa[aria-pressed='true'] .i-pausa { display: none; }
+  .hero-pausa[aria-pressed='true'] .i-play { display: block; }
 
   /* Movimiento reducido: solo la primera foto, quieta; el texto aparece con un fundido simple */
   @media (prefers-reduced-motion: reduce) {
+    .hero-pausa { display: none; }
     .foto { animation: none; }
     .foto-a { opacity: 1; transform: none; }
     .foto-b, .llenado, .pista { display: none; }
@@ -158,4 +187,11 @@
       hero.classList.toggle('fuera', !entry.isIntersecting);
     }).observe(hero);
   }
+
+  // Pausa del visitante: congela el fundido cruzado, el zoom y el indicador
+  const pausa = document.getElementById('hero-pausa');
+  pausa?.addEventListener('click', () => {
+    const on = hero?.classList.toggle('pausado') ?? false;
+    pausa.setAttribute('aria-pressed', String(on));
+  });
 </script>

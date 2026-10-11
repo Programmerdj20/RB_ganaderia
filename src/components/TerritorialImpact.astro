@@ -24,43 +24,30 @@ const max = regiones[0].cabezas;
 const fmt = (n: number) => n.toLocaleString('es-CO');
 const activas = new Map(regiones.map((r) => [r.id, r]));
 const otros = Object.entries(mapa.paths).filter(([id]) => !activas.has(id));
-
-const pilares = [
-  {
-    titulo: 'Una potencia ganadera',
-    cuerpo: 'Colombia cuenta con cerca de 29 millones de bovinos repartidos en más de 600.000 predios (FEDEGAN, 2025). La ganadería genera más de 1,09 millones de empleos directos, el mayor aporte al empleo rural del país.',
-  },
-  {
-    titulo: 'Regiones que sostienen el hato',
-    cuerpo: 'Meta, Casanare y Arauca reúnen más de 6,3 millones de bovinos vacunados, cerca de una quinta parte del hato nacional. La Costa Caribe y Antioquia completan el triángulo productivo del país.',
-  },
-  {
-    titulo: 'Biodiversidad y largo plazo',
-    cuerpo: 'Los sistemas silvopastoriles combinan producción bovina con conservación de suelos, protección de fuentes hídricas y captura de carbono, un modelo compatible con la biodiversidad colombiana.',
-  },
-];
 ---
 
 <section
   id="impacto"
-  class="relative py-20 md:py-32 px-5 sm:px-6 bg-superficie-2 border-t border-linea-acento"
+  class="relative py-20 md:py-32 px-5 sm:px-6 bg-superficie-2"
   aria-labelledby="impacto-titulo"
 >
   <div class="max-w-6xl mx-auto">
 
-    <div class="grid md:grid-cols-12 gap-6 md:gap-16 mb-14 md:mb-20" data-reveal>
-      <h2 id="impacto-titulo" class="md:col-span-7 font-serif text-3xl sm:text-4xl md:text-5xl leading-[1.15] text-tinta text-balance">
-        El trópico colombiano, hogar del ganado Brahman
-      </h2>
-      <p class="md:col-span-5 md:pt-3 font-body text-lg leading-relaxed text-tinta-2" style="text-wrap: pretty;">
-        Del Caribe a los Llanos, las tierras bajas y cálidas concentran el hato del país. Explora los departamentos con más ganado.
-      </p>
-    </div>
+    <!-- Aquí el mapa lidera: el título y la lista van en la columna izquierda y el mapa ocupa la derecha a toda altura.
+         En móvil el orden es título, mapa y lista, para que lo que se toca en la lista se vea responder arriba. -->
+    <div class="territorio grid lg:grid-cols-12 lg:grid-rows-[auto_1fr] gap-x-0 lg:gap-x-14 gap-y-10 items-start">
 
-    <div class="territorio grid md:grid-cols-12 gap-10 md:gap-16 items-start">
+      <div class="lg:col-span-5 lg:col-start-1 lg:row-start-1" data-reveal>
+        <h2 id="impacto-titulo" class="font-serif text-3xl sm:text-4xl md:text-5xl leading-[1.15] text-tinta text-balance">
+          El trópico colombiano, hogar del ganado Brahman
+        </h2>
+        <p class="mt-6 font-body text-lg leading-relaxed text-tinta-2" style="text-wrap: pretty;">
+          Del Caribe a los Llanos, las tierras bajas y cálidas concentran el hato del país. Explora los departamentos con más ganado.
+        </p>
+      </div>
 
       <!-- Mapa por departamentos -->
-      <div class="md:col-span-6 relative mx-auto w-full max-w-md md:max-w-none" data-reveal>
+      <div class="lg:col-span-7 lg:col-start-6 lg:row-start-1 lg:row-span-2 relative mx-auto w-full max-w-md lg:max-w-none" data-reveal>
         <svg
           viewBox={`0 0 ${mapa.w} ${mapa.h}`}
           class="mapa w-full h-auto"
@@ -103,7 +90,7 @@ const pilares = [
       </div>
 
       <!-- Datos por departamento -->
-      <div class="md:col-span-6" data-reveal style="--d: 0.12s;">
+      <div class="lg:col-span-5 lg:col-start-1 lg:row-start-2 lg:pt-6" data-reveal style="--d: 0.12s;">
         <h3 class="font-sans font-semibold text-lg text-tinta mb-1">Bovinos por departamento</h3>
         <p class="font-body text-sm text-tinta-3 mb-6">Vacunados contra la fiebre aftosa, ciclo I de 2025</p>
 
@@ -133,20 +120,16 @@ const pilares = [
           ))}
         </div>
 
-        <p class="mt-6 font-body text-xs leading-relaxed text-tinta-3">
+        <p class="mt-6 font-body text-[0.8125rem] leading-relaxed text-tinta-3">
           Fuente: FEDEGAN-FNG e ICA, reseñado por CONtexto Ganadero (agosto de 2025). La vacunación es un indicador del tamaño del hato, no un censo.
         </p>
       </div>
     </div>
 
-    <!-- Pilares narrativos -->
-    <div class="grid md:grid-cols-3 gap-10 md:gap-12 mt-20 md:mt-28 pt-10 border-t border-linea">
-      {pilares.map((p, i) => (
-        <div data-reveal style={`--d: ${i * 0.1}s;`}>
-          <h3 class="font-sans font-semibold text-lg leading-snug mb-3 text-tinta">{p.titulo}</h3>
-          <p class="font-body text-base leading-relaxed text-tinta-2" style="text-wrap: pretty;">{p.cuerpo}</p>
-        </div>
-      ))}
+    <!-- Cierre: lo que la lista de departamentos deja ver -->
+    <div class="mt-16 lg:mt-24 pt-8 border-t border-linea max-w-2xl" data-reveal>
+      <h3 class="font-sans font-semibold text-lg leading-snug mb-3 text-tinta">Regiones que sostienen el hato</h3>
+      <p class="font-body text-base leading-relaxed text-tinta-2" style="text-wrap: pretty;">Meta, Casanare y Arauca reúnen más de 6,3 millones de bovinos vacunados, cerca de una quinta parte del hato nacional. La Costa Caribe y Antioquia completan el triángulo productivo del país.</p>
     </div>
   </div>
 </section>
@@ -176,6 +159,8 @@ const pilares = [
   }
 
   .punto { fill: #C9963A; opacity: 0.75; animation: pulso 2.8s ease-in-out infinite; pointer-events: none; }
+  /* El pulso repinta un filtro SVG en cada fotograma: fuera de pantalla se detiene */
+  section.fuera .punto { animation-play-state: paused; }
   .marca:nth-of-type(2n) .punto { animation-delay: 0.7s; }
   .marca:nth-of-type(3n) .punto { animation-delay: 1.4s; }
   .marca.is-active .punto { fill: #F0EBE1; opacity: 1; }
@@ -185,7 +170,7 @@ const pilares = [
     font: 600 22px 'Poppins', sans-serif;
     fill: #F0EBE1;
     paint-order: stroke;
-    stroke: #181715;
+    stroke: #1C1A17;
     stroke-width: 5px;
     stroke-linejoin: round;
     opacity: 0;
@@ -213,7 +198,7 @@ const pilares = [
     transition: color 0.3s;
   }
   .fila-nombre { font: 500 1rem/1.3 'Poppins', sans-serif; }
-  .fila-cifra { font: 500 1.25rem/1.2 'Playfair Display', Georgia, serif; font-variant-numeric: tabular-nums; color: #E0B86A; }
+  .fila-cifra { font: 500 1.25rem/1.2 'Playfair Display', Georgia, serif; font-variant-numeric: tabular-nums; color: inherit; transition: color 0.3s; }
   .fila-barra {
     grid-column: 1 / -1;
     margin-top: 0.55rem;
@@ -228,6 +213,7 @@ const pilares = [
   }
   .fila:hover, .fila.is-active { color: #F0EBE1; }
   .fila.is-active .fila-barra > span { background: #E0B86A; }
+  .fila.is-active .fila-cifra { color: #E0B86A; }
 
   @media (prefers-reduced-motion: reduce) {
     .punto { animation: none; }
@@ -258,5 +244,9 @@ const pilares = [
       el.addEventListener('click', () => activate(el.dataset.id!));
     });
     activate('ANTIOQUIA');
+
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(([e]) => root.classList.toggle('fuera', !e.isIntersecting)).observe(root);
+    }
   }
 </script>

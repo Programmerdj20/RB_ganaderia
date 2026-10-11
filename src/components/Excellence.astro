@@ -46,7 +46,7 @@ const capitulos = [
 
 <section
   id="excelencia"
-  class="relative py-20 md:py-32 px-5 sm:px-6 bg-superficie-2 border-t border-linea-acento"
+  class="relative py-20 md:py-32 px-5 sm:px-6 bg-superficie-2"
   aria-labelledby="excelencia-titulo"
 >
   <div class="max-w-6xl mx-auto">
@@ -77,7 +77,7 @@ const capitulos = [
           </figure>
 
           <div class:list={['md:col-span-5', { 'md:order-1': i % 2 === 1 }]} data-reveal>
-            <h3 id={`cap-${c.id}`} class="font-sans font-semibold text-2xl md:text-[1.7rem] leading-snug text-tinta mb-5 text-balance">
+            <h3 id={`cap-${c.id}`} class="font-sans font-semibold text-3xl md:text-[2.15rem] leading-[1.15] text-tinta mb-5 text-balance">
               {c.titulo}
             </h3>
             <div class="w-10 h-px bg-oro mb-6" aria-hidden="true"></div>
@@ -101,7 +101,7 @@ const capitulos = [
       ))}
     </div>
 
-    <p class="mt-20 md:mt-28 pt-6 border-t border-linea font-body text-xs leading-relaxed text-tinta-3 max-w-3xl">
+    <p class="mt-20 md:mt-28 pt-6 border-t border-linea font-body text-[0.8125rem] leading-relaxed text-tinta-3 max-w-3xl">
       Marco normativo de bienestar animal: Decreto 1071 de 2015 y Resolución 253 de 2020 del Ministerio de Agricultura. Termorregulación: Frontiers in Genetics 2023 (estudio en 319 novillas) y Oklahoma State University, Breeds of Livestock.
     </p>
   </div>
@@ -115,17 +115,25 @@ const capitulos = [
   .registro { margin: 0; border-top: 1px solid rgba(240, 235, 225, 0.1); }
   .registro-fila {
     display: grid;
-    grid-template-columns: minmax(6.5rem, 9rem) 1fr;
+    grid-template-columns: minmax(6.5rem, 10rem) 1fr;
     column-gap: 1.25rem;
     align-items: baseline;
     padding: 1rem 0;
     border-bottom: 1px solid rgba(240, 235, 225, 0.1);
   }
+  /* El oro señala una sola cifra por capítulo, la primera; las demás son de apoyo */
   .registro-valor {
-    font: 500 1.65rem/1.1 'Playfair Display', Georgia, serif;
-    color: #E0B86A;
+    font: 500 1.3rem/1.1 'Playfair Display', Georgia, serif;
+    color: #F0EBE1;
     font-variant-numeric: tabular-nums;
     white-space: nowrap;
+  }
+  .registro-fila:first-child .registro-valor {
+    font-size: 1.75rem;
+    color: #E0B86A;
+  }
+  @media (max-width: 30rem) {
+    .registro-fila { grid-template-columns: 1fr; row-gap: 0.3rem; }
   }
   .registro-texto {
     margin: 0;
@@ -135,7 +143,7 @@ const capitulos = [
   .registro-fuente {
     display: block;
     margin-top: 0.2rem;
-    font-size: 0.75rem;
+    font-size: 0.8125rem;
     color: #A09A8E;
   }
 
